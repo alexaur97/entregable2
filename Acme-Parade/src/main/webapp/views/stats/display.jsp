@@ -51,8 +51,8 @@
 <br/>
 <h4><spring:message code="stats.soon"/>:</h4>
 <ul>
-<jstl:forEach items="${soon}" var="procession">
-<li><jstl:out value="${procession.title}"/></li>
+<jstl:forEach items="${soon}" var="parade">
+<li><jstl:out value="${parade.title}"/></li>
 </jstl:forEach>
 </ul>
 <h4><spring:message code="stats.members.ten.percent"/>:</h4>

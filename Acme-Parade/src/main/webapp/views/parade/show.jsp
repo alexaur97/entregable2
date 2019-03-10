@@ -23,16 +23,16 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-<br/><spring:message code="procession.title"/>: <jstl:out value="${procession.title}"></jstl:out>
-<br/><spring:message code="procession.description"/>: <jstl:out value="${procession.description}"></jstl:out>
-<br/><spring:message code="procession.moment"/>: <jstl:out value="${procession.moment}"></jstl:out>
-<br/><spring:message code="procession.mode"/>: <jstl:out value="${procession.mode}"></jstl:out>
-<br/><spring:message code="procession.brotherhood"/>: <jstl:out value="${procession.brotherhood.title}"></jstl:out>
+<br/><spring:message code="parade.title"/>: <jstl:out value="${parade.title}"></jstl:out>
+<br/><spring:message code="parade.description"/>: <jstl:out value="${parade.description}"></jstl:out>
+<br/><spring:message code="parade.moment"/>: <jstl:out value="${parade.moment}"></jstl:out>
+<br/><spring:message code="parade.mode"/>: <jstl:out value="${parade.mode}"></jstl:out>
+<br/><spring:message code="parade.brotherhood"/>: <jstl:out value="${parade.brotherhood.title}"></jstl:out>
 
-<br/><spring:message code="procession.floats"/>
+<br/><spring:message code="parade.floats"/>
 :<display:table name="floats" id="float"
 	requestURI="${requestURI }">
-	<display:column titleKey="procession.title" property="title" />
+	<display:column titleKey="parade.title" property="title" />
 
 	
 </display:table>

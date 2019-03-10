@@ -34,5 +34,5 @@
 
 <input type="submit" name="save" value="submit"/>
 <acme:cancel url="/member/brotherhood/list.do"
-code="procession.cancel" />
+code="parade.cancel" />
 </form:form>

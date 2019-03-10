@@ -15,14 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 import services.BrotherhoodService;
 import services.EnrolmentService;
 import services.MemberService;
+import services.ParadeService;
 import services.PositionService;
-import services.ProcessionService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Member;
+import domain.Parade;
 import domain.Position;
-import domain.Procession;
 
 @Controller
 @RequestMapping("/stats/administrator")
@@ -38,7 +38,7 @@ public class StatsAdministratorController extends AbstractController {
 	private RequestService		requestService;
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private PositionService		positionService;
@@ -55,7 +55,7 @@ public class StatsAdministratorController extends AbstractController {
 		final Double approvedRatio = this.requestService.approvedRatio();
 		final Double pendingRatio = this.requestService.pendingRatio();
 		final Double rejectedRatio = this.requestService.rejectedRatio();
-		final Collection<Procession> soon = this.processionService.processionsBefore30Days();
+		final Collection<Parade> soon = this.paradeService.paradesBefore30Days();
 		final Collection<Member> members = this.memberService.tenPercentMembers();
 		final Collection<Position> positions = this.positionService.findAll();
 		final Locale l = LocaleContextHolder.getLocale();

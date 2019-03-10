@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
-import services.ProcessionService;
+import services.ParadeService;
 import controllers.AbstractController;
-import domain.Procession;
+import domain.Parade;
 
 @Controller
-@RequestMapping("/procession")
-public class ProcessionController extends AbstractController {
+@RequestMapping("/parade")
+public class ParadeController extends AbstractController {
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService		paradeService;
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
@@ -29,17 +29,17 @@ public class ProcessionController extends AbstractController {
 	@RequestMapping(value = "/listByBrotherhood", method = RequestMethod.GET)
 	public ModelAndView listByBrotherhood(final int brotherhoodId) {
 		ModelAndView result;
-		Collection<Procession> processions;
+		Collection<Parade> parades;
 
 		try {
 			Assert.notNull(brotherhoodId);
 
-			processions = this.processionService.findFinalProcessionsByBrotherhood(brotherhoodId);
+			parades = this.paradeService.findFinalParadesByBrotherhood(brotherhoodId);
 
-			result = new ModelAndView("procession/listByBrotherhood");
-			result.addObject("requestURI", "procession/listByBrotherhood.do?=" + brotherhoodId);
-			result.addObject("processions", processions);
-		} catch (Exception e) {
+			result = new ModelAndView("parade/listByBrotherhood");
+			result.addObject("requestURI", "parade/listByBrotherhood.do?=" + brotherhoodId);
+			result.addObject("parades", parades);
+		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
 

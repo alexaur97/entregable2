@@ -16,20 +16,20 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.BrotherhoodService;
 import services.FloatService;
-import services.ProcessionService;
+import services.ParadeService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Float;
-import domain.Procession;
+import domain.Parade;
 
 @Controller
-@RequestMapping("/brotherhood/procession/")
-public class BrotherhoodProcessionController extends AbstractController {
+@RequestMapping("/brotherhood/parade/")
+public class BrotherhoodParadeController extends AbstractController {
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private ActorService		actorService;
@@ -41,7 +41,7 @@ public class BrotherhoodProcessionController extends AbstractController {
 	private FloatService		floatService;
 
 
-	public BrotherhoodProcessionController() {
+	public BrotherhoodParadeController() {
 		super();
 	}
 
@@ -52,12 +52,12 @@ public class BrotherhoodProcessionController extends AbstractController {
 		ModelAndView result;
 		try {
 			final Integer currentActorId = this.actorService.findByPrincipal().getId();
-			Collection<Procession> processions;
-			processions = this.processionService.findProcessionsByBrotherhood(currentActorId);
+			Collection<Parade> parades;
+			parades = this.paradeService.findParadesByBrotherhood(currentActorId);
 
-			result = new ModelAndView("procession/list");
-			result.addObject("requestURI", "procession/list.do");
-			result.addObject("processions", processions);
+			result = new ModelAndView("parade/list");
+			result.addObject("requestURI", "parade/list.do");
+			result.addObject("parades", parades);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -69,23 +69,23 @@ public class BrotherhoodProcessionController extends AbstractController {
 	public ModelAndView create() {
 
 		ModelAndView result;
-		Procession procession;
-		procession = new Procession();
+		Parade parade;
+		parade = new Parade();
 
 		try {
 			final Brotherhood bh = this.brotherhoodService.findByPrincipal();
 
-			procession.setId(0);
-			procession.setBrotherhood(bh);
+			parade.setId(0);
+			parade.setBrotherhood(bh);
 
 			final Collection<Float> floats = this.floatService.findFloatsByBrotherhood(bh.getId());
 
-			result = new ModelAndView("procession/edit");
-			result.addObject("procession", procession);
+			result = new ModelAndView("parade/edit");
+			result.addObject("parade", parade);
 			result.addObject("floats", floats);
 		} catch (final Throwable oops) {
 
-			result = this.createEditModelAndView(procession, "procession.commit.error");
+			result = this.createEditModelAndView(parade, "parade.commit.error");
 
 		}
 
@@ -94,44 +94,39 @@ public class BrotherhoodProcessionController extends AbstractController {
 	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int processionId) {
-		ModelAndView res = new ModelAndView("procession/edit");
-		
-		//Collection<Procession> processions = this.processionService.findAll();
+	public ModelAndView edit(@RequestParam final int paradeId) {
+		ModelAndView res = new ModelAndView("parade/edit");
 
 		try {
-			Assert.notNull(processionId);
-			final Procession procession = this.processionService.findOne(processionId);
+			Assert.notNull(paradeId);
+			final Parade parade = this.paradeService.findOne(paradeId);
 			final Brotherhood bh = this.brotherhoodService.findByPrincipal();
-			
-			Assert.isTrue(procession.getBrotherhood().equals(bh)) ;
-					//&& processions.contains(procession) );
-			
+
+			Assert.isTrue(parade.getBrotherhood().equals(bh));
+
 			final Collection<Float> floats = this.floatService.findFloatsByBrotherhood(bh.getId());
-			res.addObject("procession", procession);
+			res.addObject("parade", parade);
 			res.addObject("floats", floats);
-//		} catch (final Throwable oops) {
-//			res = this.createEditModelAndView(procession, "procession.commit.error");
-		}catch (final Exception e) {
-				res = new ModelAndView("redirect:/#");
+		} catch (final Exception e) {
+			res = new ModelAndView("redirect:/#");
 		}
 		return res;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("procession") Procession procession, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("parade") Parade parade, final BindingResult binding) {
 		ModelAndView res;
 
-		procession = this.processionService.reconstruct(procession, binding);
+		parade = this.paradeService.reconstruct(parade, binding);
 
 		if (binding.hasErrors())
-			res = this.createEditModelAndView(procession);
+			res = this.createEditModelAndView(parade);
 		else
 			try {
-				this.processionService.save(procession);
-				res = new ModelAndView("redirect:/brotherhood/procession/list.do");
+				this.paradeService.save(parade);
+				res = new ModelAndView("redirect:/brotherhood/parade/list.do");
 			} catch (final Throwable oops) {
-				res = this.createEditModelAndView(procession, "procession.commit.error");
+				res = this.createEditModelAndView(parade, "parade.commit.error");
 
 			}
 
@@ -139,40 +134,38 @@ public class BrotherhoodProcessionController extends AbstractController {
 	}
 
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Procession procession, final BindingResult binding) {
+	public ModelAndView delete(final Parade parade, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
 
-			this.processionService.delete(procession);
-			result = new ModelAndView("redirect:/brotherhood/procession/list.do");
+			this.paradeService.delete(parade);
+			result = new ModelAndView("redirect:/brotherhood/parade/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(procession, "procession.commit.error");
+			result = this.createEditModelAndView(parade, "parade.commit.error");
 
 		}
 
-		
-		
 		return result;
 	}
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int processionId) {
+	public ModelAndView show(@RequestParam final int paradeId) {
 		ModelAndView result;
-		Procession procession;
+		Parade parade;
 
 		try {
-			Assert.notNull(processionId);
+			Assert.notNull(paradeId);
 
-			procession = this.processionService.findOne(processionId);
-			
+			parade = this.paradeService.findOne(paradeId);
+
 			final Brotherhood bh = this.brotherhoodService.findByPrincipal();
-			
-			Assert.isTrue(procession.getBrotherhood().equals(bh)) ;
-			
-			final Collection<Float> floats = procession.getFloats();
-			result = new ModelAndView("procession/show");
-			//	result.addObject("requestURI", "procession/show.do?=" + processionId);
-			result.addObject("procession", procession);
+
+			Assert.isTrue(parade.getBrotherhood().equals(bh));
+
+			final Collection<Float> floats = parade.getFloats();
+			result = new ModelAndView("parade/show");
+
+			result.addObject("parade", parade);
 			result.addObject("floats", floats);
 
 		} catch (final Exception e) {
@@ -182,15 +175,15 @@ public class BrotherhoodProcessionController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Procession procession) {
-		return this.createEditModelAndView(procession, null);
+	protected ModelAndView createEditModelAndView(final Parade parade) {
+		return this.createEditModelAndView(parade, null);
 	}
-	protected ModelAndView createEditModelAndView(final Procession procession, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Parade parade, final String messageCode) {
 		final ModelAndView res;
-		res = new ModelAndView("procession/edit");
+		res = new ModelAndView("parade/edit");
 		final Brotherhood bh = this.brotherhoodService.findByPrincipal();
 		final Collection<Float> floats = this.floatService.findFloatsByBrotherhood(bh.getId());
-		res.addObject("procession", procession);
+		res.addObject("parade", parade);
 		res.addObject("floats", floats);
 		res.addObject("message", messageCode);
 

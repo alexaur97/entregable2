@@ -31,7 +31,7 @@
 		<value>/views/position/tiles.xml</value>
 		<value>/views/brotherhood/tiles.xml</value>
 		<value>/views/float/tiles.xml</value>
-		<value>/views/procession/tiles.xml</value>
+		<value>/views/parade/tiles.xml</value>
 		<value>/views/member/tiles.xml</value>
 		<value>/views/stats/tiles.xml</value>
 		<value>/views/request/tiles.xml</value>

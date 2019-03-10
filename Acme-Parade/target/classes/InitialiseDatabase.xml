@@ -34,9 +34,9 @@
 		<property name="name" value="Acme Madrugá" />
 		<property name="banner" value="https://tinyurl.com/acme-madruga" />
 		<property name="sysMessage"
-			value="Welcome to Acme Madrugá, the site to organise your processions." />
+			value="Welcome to Acme Parade the site to organise your parades." />
 		<property name="sysMessageEs"
-			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar procesiones." />
+			value="¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles" />
 		<property name="countryCode" value="+34" />
 	</bean>
 	

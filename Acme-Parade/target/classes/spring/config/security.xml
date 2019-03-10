@@ -32,7 +32,7 @@
 
 		<security:intercept-url pattern="/brotherhood/list.do" access="permitAll" />
 		<security:intercept-url pattern="/member/listByBrotherhood.do" access="permitAll" />
-		<security:intercept-url pattern="/procession/listByBrotherhood.do" access="permitAll" />
+		<security:intercept-url pattern="/parade/listByBrotherhood.do" access="permitAll" />
 		<security:intercept-url pattern="/float/listByBrotherhood.do" access="permitAll" />
 		<security:intercept-url pattern="/security/login.do" access="permitAll" />
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" />
@@ -52,10 +52,10 @@
 		<security:intercept-url pattern="/request/member/list.do" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/request/member/*" access="hasRole('MEMBER')" />
 
-		<security:intercept-url pattern="/brotherhood/procession/list.do" access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/brotherhood/procession/create.do" access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/brotherhood/procession/edit.do" access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/brotherhood/procession/show.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/brotherhood/parade/list.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/brotherhood/parade/create.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/brotherhood/parade/edit.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/brotherhood/parade/show.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/request/brotherhood/decide.do" access="hasRole('BROTHERHOOD')" />
 
 

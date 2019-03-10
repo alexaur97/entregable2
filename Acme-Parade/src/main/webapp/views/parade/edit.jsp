@@ -26,37 +26,37 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
 
-				<form:form action="brotherhood/procession/edit.do"
-					modelAttribute="procession" class="form-horizontal" method="post">
+				<form:form action="brotherhood/parade/edit.do"
+					modelAttribute="parade" class="form-horizontal" method="post">
 					<div class="form-group ">
 
 						<form:hidden path="id"/>
 						<form:hidden path="version"/>
-						<acme:textbox code="procession.title" path="title" />
-						<acme:textarea code="procession.description" path="description" />
-						<acme:textbox placeholder="dd/MM/yyyy HH:mm" code="procession.moment" path="moment" />
+						<acme:textbox code="parade.title" path="title" />
+						<acme:textarea code="parade.description" path="description" />
+						<acme:textbox placeholder="dd/MM/yyyy HH:mm" code="parade.moment" path="moment" />
 						
 						
-						<form:select code="procession.mode" path="mode" >
+						<form:select code="parade.mode" path="mode" >
 							<form:option value="FINAL"></form:option>
 							<form:option value="DRAFT"></form:option>
 						</form:select>
 						
 						<br>
 						<br>
-						<form:select id="floats" code="procession.floats" path="floats">
+						<form:select id="floats" code="parade.floats" path="floats">
 							<form:options items="${floats}" itemLabel="title" itemValue="id" />
 						</form:select>
 		
 						<br>
 						<br>
-						<acme:submit name="save" code="procession.save" />
-						<jstl:if test="${procession.id!=0}">
-							<acme:submitConfirmation name="delete" code="procession.delete"
-								onclick="procession.delete.confirmation" />
+						<acme:submit name="save" code="parade.save" />
+						<jstl:if test="${parade.id!=0}">
+							<acme:submitConfirmation name="delete" code="parade.delete"
+								onclick="parade.delete.confirmation" />
 						</jstl:if>
-						<acme:cancel url="/brotherhood/procession/list.do"
-							code="procession.cancel" />
+						<acme:cancel url="/brotherhood/parade/list.do"
+							code="parade.cancel" />
 					</div>
 				</form:form>
 			</fieldset>

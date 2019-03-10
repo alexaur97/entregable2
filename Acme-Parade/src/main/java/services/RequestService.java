@@ -87,17 +87,17 @@ public class RequestService {
 		Assert.notNull(r.getMember());
 		Assert.isTrue(this.actorService.authEdit(a, "MEMBER") || this.actorService.authEdit(a, "BROTHERHOOD"));
 		final Member m = r.getMember();
-		final Brotherhood b = r.getProcession().getBrotherhood();
+		final Brotherhood b = r.getParade().getBrotherhood();
 		if (this.actorService.authEdit(a, "MEMBER")) {
 			Assert.isTrue(this.memberService.findByPrincipal().getId() == m.getId());
 			Assert.isTrue(r.getStatus() == "PENDING");
 		}
 		if (this.actorService.authEdit(a, "BROTHERHOOD")) {
 			Assert.isTrue(this.brotherhoodService.findByPrincipal().getId() == b.getId());
-			final Collection<Request> rs = this.requestRepository.findRequestApprovedByProcession(r.getProcession().getId(), "APPROVED");
+			final Collection<Request> rs = this.requestRepository.findRequestApprovedByParade(r.getParade().getId(), "APPROVED");
 
 		}
-		final Brotherhood brotherhood = r.procession.brotherhood;
+		final Brotherhood brotherhood = r.parade.brotherhood;
 		Assert.isTrue(brotherhood.getMembers().contains(m));
 		final Request res = r;
 		return this.requestRepository.save(res);
@@ -130,7 +130,7 @@ public class RequestService {
 			res.setColumn(r.getColumn());
 			res.setExplanation(r.getExplanation());
 			res.setMember(r.getMember());
-			res.setProcession(r.getProcession());
+			res.setParade(r.getParade());
 			res.setRow(r.getRow());
 			res.setStatus(r.getStatus());
 		}
@@ -161,7 +161,7 @@ public class RequestService {
 		final Request a = this.requestRepository.findOne(request.getId());
 		res.setStatus("REJECTED");
 		res.setMember(a.getMember());
-		res.setProcession(a.getProcession());
+		res.setParade(a.getParade());
 		return res;
 	}
 	public Request acceptRecostruction(final Request request, final BindingResult binding) {
@@ -170,12 +170,12 @@ public class RequestService {
 		final Request res = this.requestRepository.findOne(id);
 		result.setStatus("APPROVED");
 		result.setMember(res.member);
-		result.setProcession(res.procession);
+		result.setParade(res.parade);
 		this.validator.validate(result, binding);
 		return result;
 	}
 	public Boolean posDisp(final int id, final int column, final int row) {
-		final Collection<Request> all = this.requestRepository.findRequestApprovedByProcession(id, "APPROVED");
+		final Collection<Request> all = this.requestRepository.findRequestApprovedByParade(id, "APPROVED");
 		Boolean res = true;
 		for (final Request request : all)
 			if (request.getColumn() == column && request.getRow() == row)
@@ -184,7 +184,7 @@ public class RequestService {
 	}
 
 	public String findPos(final int id) {
-		final Collection<Request> all = this.requestRepository.findRequestApprovedByProcession(id, "APPROVED");
+		final Collection<Request> all = this.requestRepository.findRequestApprovedByParade(id, "APPROVED");
 		int posR = 0;
 		int posC = 0;
 		for (final Request request : all) {

@@ -36,8 +36,8 @@ public class ConfigurationParametersService {
 		if (config.getId() == 0) {
 			config.setName("Acme Madrugá");
 			config.setBanner("https://tinyurl.com/acme-madruga");
-			config.setSysMessage("Welcome to Acme Madrugá, the site to organise your processions.");
-			config.setSysMessageEs("¡Bienvenidos a Acme Madrugá! Tu sitio para organizar procesiones.");
+			config.setSysMessage("Welcome to Acme Parade, the site to organise your parades.");
+			config.setSysMessageEs("¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles.");
 			config.setCountryCode("+34");
 
 			/*

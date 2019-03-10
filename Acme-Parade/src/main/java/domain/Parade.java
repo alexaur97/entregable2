@@ -19,7 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Procession extends DomainEntity {
+public class Parade extends DomainEntity {
 
 	// Atributos Privados
 

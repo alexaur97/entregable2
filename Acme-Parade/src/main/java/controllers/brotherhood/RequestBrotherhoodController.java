@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.BrotherhoodService;
-import services.ProcessionService;
+import services.ParadeService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Request;
@@ -31,7 +31,7 @@ public class RequestBrotherhoodController extends AbstractController {
 	RequestService		requestService;
 
 	@Autowired
-	ProcessionService	processionService;
+	ParadeService		paradeService;
 	@Autowired
 	ActorService		actorService;
 
@@ -71,10 +71,10 @@ public class RequestBrotherhoodController extends AbstractController {
 		try {
 			Assert.notNull(requestId);
 			Assert.notNull(request);
-			Assert.isTrue(request.getProcession().getBrotherhood().getId() == this.brotherhoodService.findByPrincipal().getId());
+			Assert.isTrue(request.getParade().getBrotherhood().getId() == this.brotherhoodService.findByPrincipal().getId());
 			res = new ModelAndView("request/reject");
 			Assert.notNull(request);
-			Assert.isTrue(request.getProcession().getBrotherhood().getId() == this.brotherhoodService.findByPrincipal().getId());
+			Assert.isTrue(request.getParade().getBrotherhood().getId() == this.brotherhoodService.findByPrincipal().getId());
 			res.addObject("request", request);
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
@@ -95,7 +95,7 @@ public class RequestBrotherhoodController extends AbstractController {
 		try {
 			Assert.notNull(request.getExplanation());
 			Assert.isTrue(!request.getExplanation().isEmpty());
-			Assert.isTrue(this.brotherhoodService.findByPrincipal().getId() == request.getProcession().getBrotherhood().getId());
+			Assert.isTrue(this.brotherhoodService.findByPrincipal().getId() == request.getParade().getBrotherhood().getId());
 			res = new ModelAndView("request/list");
 			Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "BROTHERHOOD"));
 			this.requestService.save(requestFinal);
@@ -126,8 +126,8 @@ public class RequestBrotherhoodController extends AbstractController {
 			Assert.notNull(requestId);
 			final Request request = this.requestService.findOne(requestId);
 			Assert.notNull(request);
-			Assert.isTrue(request.getProcession().getBrotherhood().getId() == this.brotherhoodService.findByPrincipal().getId());
-			final String pos = this.requestService.findPos(request.getProcession().getId());
+			Assert.isTrue(request.getParade().getBrotherhood().getId() == this.brotherhoodService.findByPrincipal().getId());
+			final String pos = this.requestService.findPos(request.getParade().getId());
 			res.addObject("pos", pos);
 			res.addObject("request", request);
 		} catch (final Throwable oops) {
@@ -148,7 +148,7 @@ public class RequestBrotherhoodController extends AbstractController {
 			res = new ModelAndView("request/accept");
 		try {
 			res = new ModelAndView("request/list");
-			Assert.isTrue(this.requestService.posDisp(request.getProcession().getId(), request.getColumn(), request.getRow()));
+			Assert.isTrue(this.requestService.posDisp(request.getParade().getId(), request.getColumn(), request.getRow()));
 			Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "BROTHERHOOD"));
 			this.requestService.save(requestFinal);
 			pendingRequests = this.requestService.findRequestByStatusAndBrotherhood("PENDING");
@@ -160,9 +160,9 @@ public class RequestBrotherhoodController extends AbstractController {
 			res.addObject("requestURI", "/request/brotherhood/list.do");
 
 		} catch (final Throwable oops) {
-			if (!this.requestService.posDisp(request.getProcession().getId(), request.getColumn(), request.getRow())) {
+			if (!this.requestService.posDisp(request.getParade().getId(), request.getColumn(), request.getRow())) {
 				res = new ModelAndView("request/accept");
-				final String pos = this.requestService.findPos(request.getProcession().getId());
+				final String pos = this.requestService.findPos(request.getParade().getId());
 				res.addObject("pos", pos);
 				res.addObject("request", request);
 				res.addObject("message", "request.pos.error");

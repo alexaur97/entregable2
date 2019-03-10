@@ -64,7 +64,7 @@
 		</security:authorize>
 
 		<security:authorize access="hasRole('BROTHERHOOD')">
-			<li><a href="brotherhood/procession/list.do"><spring:message code="master.page.processions" /></a></li>
+			<li><a href="brotherhood/parade/list.do"><spring:message code="master.page.parades" /></a></li>
 		</security:authorize>
 		
 				<security:authorize access="hasRole('BROTHERHOOD')">

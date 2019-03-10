@@ -28,7 +28,7 @@
 	<div class="form-group ">
 	
 	<form:hidden path="id"/>
-	<acme:select items="${processions}" itemLabel="title" code="request.procession" path="procession"/>
+	<acme:select items="${parades}" itemLabel="title" code="request.parade" path="parade"/>
 <%--	<acme:textbox type="number" min="0" code="request.row" path="row"/>
 	<acme:textbox type="number" min="0" code="request.column" path="column"/> --%>
 	<acme:submit name="save" code="request.save"/>

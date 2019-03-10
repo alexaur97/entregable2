@@ -17,25 +17,25 @@ public class Request extends DomainEntity {
 
 	// Atributos Privados
 
-	private String		status;
-	private Integer		row;
-	private Integer		column;
-	private String		explanation;
+	private String	status;
+	private Integer	row;
+	private Integer	column;
+	private String	explanation;
 	// Atributos Públicos
 
-	public Procession	procession;
-	public Member		member;
+	public Parade	parade;
+	public Member	member;
 
 
 	// Getters y Setters
 
 	@ManyToOne(optional = false)
-	public Procession getProcession() {
-		return this.procession;
+	public Parade getParade() {
+		return this.parade;
 	}
 
-	public void setProcession(final Procession procession) {
-		this.procession = procession;
+	public void setParade(final Parade parade) {
+		this.parade = parade;
 	}
 
 	@NotBlank
@@ -78,10 +78,10 @@ public class Request extends DomainEntity {
 	}
 
 	public String getExplanation() {
-		return explanation;
+		return this.explanation;
 	}
 
-	public void setExplanation(String explanation) {
+	public void setExplanation(final String explanation) {
 		this.explanation = explanation;
 	}
 }

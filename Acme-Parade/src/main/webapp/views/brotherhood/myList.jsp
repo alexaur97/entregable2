@@ -32,8 +32,8 @@
 	<display:column titleKey="brotherhood.members">
 		<acme:cancel url="/member/listByBrotherhood.do?brotherhoodId=${brotherhood.id}" code="brotherhood.members" />
 	</display:column>
-	<display:column titleKey="brotherhood.processions">
-		<acme:cancel url="/procession/listByBrotherhood.do?brotherhoodId=${brotherhood.id}" code="brotherhood.processions" />
+	<display:column titleKey="brotherhood.parades">
+		<acme:cancel url="/parade/listByBrotherhood.do?brotherhoodId=${brotherhood.id}" code="brotherhood.parades" />
 	</display:column>
 	<display:column titleKey="brotherhood.floats">
 		<acme:cancel url="/float/listByBrotherhood.do?brotherhoodId=${brotherhood.id}" code="brotherhood.floats" />
@@ -52,8 +52,8 @@
 	<display:column titleKey="brotherhood.members">
 		<acme:cancel url="/member/listByBrotherhood.do?brotherhoodId=${brotherhood.id}" code="brotherhood.members" />
 	</display:column>
-	<display:column titleKey="brotherhood.processions">
-		<acme:cancel url="/procession/listByBrotherhood.do?brotherhoodId=${brotherhood.id}" code="brotherhood.processions" />
+	<display:column titleKey="brotherhood.parades">
+		<acme:cancel url="/parade/listByBrotherhood.do?brotherhoodId=${brotherhood.id}" code="brotherhood.parades" />
 	</display:column>
 	<display:column titleKey="brotherhood.floats">
 		<acme:cancel url="/float/listByBrotherhood.do?brotherhoodId=${brotherhood.id}" code="brotherhood.floats" />

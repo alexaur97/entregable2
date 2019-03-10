@@ -24,29 +24,29 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table name="processions" id="procession"
+<display:table name="parades" id="parade"
 	requestURI="${requestURI}">
-	<display:column titleKey="procession.title"  property="title" />
-	<display:column titleKey="procession.description" property="description" />
-	<display:column titleKey="procession.moment" property="moment" />
-	<display:column titleKey="procession.ticker" property="ticker" />
-	<display:column titleKey="procession.mode" property="mode" />
+	<display:column titleKey="parade.title"  property="title" />
+	<display:column titleKey="parade.description" property="description" />
+	<display:column titleKey="parade.moment" property="moment" />
+	<display:column titleKey="parade.ticker" property="ticker" />
+	<display:column titleKey="parade.mode" property="mode" />
 	<security:authorize access="hasRole('BROTHERHOOD')">
-	<display:column titleKey="procession.edit">
-		<a href="brotherhood/procession/edit.do?processionId=${procession.id}">
-		<spring:message code="procession.edit" />
+	<display:column titleKey="parade.edit">
+		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
+		<spring:message code="parade.edit" />
 		</a>
 		</display:column>
 		</security:authorize>
 		
 	<security:authorize access="hasRole('BROTHERHOOD')">		
-	<display:column titleKey="procession.show">
-		<a href="brotherhood/procession/show.do?processionId=${procession.id}">
-		<spring:message code="procession.show" />
+	<display:column titleKey="parade.show">
+		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
+		<spring:message code="parade.show" />
 		</a>
 	</display:column>
 	</security:authorize>
 </display:table>
 		<security:authorize access="hasRole('BROTHERHOOD')">
-		<acme:cancel url="/brotherhood/procession/create.do" code="procession.create"/>
+		<acme:cancel url="/brotherhood/parade/create.do" code="parade.create"/>
 		</security:authorize>

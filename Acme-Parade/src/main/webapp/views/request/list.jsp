@@ -34,8 +34,8 @@
 		property="member.name" />
 	</security:authorize>
 	<display:column style="color:green" titleKey="request.status" property="status" />
-	<display:column style="color:green" titleKey="request.procession"
-		property="procession.title" />
+	<display:column style="color:green" titleKey="request.parade"
+		property="parade.title" />
 	<display:column style="color:green" titleKey="request.row" property="row" />
 	<display:column style="color:green" titleKey="request.column" property="column" />
 </display:table>
@@ -50,8 +50,8 @@
 		property="member.name" />
 	</security:authorize>
 	<display:column style="color:grey" titleKey="request.status" property="status" />
-	<display:column style="color:grey" titleKey="request.procession"
-		property="procession.title" />
+	<display:column style="color:grey" titleKey="request.parade"
+		property="parade.title" />
 	<security:authorize access="hasRole('MEMBER')">
 	<display:column titleKey="request.delete">
 		<acme:cancel url="/request/member/delete.do?requestId=${pendingRequest.id}"
@@ -76,8 +76,8 @@
 <display:table name="rejectedRequests" id="rejectedRequest"
 	requestURI="${requestURI }">
 	<display:column style="color:orange" titleKey="request.status" property="status" />
-	<display:column style="color:orange" titleKey="request.procession"
-		property="procession.title" />
+	<display:column style="color:orange" titleKey="request.parade"
+		property="parade.title" />
 		<display:column style="color:orange" titleKey="reject.explanation"
 		property="explanation" />
 		

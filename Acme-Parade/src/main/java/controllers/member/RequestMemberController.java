@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.MemberService;
-import services.ProcessionService;
+import services.ParadeService;
 import services.RequestService;
 import controllers.AbstractController;
-import domain.Procession;
+import domain.Parade;
 import domain.Request;
 
 @Controller
@@ -23,13 +23,13 @@ import domain.Request;
 public class RequestMemberController extends AbstractController {
 
 	@Autowired
-	MemberService		memberService;
+	MemberService	memberService;
 
 	@Autowired
-	RequestService		requestService;
+	RequestService	requestService;
 
 	@Autowired
-	ProcessionService	processionService;
+	ParadeService	paradeService;
 
 
 	// List -----------------------------------------------------------	
@@ -61,14 +61,14 @@ public class RequestMemberController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		Request request;
-		final Collection<Procession> processions = this.processionService.findProcessionsAvailableForMember();
+		final Collection<Parade> parades = this.paradeService.findParadesAvailableForMember();
 
 		request = new Request();
 
 		request.setId(0);
 		result = new ModelAndView("request/create");
 		result.addObject("request", request);
-		result.addObject("processions", processions);
+		result.addObject("parades", parades);
 
 		return result;
 	}
@@ -76,11 +76,11 @@ public class RequestMemberController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(Request request, final BindingResult binding) {
 		ModelAndView res = new ModelAndView("request/create");
-		final Collection<Procession> processions = this.processionService.findProcessionsAvailableForMember();
+		final Collection<Parade> parades = this.paradeService.findParadesAvailableForMember();
 
 		if (binding.hasErrors()) {
 			res.addObject("request", request);
-			res.addObject("processions", processions);
+			res.addObject("parades", parades);
 		} else
 			try {
 				request = this.requestService.reconstruct(request, binding);
@@ -88,7 +88,7 @@ public class RequestMemberController extends AbstractController {
 				res = new ModelAndView("redirect:/request/member/list.do");
 			} catch (final Throwable oops) {
 				res.addObject("message", "request.commit.error");
-				res.addObject("processions", processions);
+				res.addObject("parades", parades);
 				res.addObject("request", request);
 			}
 

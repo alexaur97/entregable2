@@ -112,9 +112,9 @@
 		<property name="name" value="Acme Madrugá" />
 		<property name="banner" value="https://tinyurl.com/acme-madruga" />
 		<property name="sysMessage"
-			value="Welcome to Acme Madrugá, the site to organise your processions." />
+			value="Welcome to Acme Parade the site to organise your parades." />
 		<property name="sysMessageEs"
-			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar procesiones." />
+			value="¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles" />
 		<property name="countryCode" value="+34" />
 	</bean>
 
@@ -239,7 +239,7 @@
 
 
 
-	<bean id="procession1" class="domain.Procession">
+	<bean id="parade1" class="domain.Parade">
 		<property name="title" value="Name1" />
 		<property name="description" value="This is a description2" />
 		<property name="moment" value="01/03/2019" />
@@ -258,7 +258,7 @@
 
 
 
-	<bean id="procession2" class="domain.Procession">
+	<bean id="parade2" class="domain.Parade">
 		<property name="title" value="Name2" />
 		<property name="description" value="This is a description2" />
 		<property name="moment" value="01/04/2019" />
@@ -272,7 +272,7 @@
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
-	<bean id="procession3" class="domain.Procession">
+	<bean id="parade3" class="domain.Parade">
 		<property name="title" value="Name3" />
 		<property name="description" value="This is a description3" />
 		<property name="moment" value="05/04/2019" />
@@ -317,7 +317,7 @@
 		<property name="status" value="PENDING" />
 		<property name="row" value="1" />
 		<property name="column" value="1" />
-		<property name="procession" ref="procession1" />
+		<property name="parade" ref="parade1" />
 		<property name="member" ref="actor2" />
 
 	</bean>
@@ -383,7 +383,7 @@
 		<property name="status" value="APPROVED" />
 		<property name="row" value="2" />
 		<property name="column" value="2" />
-		<property name="procession" ref="procession1" />
+		<property name="parade" ref="parade1" />
 		<property name="member" ref="actor3" />
 
 	</bean>
@@ -447,7 +447,7 @@
 		<property name="status" value="REJECTED" />
 		<property name="row" value="5" />
 		<property name="column" value="5" />
-		<property name="procession" ref="procession2" />
+		<property name="parade" ref="parade2" />
 		<property name="member" ref="actor4" />
 
 	</bean>
@@ -455,7 +455,7 @@
 		<property name="status" value="APPROVED" />
 		<property name="row" value="7" />
 		<property name="column" value="5" />
-		<property name="procession" ref="procession3" />
+		<property name="parade" ref="parade3" />
 		<property name="member" ref="actor4" />
 
 	</bean>
@@ -512,7 +512,7 @@
 
 	</bean>
 
-	<bean id="procession4" class="domain.Procession">
+	<bean id="parade4" class="domain.Parade">
 		<property name="title" value="Name4" />
 		<property name="description" value="This is a description" />
 		<property name="moment" value="01/03/2019" />
@@ -564,7 +564,7 @@
 		<property name="status" value="APPROVED" />
 		<property name="row" value="7" />
 		<property name="column" value="5" />
-		<property name="procession" ref="procession4" />
+		<property name="parade" ref="parade4" />
 		<property name="member" ref="actor5" />
 	</bean>
 
