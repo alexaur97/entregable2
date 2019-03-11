@@ -6,9 +6,11 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -28,11 +30,13 @@ public class Parade extends DomainEntity {
 	private Date				moment;
 	private String				ticker;
 	private String				mode;
+	private String				status;
 
 	// Atributos P�blicos
 
 	public Brotherhood			brotherhood;
 	public Collection<Float>	floats;
+	public Collection<Segment>	segments;
 
 
 	// Getters y Setters
@@ -103,6 +107,25 @@ public class Parade extends DomainEntity {
 
 	public void setBrotherhood(final Brotherhood brotherhood) {
 		this.brotherhood = brotherhood;
+	}
+
+	@NotBlank
+	@Pattern(regexp = "^SUBMITTED|ACCEPTED|REJECTED$")
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(final String status) {
+		this.status = status;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL)
+	public Collection<Segment> getSegments() {
+		return this.segments;
+	}
+
+	public void setSegments(final Collection<Segment> segments) {
+		this.segments = segments;
 	}
 
 }

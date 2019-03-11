@@ -9,6 +9,7 @@ import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -28,7 +29,10 @@ public class Brotherhood extends Actor {
 	private Date				establishmentDate;
 	private Collection<String>	photos;
 
-	private Collection<Member>	members;
+	//Atributos publicos
+
+	public Collection<Member>	members;
+	public Area					area;
 
 
 	// Getters y Setters
@@ -72,6 +76,15 @@ public class Brotherhood extends Actor {
 
 	public void setMembers(final Collection<Member> members) {
 		this.members = members;
+	}
+
+	@ManyToOne(optional = true)
+	public Area getArea() {
+		return this.area;
+	}
+
+	public void setArea(final Area area) {
+		this.area = area;
 	}
 
 }
