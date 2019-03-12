@@ -16,9 +16,10 @@
 <jsp:useBean id="date" class="java.util.Date" />
 
 <hr />
-<b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Acme Madrugá Co., Inc.</b>
+
 <a href="about/terms.do"><spring:message code="masterpage.terms" /></a>
 <a href="about/cookies.do"><spring:message code="masterpage.cookies" /></a>
 <a href="about/contact.do"><spring:message code="masterpage.contact" /></a>
 <a href="about/privacy.do"><spring:message code="masterpage.privacy" /></a>
 
+<b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Acme Madrugá Co., Inc.</b>
