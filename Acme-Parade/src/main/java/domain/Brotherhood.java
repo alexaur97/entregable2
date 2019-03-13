@@ -31,8 +31,10 @@ public class Brotherhood extends Actor {
 
 	//Atributos publicos
 
-	public Collection<Member>	members;
-	public Area					area;
+	private Collection<Member>	members;
+	
+	private Area area;
+
 
 
 	// Getters y Setters
@@ -78,13 +80,15 @@ public class Brotherhood extends Actor {
 		this.members = members;
 	}
 
-	@ManyToOne(optional = true)
 	public Area getArea() {
-		return this.area;
+		return area;
 	}
 
-	public void setArea(final Area area) {
+	@ManyToOne(optional= true)
+	public void setArea(Area area) {
 		this.area = area;
 	}
+
+	
 
 }

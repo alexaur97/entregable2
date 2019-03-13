@@ -210,4 +210,10 @@ public class BrotherhoodService {
 			}
 		return b;
 	}
+	
+	
+	public Collection<Brotherhood> findBrotherhoodByArea(int id){
+		Collection<Brotherhood> res = this.brotherhoodRepository.findBrotherhoodByArea(id);
+		return res;
+	}
 }
