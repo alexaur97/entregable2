@@ -8,6 +8,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,6 +23,7 @@ public class Segment extends DomainEntity {
 	private String	destination;
 	private Date	originTime;
 	private Date	destinationTime;
+	private Integer	sequence;
 
 
 	// Getters y Setters
@@ -62,6 +64,15 @@ public class Segment extends DomainEntity {
 
 	public void setDestinationTime(final Date destinationTime) {
 		this.destinationTime = destinationTime;
+	}
+
+	@Min(1)
+	public Integer getSequence() {
+		return this.sequence;
+	}
+
+	public void setSequence(final Integer sequence) {
+		this.sequence = sequence;
 	}
 
 }
