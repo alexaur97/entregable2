@@ -1,6 +1,8 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
@@ -14,12 +16,12 @@ public class History extends DomainEntity {
 
 	// Atributos Públicos
 
-	public Brotherhood			brotherhood;
-	public InceptionRecord		inceptionRecord;
-	public PeriodRecord			periodRecord;
-	public MiscellaneousRecord	miscellaneousRecord;
-	public LegalRecord			legalRecord;
-	public LinkRecord			linkRecord;
+	public Brotherhood						brotherhood;
+	public InceptionRecord					inceptionRecord;
+	public Collection<PeriodRecord>			periodRecord;
+	public Collection<MiscellaneousRecord>	miscellaneousRecord;
+	public Collection<LegalRecord>			legalRecord;
+	public Collection<LinkRecord>			linkRecord;
 
 
 	//Getters and Setters
@@ -42,38 +44,38 @@ public class History extends DomainEntity {
 		this.inceptionRecord = inceptionRecord;
 	}
 	@OneToMany(cascade = CascadeType.ALL)
-	public PeriodRecord getPeriodRecord() {
+	public Collection<PeriodRecord> getPeriodRecord() {
 		return this.periodRecord;
 	}
 
-	public void setPeriodRecord(final PeriodRecord periodRecord) {
+	public void setPeriodRecord(final Collection<PeriodRecord> periodRecord) {
 		this.periodRecord = periodRecord;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL)
-	public MiscellaneousRecord getMiscellaneousRecord() {
+	public Collection<MiscellaneousRecord> getMiscellaneousRecord() {
 		return this.miscellaneousRecord;
 	}
 
-	public void setMiscellaneousRecord(final MiscellaneousRecord miscellaneousRecord) {
+	public void setMiscellaneousRecord(final Collection<MiscellaneousRecord> miscellaneousRecord) {
 		this.miscellaneousRecord = miscellaneousRecord;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL)
-	public LegalRecord getLegalRecord() {
+	public Collection<LegalRecord> getLegalRecord() {
 		return this.legalRecord;
 	}
 
-	public void setLegalRecord(final LegalRecord legalRecord) {
+	public void setLegalRecord(final Collection<LegalRecord> legalRecord) {
 		this.legalRecord = legalRecord;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL)
-	public LinkRecord getLinkRecord() {
+	public Collection<LinkRecord> getLinkRecord() {
 		return this.linkRecord;
 	}
 
-	public void setLinkRecord(final LinkRecord linkRecord) {
+	public void setLinkRecord(final Collection<LinkRecord> linkRecord) {
 		this.linkRecord = linkRecord;
 	}
 
