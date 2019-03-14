@@ -257,4 +257,13 @@ public class BrotherhoodService {
 		}
 		return result;
 	}
+
+	public Collection<Brotherhood> findBrotherhoodByArea(final int id) {
+		final Collection<Brotherhood> res = this.brotherhoodRepository.findBrotherhoodByArea(id);
+		return res;
+	}
+
+	public Double countBrotherhoodsPerArea(final int id) {
+		return this.brotherhoodRepository.findNumberOfBrotherhoodsPerArea(id);
+	}
 }

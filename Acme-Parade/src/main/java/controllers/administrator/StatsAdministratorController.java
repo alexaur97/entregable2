@@ -4,6 +4,7 @@ package controllers.administrator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -19,6 +20,7 @@ import services.ParadeService;
 import services.PositionService;
 import services.RequestService;
 import controllers.AbstractController;
+import domain.Area;
 import domain.Brotherhood;
 import domain.Member;
 import domain.Parade;
@@ -58,8 +60,24 @@ public class StatsAdministratorController extends AbstractController {
 		final Collection<Parade> soon = this.paradeService.paradesBefore30Days();
 		final Collection<Member> members = this.memberService.tenPercentMembers();
 		final Collection<Position> positions = this.positionService.findAll();
+		final Collection<Double> brotherhoodsPerArea = this.brotherhoodService.findStatsBrotherhoodPerArea();
 		final Locale l = LocaleContextHolder.getLocale();
 		final String lang = l.getLanguage();
+		final Map<Area, Double> m = this.brotherhoodService.findRatioBrotherhoodPerArea();
+		final Collection<Area> areas = m.keySet();
+
+		final Collection<String> areasCountAndRatio = new ArrayList<>();
+		String areaCountAndRatio;
+		final Collection<String> areasCountAndRatioEs = new ArrayList<>();
+		String areaCountAndRatioEs;
+
+		for (final Area a : areas) {
+			final Double count = this.brotherhoodService.countBrotherhoodsPerArea(a.getId());
+			areaCountAndRatio = a.getName() + " [Brotherhoods count: " + count + ", Brotherhoods ratio: " + m.get(a) + "]";
+			areasCountAndRatio.add(areaCountAndRatio);
+			areaCountAndRatioEs = a.getName() + " [Número de hermandades: " + count + ", Ratio de hermandades: " + m.get(a) + "]";
+			areasCountAndRatioEs.add(areaCountAndRatioEs);
+		}
 
 		String pos = "";
 		String posEs = "";
@@ -103,6 +121,9 @@ public class StatsAdministratorController extends AbstractController {
 		result.addObject("positionsHist", positionsHist);
 		result.addObject("positionsHistEs", positionsHistEs);
 		result.addObject("lang", lang);
+		result.addObject("brotherhoodsPerArea", brotherhoodsPerArea);
+		result.addObject("areasCountAndRatio", areasCountAndRatio);
+		result.addObject("areasCountAndRatioEs", areasCountAndRatioEs);
 		//		result.addObject("president", president);
 		//		result.addObject("vicePresident", vicePresident);
 		//		result.addObject("secretary", secretary);
