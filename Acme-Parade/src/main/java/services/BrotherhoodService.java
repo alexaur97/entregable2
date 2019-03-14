@@ -263,7 +263,10 @@ public class BrotherhoodService {
 		}
 		return result;
 	}
-	
+	public Collection<Brotherhood> findBrotherhoodByArea(int id){
+		Collection<Brotherhood> res = this.brotherhoodRepository.findBrotherhoodByArea(id);
+		return res;
+	}
 	public Brotherhood recostructionArea(final Brotherhood brotherhood, final BindingResult binding) {
 		final Brotherhood result = brotherhood;
 		final Brotherhood res = this.brotherhoodRepository.findOne(this.findByPrincipal().getId());

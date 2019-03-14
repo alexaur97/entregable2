@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -9,49 +10,39 @@ import org.springframework.util.Assert;
 
 import repositories.AreaRepository;
 import domain.Area;
-import domain.Brotherhood;
-
 
 @Service
 @Transactional
 public class AreaService {
+
 	//Repositorio
-	
+
 	@Autowired
-	private AreaRepository areaRepository;
-	
+	private AreaRepository			areaRepository;
+
 	//Servicios
 	@Autowired
-	private AdministratorService administratorService;
-	
+	private AdministratorService	administratorService;
+
 	@Autowired
-	private BrotherhoodService brotherhoodService;
-	
-	
+	private BrotherhoodService		brotherhoodService;
+
+
 	//Metodos CRUD
-	
-	public Collection<Area> findAll(){
-		Collection <Area> result = this.areaRepository.findAll();
+
+	public Collection<Area> findAll() {
+		final Collection<Area> result = this.areaRepository.findAll();
 		return result;
 	}
-	
-	public Area findOne(int AreaId){
-		Area area = this.areaRepository.findOne(AreaId);
+
+	public Area findOne(final int AreaId) {
+		final Area area = this.areaRepository.findOne(AreaId);
 		return area;
-	}
-	
-	public void delete(final Area area) {
-		Assert.notNull(area);
-		this.administratorService.findByPrincipal();
-		Assert.isTrue(!this.hasSettle(area));
-		this.areaRepository.delete(area.getId());
-		
-		
 	}
 
 	public Area save(final Area area) {
 		final Area result;
-	
+
 		Assert.notNull(area);
 		this.administratorService.findByPrincipal();
 		result = this.areaRepository.save(area);
@@ -62,14 +53,14 @@ public class AreaService {
 		this.administratorService.findByPrincipal();
 		return new Area();
 	}
-	
-	public Boolean hasSettle(final Area area){
-		Boolean res = true;
-		Collection<Brotherhood> b  =this.brotherhoodService.findBrotherhoodByArea(area.getId()) ;
-		if(b == null){
-			res= false;
-		}
-		return res;
-		
-	}
+
+	//	public Boolean hasSettle(final Area area) {
+	//		Bores = true;
+	//		final Collection<Brotherhood> b = this.brotherhoodService.findBrotherhoodByArea(area.getId(){
+	//				res= false;
+	//			}final ll)
+	//			res = false;
+	//		return res;
+	//
+	//	}
 }

@@ -8,9 +8,9 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -19,8 +19,10 @@ public class Segment extends DomainEntity {
 
 	// Atributos Privados
 
-	private String	origin;
-	private String	destination;
+	private Integer	originX;
+	private Integer	originY;
+	private Integer	destinationX;
+	private Integer	destinationY;
 	private Date	originTime;
 	private Date	destinationTime;
 	private Integer	sequence;
@@ -28,22 +30,44 @@ public class Segment extends DomainEntity {
 
 	// Getters y Setters
 
-	@NotBlank
-	public String getOrigin() {
-		return this.origin;
+	@Min(-90)
+	@Max(90)
+	public Integer getOriginX() {
+		return this.originX;
 	}
 
-	public void setOrigin(final String origin) {
-		this.origin = origin;
+	public void setOriginX(final Integer originX) {
+		this.originX = originX;
 	}
 
-	@NotBlank
-	public String getDestination() {
-		return this.destination;
+	@Min(-180)
+	@Max(180)
+	public Integer getOriginY() {
+		return this.originY;
 	}
 
-	public void setDestination(final String destination) {
-		this.destination = destination;
+	public void setOriginY(final Integer originY) {
+		this.originY = originY;
+	}
+
+	@Min(-90)
+	@Max(90)
+	public Integer getDestinationX() {
+		return this.destinationX;
+	}
+
+	public void setDestinationX(final Integer destinationX) {
+		this.destinationX = destinationX;
+	}
+
+	@Min(-180)
+	@Max(180)
+	public Integer getDestinationY() {
+		return this.destinationY;
+	}
+
+	public void setDestinationY(final Integer destinationY) {
+		this.destinationY = destinationY;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
