@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -49,6 +50,7 @@ public class LegalRecord extends DomainEntity {
 		this.legalName = legalName;
 	}
 
+	@Min(1)
 	public Integer getVatNumber() {
 		return this.vatNumber;
 	}

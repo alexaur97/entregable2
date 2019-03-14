@@ -18,6 +18,8 @@ public class Area extends DomainEntity {
 
 	private String				name;
 	private Collection<String>	photo;
+	
+
 
 
 	//Getters and Setters
@@ -39,5 +41,7 @@ public class Area extends DomainEntity {
 	public void setPhoto(final Collection<String> photo) {
 		this.photo = photo;
 	}
+
+	
 
 }

@@ -50,4 +50,11 @@ public interface BrotherhoodRepository extends JpaRepository<domain.Brotherhood,
 	Double findRatioBrotherhoodsPerArea(int areaId);
 
 	//---Ale---
+	
+	@Query("select b from Brotherhood b where b.area.id = ?1")
+	Collection<Brotherhood> findBrotherhoodByArea(int id);
+	
+	
+	
+	
 }

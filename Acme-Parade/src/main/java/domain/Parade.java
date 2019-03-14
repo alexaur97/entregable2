@@ -32,7 +32,7 @@ public class Parade extends DomainEntity {
 	private String				mode;
 	private String				status;
 
-	// Atributos P�blicos
+	// Atributos Publicos
 
 	public Brotherhood			brotherhood;
 	public Collection<Float>	floats;
