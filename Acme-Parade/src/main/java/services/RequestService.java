@@ -94,7 +94,7 @@ public class RequestService {
 		}
 		if (this.actorService.authEdit(a, "BROTHERHOOD")) {
 			Assert.isTrue(this.brotherhoodService.findByPrincipal().getId() == b.getId());
-			final Collection<Request> rs = this.requestRepository.findRequestApprovedByParade(r.getParade().getId(), "APPROVED");
+		//	final Collection<Request> rs = this.requestRepository.findRequestApprovedByParade(r.getParade().getId(), "APPROVED");
 
 		}
 		final Brotherhood brotherhood = r.parade.brotherhood;

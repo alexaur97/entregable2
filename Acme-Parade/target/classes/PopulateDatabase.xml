@@ -617,6 +617,45 @@
 		<property name="brotherhood" ref="brotherhood4" />
 
 	</bean>
+	
+	<bean id="area1" class="domain.Area">
+		<property name="name" value="Centro" />
+		<property name="photo">
+			<list>
+				<value>http://hermandaddelcalvario.org/wp-content/uploads/2011/09/faldon-portada-Febrero-2013.jpg
+				</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="area2" class="domain.Area">
+		<property name="name" value="Derecha" />
+		<property name="photo">
+			<list>
+				<value>http://hermandaddelcalvario.org/wp-content/uploads/2011/09/faldon-portada-Febrero-2013.jpg
+				</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="finder1" class="domain.Finder">
+		<property name="keyword" value="centro" />
+		<property name="minDate" value="16/03/2019" />
+		<property name="maxDate" value="22/03/2019" />
+		<property name="member" ref="actor2" />
+		<property name="area" ref="area1" />
+	</bean>
+	
+		<bean id="finder2" class="domain.Finder">
+		<property name="keyword" value="centro" />
+		<property name="minDate" value="15/03/2019" />
+		<property name="maxDate" value="27/03/2019" />
+		<property name="member" ref="actor3" />
+		<property name="area" ref="area2" />
+	</bean>
+	
+	
 
 	<bean id="parade4" class="domain.Parade">
 		<property name="title" value="Name4" />
