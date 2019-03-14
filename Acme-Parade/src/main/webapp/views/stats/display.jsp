@@ -89,7 +89,8 @@
 <br/>
 <spring:message code="stats.records.history.stddev"/>: <jstl:out value="${recordsPerHistory[0][3]}"/>
 <br/>
-<spring:message code="stats.largest.history.brotherhood"/>: <jstl:out value="${largestHistoryBrotherhood}"/>
+
+<h4><spring:message code="stats.largest.history.brotherhood"/>:</h4> <jstl:out value="${largestHistoryBrotherhood.title}"/>
 <br/>
 <h4><spring:message code="stats.larger.history.brotherhoods"/>:</h4>
 <ol>
@@ -97,4 +98,5 @@
 <li><jstl:out value="${brotherhood.title}"/></li>
 </jstl:forEach>
 </ol>
+
 
