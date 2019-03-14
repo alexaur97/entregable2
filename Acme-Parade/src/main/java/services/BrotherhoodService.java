@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.BrotherhoodRepository;
 import security.Authority;
@@ -22,6 +24,7 @@ import security.UserAccount;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Member;
+import domain.Request;
 import forms.ActorEditForm;
 import forms.BrotherhoodRegisterForm;
 
@@ -37,6 +40,9 @@ public class BrotherhoodService {
 
 	@Autowired
 	private AreaService				areaService;
+	@Autowired
+	private Validator			validator;
+
 
 
 	public Brotherhood save(final Brotherhood b) {
@@ -255,6 +261,27 @@ public class BrotherhoodService {
 			final Double d = this.brotherhoodRepository.findRatioBrotherhoodsPerArea(a.getId());
 			result.put(a, d);
 		}
+		return result;
+	}
+	
+	public Brotherhood recostructionArea(final Brotherhood brotherhood, final BindingResult binding) {
+		final Brotherhood result = brotherhood;
+		final Brotherhood res = this.brotherhoodRepository.findOne(this.findByPrincipal().getId());
+		result.setAddress(res.getAddress());
+		result.setEmail(res.getEmail());
+		result.setEstablishmentDate(res.getEstablishmentDate());
+		result.setId(res.getId());
+		result.setMembers(res.getMembers());
+		result.setMiddleName(res.getMiddleName());
+		result.setName(res.getName());
+		result.setPhoneNumber(res.getPhoneNumber());
+		result.setPhoto(res.getPhoto());
+		result.setPhotos(res.getPhotos());
+		result.setSurname(res.getSurname());
+		result.setTitle(res.getTitle());
+		result.setUserAccount(res.getUserAccount());
+		result.setVersion(res.getVersion());
+		this.validator.validate(result, binding);
 		return result;
 	}
 }

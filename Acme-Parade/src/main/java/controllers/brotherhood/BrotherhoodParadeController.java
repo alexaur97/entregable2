@@ -74,7 +74,7 @@ public class BrotherhoodParadeController extends AbstractController {
 
 		try {
 			final Brotherhood bh = this.brotherhoodService.findByPrincipal();
-
+			Assert.notNull(bh.getArea(),"Brotherhood without area");
 			parade.setId(0);
 			parade.setBrotherhood(bh);
 

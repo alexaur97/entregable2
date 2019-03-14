@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ import services.EnrolmentService;
 import services.MemberService;
 import services.PositionService;
 import controllers.AbstractController;
+import domain.Brotherhood;
 import domain.Enrolment;
 import domain.Member;
 import domain.Position;
@@ -41,6 +43,9 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Enrolment enrolment;
 		try {
+Brotherhood b = this.brotherhoodService.findByPrincipal();
+Assert.notNull(b.getArea(),"Brotherhood without area");
+
 			enrolment = new Enrolment();
 			enrolment.setId(0);
 			Collection<Member> members = this.memberService.findAllNotIn();

@@ -78,7 +78,10 @@
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a href="brotherhood/float/list.do"><spring:message code="master.page.floats" /></a></li>
 		</security:authorize>
-
+		
+<security:authorize access="hasRole('BROTHERHOOD')">
+			<li><a href="brotherhood/addArea.do"><spring:message code="master.page.addarea" /></a></li>
+		</security:authorize>
 			<li>
 				<a class="fNiv">
 					<spring:message code="master.page.profile" />

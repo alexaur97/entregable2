@@ -5,16 +5,20 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AreaService;
 import services.BrotherhoodService;
 import controllers.AbstractController;
+import domain.Area;
 import domain.Brotherhood;
 import forms.BrotherhoodRegisterForm;
 
@@ -30,6 +34,8 @@ public class BrotherhoodController extends AbstractController {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private AreaService areaService;
 
 	public BrotherhoodController() {
 		super();
@@ -103,6 +109,46 @@ public class BrotherhoodController extends AbstractController {
 		result.addObject("brotherhoodRegisterForm", brotherhoodRegisterForm);
 		result.addObject("message", messageCode);
 
+		return result;
+	}
+	//JAVI
+	@RequestMapping(value = "/addArea", method = RequestMethod.GET)
+	public ModelAndView addArea() {
+		ModelAndView result;
+		try {
+			Assert.isNull(this.brotherhoodService.findByPrincipal().getArea(),"Este brotherhood ya tiene area asignada");
+			result = new ModelAndView("brotherhood/addArea");
+final Brotherhood brotherhood = new Brotherhood();
+Collection<Area> areas = this.areaService.findAll();
+			result.addObject("brotherhood", brotherhood);
+			result.addObject("areas", areas);
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
+	@RequestMapping(value = "/addArea", method = RequestMethod.POST, params = "save")
+	public ModelAndView addArea(Brotherhood brotherhood, final BindingResult binding) {
+		ModelAndView result;
+		if (binding.hasErrors()){
+			result = new ModelAndView("brotherhood/addArea");
+		Collection<Area> areas = this.areaService.findAll();
+		result.addObject("brotherhood", brotherhood);
+		result.addObject("areas", areas);
+		}else{
+			try {
+				final Brotherhood brotherhoodFinal = this.brotherhoodService.recostructionArea(brotherhood, binding);
+					this.brotherhoodService.save(brotherhoodFinal);
+					result = new ModelAndView("redirect:/#");
+				
+			} catch (final Throwable oops) {
+				result = new ModelAndView("brotherhood/addArea");
+				Collection<Area> areas = this.areaService.findAll();
+				result.addObject("brotherhood", brotherhood);
+				result.addObject("areas", areas);
+			}
+		}
 		return result;
 	}
 }
