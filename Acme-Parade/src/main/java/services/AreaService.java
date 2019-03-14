@@ -54,8 +54,7 @@ public class AreaService {
 		this.administratorService.findByPrincipal();
 		Assert.isTrue(!this.hasSettle(area));
 		this.areaRepository.delete(area.getId());
-		
-		
+
 	}
 
 	public Area create() {
@@ -63,13 +62,12 @@ public class AreaService {
 		return new Area();
 	}
 
-	public Boolean hasSettle(final Area area){
+	public Boolean hasSettle(final Area area) {
 		Boolean res = true;
-		Collection<Brotherhood> b  =this.brotherhoodService.findBrotherhoodByArea(area.getId()) ;
-		if(b == null){
-			res= false;
-		}
+		final Collection<Brotherhood> b = this.brotherhoodService.findBrotherhoodByArea(area.getId());
+		if (b == null)
+			res = false;
 		return res;
-		
+
 	}
 }

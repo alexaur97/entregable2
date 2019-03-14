@@ -21,6 +21,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Area;
 import domain.Brotherhood;
+import domain.History;
 import domain.Member;
 import forms.ActorEditForm;
 import forms.BrotherhoodRegisterForm;
@@ -34,6 +35,9 @@ public class BrotherhoodService {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private HistoryService			historyService;
 
 	@Autowired
 	private AreaService				areaService;
@@ -257,13 +261,28 @@ public class BrotherhoodService {
 		}
 		return result;
 	}
-	
-	public Collection<Brotherhood> findBrotherhoodByArea(int id){
-		Collection<Brotherhood> res = this.brotherhoodRepository.findBrotherhoodByArea(id);
+
+	public Collection<Brotherhood> findBrotherhoodByArea(final int id) {
+		final Collection<Brotherhood> res = this.brotherhoodRepository.findBrotherhoodByArea(id);
 		return res;
 	}
 
 	public Double countBrotherhoodsPerArea(final int id) {
 		return this.brotherhoodRepository.findNumberOfBrotherhoodsPerArea(id);
+	// FR 4.1.2 ACME PARADE
+	public Brotherhood findBrotherhoodWithLargestHistory() {
+		final Brotherhood result = this.historyService.findLargest().getBrotherhood();
+		Assert.notNull(result);
+		return result;
+	}
+
+	// FR 4.1.3 ACME PARADE
+	public Collection<Brotherhood> findBrotherhoodsWithLargerHistoryThanAverage() {
+		final Collection<History> histories = this.historyService.findLargerThanAverage();
+		final Collection<Brotherhood> result = new ArrayList<>();
+		for (final History h : histories)
+			result.add(h.getBrotherhood());
+		Assert.notNull(result);
+		return result;
 	}
 }

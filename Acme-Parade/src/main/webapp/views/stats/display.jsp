@@ -147,3 +147,22 @@
 	</jstl:otherwise>
 </jstl:choose>
 
+<spring:message code="stats.records.history.average"/>: <jstl:out value="${recordsPerHistory[0][0]}"/>
+<br/>
+<spring:message code="stats.records.history.min"/>: <jstl:out value="${recordsPerHistory[0][1]}"/>
+<br/>
+<spring:message code="stats.records.history.max"/>: <jstl:out value="${recordsPerHistory[0][2]}"/>
+<br/>
+<spring:message code="stats.records.history.stddev"/>: <jstl:out value="${recordsPerHistory[0][3]}"/>
+<br/>
+
+<h4><spring:message code="stats.largest.history.brotherhood"/>:</h4> <jstl:out value="${largestHistoryBrotherhood.title}"/>
+<br/>
+<h4><spring:message code="stats.larger.history.brotherhoods"/>:</h4>
+<ol>
+<jstl:forEach items="${largerHistoryBrotherhoods}" var="brotherhood">
+<li><jstl:out value="${brotherhood.title}"/></li>
+</jstl:forEach>
+</ol>
+
+
