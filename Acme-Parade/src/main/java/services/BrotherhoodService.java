@@ -210,4 +210,9 @@ public class BrotherhoodService {
 			}
 		return b;
 	}
+
+	public Collection<Double> findStatsBrotherhoodPerArea() {
+		final Collection<Double> result = this.findStatsBrotherhoodPerArea();
+		return result;
+	}
 }
