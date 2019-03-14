@@ -120,7 +120,7 @@
 	</bean>
 	
 	
-	<bean id="area1" class="domain.Area">
+<!-- 	<bean id="area1" class="domain.Area">
 		<property name="name" value="Area" />
 		<property name="photo">
 			<list>
@@ -130,11 +130,11 @@
 				</value>
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 	
 	<bean id="chapter1" class="domain.Chapter">
 		<property name="title" value="Chapter" />
-		<property name="area" ref="area1" />
+		<property name="area" ref="area2" />
 		<property name="userAccount" ref="userAccount13" />
 		<property name="name" value="Chapter1" />
 		<property name="surname" value="Number one" />
