@@ -22,4 +22,8 @@ public interface HistoryRepository extends JpaRepository<History, Integer> {
 	// FR 4.1.3 ACME PARADE
 	@Query("select h from History h where (1 + h.periodRecord.size + h.miscellaneousRecord.size + h.legalRecord.size + h.linkRecord.size) > (select avg(1 + hi.periodRecord.size + hi.miscellaneousRecord.size + hi.legalRecord.size + hi.linkRecord.size) from History hi)")
 	Collection<History> largerHistoriesThanAverage();
+
+	@Query("select h from History h where h.brotherhood.id = ?1")
+	History findHistoryByBrotherhood(int id);
+
 }
