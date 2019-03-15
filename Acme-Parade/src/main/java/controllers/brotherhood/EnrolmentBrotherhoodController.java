@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,19 +42,25 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Enrolment enrolment;
 		try {
-Brotherhood b = this.brotherhoodService.findByPrincipal();
-Assert.notNull(b.getArea(),"Brotherhood without area");
+			final Brotherhood b = this.brotherhoodService.findByPrincipal();
+			//			Assert.notNull(b.getArea());
 
 			enrolment = new Enrolment();
 			enrolment.setId(0);
-			Collection<Member> members = this.memberService.findAllNotIn();
-			Collection<Position> positions = this.positionService.findAll();
+			final Collection<Member> members = this.memberService.findAllNotIn();
+			final Collection<Position> positions = this.positionService.findAll();
 			result = new ModelAndView("enrolment/create");
 			result.addObject("enrolment", enrolment);
 			result.addObject("members", members);
 			result.addObject("positions", positions);
-		} catch (Exception e) {
-			result = new ModelAndView("redirect:/#");
+		} catch (final Exception e) {
+			if (this.brotherhoodService.findByPrincipal().getArea() == null) {
+				final Collection<Member> members = this.memberService.findMembersByBrotherhoodPrincipal();
+				result = new ModelAndView("member/list");
+				result.addObject("members", members);
+				result.addObject("message", "enrolment.area.error");
+			} else
+				result = new ModelAndView("redirect:/#");
 		}
 		return result;
 
@@ -74,7 +79,7 @@ Assert.notNull(b.getArea(),"Brotherhood without area");
 				res = new ModelAndView("redirect:/member/brotherhood/list.do");
 			} catch (final Throwable oops) {
 				res = new ModelAndView("member/list");
-				Collection<Member> members = this.brotherhoodService.findByPrincipal().getMembers();
+				final Collection<Member> members = this.brotherhoodService.findByPrincipal().getMembers();
 				res.addObject("members", members);
 				res.addObject("requestURI", "enrolment/brotherhood/edit.do");
 				res.addObject("message", "enrolment.commit.error");

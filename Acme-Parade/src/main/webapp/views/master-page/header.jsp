@@ -80,7 +80,7 @@
 		</security:authorize>
 		
 <security:authorize access="hasRole('BROTHERHOOD')">
-			<li><a href="brotherhood/addArea.do"><spring:message code="master.page.addarea" /></a></li>
+			<li><a href="brotherhood/addArea.do"><spring:message code="masterpage.addarea" /></a></li>
 		</security:authorize>
 			<li>
 				<a class="fNiv">

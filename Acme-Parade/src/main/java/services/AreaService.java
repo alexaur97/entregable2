@@ -63,4 +63,9 @@ public class AreaService {
 	//		return res;
 	//
 	//	}
+
+	//HABRA QUE HACERLO BIEN PERO LO HE PUESTO PARA QUE NO DE ERROR
+	public void delete(Area area) {
+		this.areaRepository.delete(area);
+	}
 }

@@ -26,7 +26,7 @@
 
 <form:form action="brotherhood/addArea.do" modelAttribute="brotherhood"  class="form-horizontal" method="post">
 	<div class="form-group ">
-		<acme:select items="${areas}" itemLabel="name" code="Area" path="area"/>
+		<acme:select items="${areas}" itemLabel="name" code="brotherhood.area" path="area"/>
 	<acme:submit name="save" code="brotherhood.save"/>
 	<acme:cancel url="#" code="brotherhood.cancel"/>
 

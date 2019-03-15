@@ -1,3 +1,4 @@
+
 package converters;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,7 +12,8 @@ import domain.Area;
 
 @Component
 @Transactional
-public class StringToAreaConverter implements Converter<String, Area>{
+public class StringToAreaConverter implements Converter<String, Area> {
+
 	@Autowired
 	AreaRepository	areaRepository;
 
