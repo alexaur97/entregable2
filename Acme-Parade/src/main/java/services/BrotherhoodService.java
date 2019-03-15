@@ -242,7 +242,8 @@ public class BrotherhoodService {
 		}
 		final Integer areasSize = this.areaService.findAll().size();
 		final Double avg = acum / areasSize;
-		stddev = Math.sqrt(sq / acum - avg * avg);
+		final Double den = acum - avg * avg;
+		stddev = Math.sqrt(sq / den);
 
 		result.add(avg);
 		result.add(min);
@@ -269,6 +270,7 @@ public class BrotherhoodService {
 
 	public Double countBrotherhoodsPerArea(final int id) {
 		return this.brotherhoodRepository.findNumberOfBrotherhoodsPerArea(id);
+	}
 	// FR 4.1.2 ACME PARADE
 	public Brotherhood findBrotherhoodWithLargestHistory() {
 		final Brotherhood result = this.historyService.findLargest().getBrotherhood();

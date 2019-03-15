@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
 import services.EnrolmentService;
+import services.FinderService;
 import services.HistoryService;
 import services.MemberService;
 import services.ParadeService;
@@ -45,11 +46,15 @@ public class StatsAdministratorController extends AbstractController {
 
 	@Autowired
 	private PositionService		positionService;
+
 	@Autowired
 	private EnrolmentService	enrolmentService;
 
 	@Autowired
 	private HistoryService		historyService;
+
+	@Autowired
+	private FinderService		finderService;
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
@@ -118,6 +123,9 @@ public class StatsAdministratorController extends AbstractController {
 		final Brotherhood largestHistoryBrotherhood = this.brotherhoodService.findBrotherhoodWithLargestHistory();
 		final Collection<Brotherhood> largerHistoryBrotherhoods = this.brotherhoodService.findBrotherhoodsWithLargerHistoryThanAverage();
 
+		final Collection<Double> statsFinder = this.finderService.findStatsResultsFinders();
+		final Collection<Double> emptyVsNonEmpty = this.finderService.findStatsResultsFinders();
+
 		result = new ModelAndView("stats/display");
 		result.addObject("membersPerBrotherhood", membersPerBrotherhood);
 		result.addObject("largestBrotherhoods", largestBrotherhoods);
@@ -136,6 +144,8 @@ public class StatsAdministratorController extends AbstractController {
 		result.addObject("recordsPerHistory", recordsPerHistory);
 		result.addObject("largestHistoryBrotherhood", largestHistoryBrotherhood);
 		result.addObject("largerHistoryBrotherhoods", largerHistoryBrotherhoods);
+		result.addObject("statsFinder", statsFinder);
+		result.addObject("emptyVsNonEmpty", emptyVsNonEmpty);
 		//		result.addObject("president", president);
 		//		result.addObject("vicePresident", vicePresident);
 		//		result.addObject("secretary", secretary);
