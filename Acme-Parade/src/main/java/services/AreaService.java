@@ -57,6 +57,14 @@ public class AreaService {
 
 	}
 
+	public void delete(final Area area) {
+		Assert.notNull(area);
+		this.administratorService.findByPrincipal();
+		Assert.isTrue(!this.hasSettle(area));
+		this.areaRepository.delete(area.getId());
+
+	}
+
 	public Area create() {
 		this.administratorService.findByPrincipal();
 		return new Area();
@@ -65,7 +73,11 @@ public class AreaService {
 	public Boolean hasSettle(final Area area) {
 		Boolean res = true;
 		final Collection<Brotherhood> b = this.brotherhoodService.findBrotherhoodByArea(area.getId());
+<<<<<<< HEAD
 		if (b == null)
+=======
+		if (b.isEmpty())
+>>>>>>> andrea
 			res = false;
 		return res;
 
