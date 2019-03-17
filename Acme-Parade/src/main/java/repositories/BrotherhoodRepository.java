@@ -43,7 +43,6 @@ public interface BrotherhoodRepository extends JpaRepository<domain.Brotherhood,
 	@Query("select b from Brotherhood b order by b.members.size")
 	Collection<Brotherhood> findSmallest();
 
-<<<<<<< HEAD
 	//	@query("select sum(case when b.area.id=?1 then 1.0 else 0.0) from brotherhood b")
 	//	double findnumberofbrotherhoodsperarea(int areaid);
 	//
@@ -55,7 +54,6 @@ public interface BrotherhoodRepository extends JpaRepository<domain.Brotherhood,
 	//	@query("select b from brotherhood b where b.area.id = ?1")
 	//	collection<brotherhood> findbrotherhoodbyarea(int id);
 
-=======
 	@Query("select sum(case when b.area.id=?1 then 1.0 else 0.0 end) from Brotherhood b")
 	Double findNumberOfBrotherhoodsPerArea(int areaId);
 
@@ -67,5 +65,4 @@ public interface BrotherhoodRepository extends JpaRepository<domain.Brotherhood,
 	@Query("select b from Brotherhood b where b.area.id = ?1")
 	Collection<Brotherhood> findBrotherhoodByArea(int id);
 
->>>>>>> 17dcc14c894328afb66f087b2898449f288e474c
 }

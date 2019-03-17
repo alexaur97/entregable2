@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import repositories.AreaRepository;
 import domain.Area;
+import domain.Brotherhood;
 
 @Service
 @Transactional
@@ -49,7 +50,6 @@ public class AreaService {
 		return result;
 
 	}
-<<<<<<< HEAD
 	//	public void delete(final Area area) {
 	//		Assert.notNull(area);
 	//		this.administratorService.findByPrincipal();
@@ -57,7 +57,6 @@ public class AreaService {
 	//		this.areaRepository.delete(area.getId());
 	//
 	//	}
-=======
 
 	public void delete(final Area area) {
 		Assert.notNull(area);
@@ -66,14 +65,12 @@ public class AreaService {
 		this.areaRepository.delete(area.getId());
 
 	}
->>>>>>> 17dcc14c894328afb66f087b2898449f288e474c
 
 	public Area create() {
 		this.administratorService.findByPrincipal();
 		return new Area();
 	}
 
-<<<<<<< HEAD
 	//	public Boolean hasSettle(final Area area){
 	//		Boolean res = true;
 	//		Collection<Brotherhood> b  =this.brotherhoodService.findBrotherhoodByArea(area.getId()) ;
@@ -83,7 +80,6 @@ public class AreaService {
 	//		return res;
 	//		
 	//	}
-=======
 	public Boolean hasSettle(final Area area) {
 		Boolean res = true;
 		final Collection<Brotherhood> b = this.brotherhoodService.findBrotherhoodByArea(area.getId());
@@ -93,5 +89,4 @@ public class AreaService {
 		return res;
 
 	}
->>>>>>> 17dcc14c894328afb66f087b2898449f288e474c
 }

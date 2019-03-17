@@ -119,9 +119,9 @@ public class StatsAdministratorController extends AbstractController {
 		//		int numero = 3;
 
 		// FR 4.1 ACME PARADE
-		final Collection<Double> recordsPerHistory = this.historyService.statsRecordsPerHistory();
-		final Brotherhood largestHistoryBrotherhood = this.brotherhoodService.findBrotherhoodWithLargestHistory();
-		final Collection<Brotherhood> largerHistoryBrotherhoods = this.brotherhoodService.findBrotherhoodsWithLargerHistoryThanAverage();
+		//		final Collection<Double> recordsPerHistory = this.historyService.statsRecordsPerHistory();
+		//		final Brotherhood largestHistoryBrotherhood = this.brotherhoodService.findBrotherhoodWithLargestHistory();
+		//		final Collection<Brotherhood> largerHistoryBrotherhoods = this.brotherhoodService.findBrotherhoodsWithLargerHistoryThanAverage();
 
 		final Collection<Double> statsFinder = this.finderService.findStatsResultsFinders();
 		final Collection<Double> emptyVsNonEmpty = this.finderService.findStatsResultsFinders();
@@ -141,9 +141,9 @@ public class StatsAdministratorController extends AbstractController {
 		result.addObject("brotherhoodsPerArea", brotherhoodsPerArea);
 		result.addObject("areasCountAndRatio", areasCountAndRatio);
 		result.addObject("areasCountAndRatioEs", areasCountAndRatioEs);
-		result.addObject("recordsPerHistory", recordsPerHistory);
-		result.addObject("largestHistoryBrotherhood", largestHistoryBrotherhood);
-		result.addObject("largerHistoryBrotherhoods", largerHistoryBrotherhoods);
+		//		result.addObject("recordsPerHistory", recordsPerHistory);
+		//		result.addObject("largestHistoryBrotherhood", largestHistoryBrotherhood);
+		//		result.addObject("largerHistoryBrotherhoods", largerHistoryBrotherhoods);
 		result.addObject("statsFinder", statsFinder);
 		result.addObject("emptyVsNonEmpty", emptyVsNonEmpty);
 		//		result.addObject("president", president);
