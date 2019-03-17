@@ -32,6 +32,13 @@
 
 				</ul>
 			</li>
+			<li><a><spring:message	code="master.page.area" /></a>
+			<ul>
+				<li class="arrow"></li>
+					<li><a href="area/administrator/list.do"><spring:message code="master.page.all" /></a></li>
+			</ul>
+			</li>
+			
 		</security:authorize>
 
 

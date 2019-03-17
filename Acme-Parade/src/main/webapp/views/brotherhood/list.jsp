@@ -36,5 +36,9 @@
 	<display:column titleKey="brotherhood.floats">
 		<acme:cancel url="/float/listByBrotherhood.do?brotherhoodId=${brotherhood.id}" code="brotherhood.floats" />
 	</display:column>
+	
+	<display:column titleKey="brotherhood.history">
+		<acme:cancel url="/history/list.do?brotherhoodId=${brotherhood.id}" code="brotherhood.history" />
+	</display:column>
 
 </display:table>

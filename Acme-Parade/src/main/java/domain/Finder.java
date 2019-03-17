@@ -1,24 +1,35 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class Finder extends DomainEntity {
 
-	private String	keyword;
-	private Date	minDate;
-	private Date	maxDate;
+	private String				keyword;
+	private Date				minDate;
+	private Date				maxDate;
 
-	public Member	member;
-	public Area		area;
+	public Member				member;
+	public Area					area;
+
+	public Collection<Parade>	parades;
+	public Date					lastSearch;
 
 
 	public String getKeyword() {
@@ -62,6 +73,27 @@ public class Finder extends DomainEntity {
 
 	public void setArea(final Area area) {
 		this.area = area;
+	}
+
+	@NotNull
+	@ManyToMany
+	public Collection<Parade> getParades() {
+		return this.parades;
+	}
+
+	public void setParades(final Collection<Parade> parades) {
+		this.parades = parades;
+	}
+
+	@Past
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getLastSearch() {
+		return this.lastSearch;
+	}
+
+	public void setLastSearch(final Date lastSearch) {
+		this.lastSearch = lastSearch;
 	}
 
 }

@@ -3,8 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,8 +17,8 @@ import repositories.BrotherhoodRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Area;
 import domain.Brotherhood;
+import domain.History;
 import domain.Member;
 import forms.ActorEditForm;
 import forms.BrotherhoodRegisterForm;
@@ -34,6 +32,9 @@ public class BrotherhoodService {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private HistoryService			historyService;
 
 	@Autowired
 	private AreaService				areaService;
@@ -216,6 +217,54 @@ public class BrotherhoodService {
 			}
 		return b;
 	}
+<<<<<<< HEAD
+	//
+	//	public Collection<Double> findStatsBrotherhoodPerArea() {
+	//		final Collection<Double> result = new ArrayList<>();
+	//		final Collection<Double> col = new ArrayList<>();
+	//		final Collection<Area> areas = this.areaService.findAll();
+	//		Double acum = 0.0;
+	//		Double max = 0.0;
+	//		Double min = (double) this.brotherhoodRepository.findAll().size();
+	//		Double stddev = 0.0;
+	//		Double sq = 0.0;
+	//		for (final Area a : areas) {
+	//			final Double d = this.brotherhoodRepository.findNumberOfBrotherhoodsPerArea(a.getId());
+	//			acum = acum + d;
+	//			sq = sq + d * d;
+	//			if (d > max)
+	//				max = d;
+	//			if (d < min)
+	//				min = d;
+	//
+	//		}
+	//		final Integer areasSize = this.areaService.findAll().size();
+	//		final Double avg = acum / areasSize;
+	//		stddev = Math.sqrt(sq / acum - avg * avg);
+	//
+	//		result.add(avg);
+	//		result.add(min);
+	//		result.add(max);
+	//		result.add(stddev);
+	//		return result;
+	//	}
+
+	//	public Map<Area, Double> findRatioBrotherhoodPerArea() {
+	//		final Map<Area, Double> result = new HashMap<>();
+	//		final Collection<Area> areas = this.areaService.findAll();
+	//
+	//		for (final Area a : areas) {
+	//			final Double d = this.brotherhoodRepository.findRatioBrotherhoodsPerArea(a.getId());
+	//			result.put(a, d);
+	//		}
+	//		return result;
+	//	}
+	//	
+	//	public Collection<Brotherhood> findBrotherhoodByArea(final int id) {
+	//		final Collection<Brotherhood> res = this.brotherhoodRepository.findBrotherhoodByArea(id);
+	//		return res;
+	//	}
+=======
 
 	public Collection<Double> findStatsBrotherhoodPerArea() {
 		final Collection<Double> result = new ArrayList<>();
@@ -238,7 +287,8 @@ public class BrotherhoodService {
 		}
 		final Integer areasSize = this.areaService.findAll().size();
 		final Double avg = acum / areasSize;
-		stddev = Math.sqrt(sq / acum - avg * avg);
+		final Double den = acum - avg * avg;
+		stddev = Math.sqrt(sq / den);
 
 		result.add(avg);
 		result.add(min);
@@ -257,9 +307,30 @@ public class BrotherhoodService {
 		}
 		return result;
 	}
-	
-	public Collection<Brotherhood> findBrotherhoodByArea(int id){
-		Collection<Brotherhood> res = this.brotherhoodRepository.findBrotherhoodByArea(id);
+
+	public Collection<Brotherhood> findBrotherhoodByArea(final int id) {
+		final Collection<Brotherhood> res = this.brotherhoodRepository.findBrotherhoodByArea(id);
 		return res;
 	}
+
+	public Double countBrotherhoodsPerArea(final int id) {
+		return this.brotherhoodRepository.findNumberOfBrotherhoodsPerArea(id);
+	}
+	// FR 4.1.2 ACME PARADE
+	public Brotherhood findBrotherhoodWithLargestHistory() {
+		final Brotherhood result = this.historyService.findLargest().getBrotherhood();
+		Assert.notNull(result);
+		return result;
+	}
+
+	// FR 4.1.3 ACME PARADE
+	public Collection<Brotherhood> findBrotherhoodsWithLargerHistoryThanAverage() {
+		final Collection<History> histories = this.historyService.findLargerThanAverage();
+		final Collection<Brotherhood> result = new ArrayList<>();
+		for (final History h : histories)
+			result.add(h.getBrotherhood());
+		Assert.notNull(result);
+		return result;
+	}
+>>>>>>> 17dcc14c894328afb66f087b2898449f288e474c
 }

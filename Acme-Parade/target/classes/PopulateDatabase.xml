@@ -56,7 +56,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="userAccount13" class="security.UserAccount">
 		<property name="username" value="chapter1" />
 		<property name="password" value="178494d73a41f7d68e80f685324d3662" />
@@ -78,7 +78,7 @@
 		<property name="phoneNumber" value="698765432" />
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
-	
+
 	<bean id="actor2" class="domain.Member">
 		<property name="name" value="Member1" />
 		<property name="surname" value="Number One" />
@@ -88,7 +88,7 @@
 		<property name="phoneNumber" value="698765431" />
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
-	
+
 	<bean id="actor3" class="domain.Member">
 		<property name="name" value="Member" />
 		<property name="surname" value="Number Two" />
@@ -98,7 +98,7 @@
 		<property name="phoneNumber" value="698765430" />
 		<property name="userAccount" ref="userAccount3" />
 	</bean>
-	
+
 	<bean id="actor4" class="domain.Member">
 		<property name="name" value="Member3" />
 		<property name="surname" value="Number Three" />
@@ -108,7 +108,7 @@
 		<property name="phoneNumber" value="698765429" />
 		<property name="userAccount" ref="userAccount4" />
 	</bean>
-	
+
 	<bean id="actor5" class="domain.Member">
 		<property name="name" value="Member" />
 		<property name="surname" value="Number four" />
@@ -118,20 +118,13 @@
 		<property name="phoneNumber" value="698765431" />
 		<property name="userAccount" ref="userAccount9" />
 	</bean>
-	
-	
-<!-- 	<bean id="area1" class="domain.Area">
-		<property name="name" value="Area" />
-		<property name="photo">
-			<list>
-				<value>https://www.google.com/search?q=santa+maria+magdalena+hermandad
-				</value>
-				<value>https://www.google.com/search?q=santa+maria+magdalena+hermandad
-				</value>
-			</list>
-		</property>
-	</bean> -->
-	
+
+
+	<!-- <bean id="area1" class="domain.Area"> <property name="name" value="Area" 
+		/> <property name="photo"> <list> <value>https://www.google.com/search?q=santa+maria+magdalena+hermandad 
+		</value> <value>https://www.google.com/search?q=santa+maria+magdalena+hermandad 
+		</value> </list> </property> </bean> -->
+
 	<bean id="chapter1" class="domain.Chapter">
 		<property name="title" value="Chapter" />
 		<property name="area" ref="area2" />
@@ -143,7 +136,7 @@
 		<property name="email" value="chapter1@gmail.com" />
 		<property name="phoneNumber" value="+34 693465432" />
 		<property name="address" value="Reina Mercedes" />
-		
+
 	</bean>
 
 
@@ -182,7 +175,7 @@
 				<ref bean="actor4" />
 			</list>
 		</property>
-
+		<property name="area" ref="area1" />
 	</bean>
 
 	<bean id="brotherhood2" class="domain.Brotherhood">
@@ -207,6 +200,7 @@
 				<ref bean="actor4" />
 			</list>
 		</property>
+		<property name="area" ref="area2" />
 	</bean>
 
 	<bean id="brotherhood3" class="domain.Brotherhood">
@@ -233,7 +227,7 @@
 				<ref bean="actor4" />
 			</list>
 		</property>
-
+		<property name="area" ref="area1" />
 	</bean>
 
 	<bean id="float1" class="domain.Float">
@@ -273,55 +267,55 @@
 		</property>
 		<property name="brotherhood" ref="brotherhood3" />
 	</bean>
-	
-		<bean id="segment1" class="domain.Segment">
+
+	<bean id="segment1" class="domain.Segment">
 		<property name="originX" value="80" />
 		<property name="originY" value="70" />
 		<property name="destinationX" value="70" />
-		<property name="destinationY" value="160" />		
+		<property name="destinationY" value="160" />
 		<property name="originTime" value="10/10/2018 20:00" />
-	    <property name="destinationTime" value="15/10/2018 20:00" />
-	   	<property name="sequence" value="1" />
-	    	
+		<property name="destinationTime" value="15/10/2018 20:00" />
+		<property name="sequence" value="1" />
+
 	</bean>
-	
+
 	<bean id="segment2" class="domain.Segment">
 		<property name="originX" value="-40" />
 		<property name="originY" value="170" />
 		<property name="destinationX" value="-20" />
-		<property name="destinationY" value="-30" />		
+		<property name="destinationY" value="-30" />
 		<property name="originTime" value="11/02/2018 10:00" />
-	    <property name="destinationTime" value="15/09/2018 15:00" />	    	
+		<property name="destinationTime" value="15/09/2018 15:00" />
 	</bean>
-	
+
 	<bean id="segment3" class="domain.Segment">
 		<property name="originX" value="-20" />
 		<property name="originY" value="120" />
 		<property name="destinationX" value="-80" />
-		<property name="destinationY" value="-130" />		
+		<property name="destinationY" value="-130" />
 		<property name="originTime" value="11/02/2018 10:00" />
-	    <property name="destinationTime" value="15/09/2018 15:00" />	    	
+		<property name="destinationTime" value="15/09/2018 15:00" />
 	</bean>
-	
+
 	<bean id="segment4" class="domain.Segment">
 		<property name="originX" value="50" />
 		<property name="originY" value="100" />
 		<property name="destinationX" value="-20" />
-		<property name="destinationY" value="-100" />		
+		<property name="destinationY" value="-100" />
 		<property name="originTime" value="11/02/2018 10:00" />
-	    <property name="destinationTime" value="15/09/2018 15:00" />	    	
+		<property name="destinationTime" value="15/09/2018 15:00" />
 	</bean>
-	
+
 	<bean id="segment5" class="domain.Segment">
 		<property name="originX" value="-30" />
 		<property name="originY" value="115" />
 		<property name="destinationX" value="-20" />
-		<property name="destinationY" value="-30" />		
+		<property name="destinationY" value="-30" />
 		<property name="originTime" value="11/02/2018 10:00" />
-	    <property name="destinationTime" value="15/09/2018 15:00" />	    	
+		<property name="destinationTime" value="15/09/2018 15:00" />
 	</bean>
-	
-	
+
+
 
 
 
@@ -358,7 +352,7 @@
 		<property name="moment" value="01/04/2019" />
 		<property name="ticker" value="190401-IOERT" />
 		<property name="mode" value="FINAL" />
-		<property name="status" value="REJECTED" />	
+		<property name="status" value="REJECTED" />
 		<property name="floats">
 			<list>
 				<ref bean="float3" />
@@ -378,7 +372,7 @@
 		<property name="moment" value="05/04/2019" />
 		<property name="ticker" value="190405-OIRTG" />
 		<property name="mode" value="DRAFT" />
-		<property name="status" value="SUBMITTED" />	
+		<property name="status" value="SUBMITTED" />
 		<property name="floats">
 			<list>
 				<ref bean="float1" />
@@ -404,7 +398,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 
 	<bean id="position1" class="domain.Position">
 		<property name="name" value="President" />
@@ -453,7 +447,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 
 	<bean id="position3" class="domain.Position">
 		<property name="name" value="Vice President" />
@@ -505,7 +499,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 
 	<bean id="position4" class="domain.Position">
 		<property name="name" value="President" />
@@ -617,7 +611,7 @@
 		<property name="brotherhood" ref="brotherhood4" />
 
 	</bean>
-	
+
 	<bean id="area1" class="domain.Area">
 		<property name="name" value="Centro" />
 		<property name="photo">
@@ -627,7 +621,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="area2" class="domain.Area">
 		<property name="name" value="Derecha" />
 		<property name="photo">
@@ -637,25 +631,31 @@
 			</list>
 		</property>
 	</bean>
-	
-	
+
+
 	<bean id="finder1" class="domain.Finder">
 		<property name="keyword" value="centro" />
 		<property name="minDate" value="16/03/2019" />
 		<property name="maxDate" value="22/03/2019" />
 		<property name="member" ref="actor2" />
 		<property name="area" ref="area1" />
+		<property name="parades">
+			<list></list>
+		</property>
 	</bean>
-	
-		<bean id="finder2" class="domain.Finder">
+
+	<bean id="finder2" class="domain.Finder">
 		<property name="keyword" value="centro" />
 		<property name="minDate" value="15/03/2019" />
 		<property name="maxDate" value="27/03/2019" />
 		<property name="member" ref="actor3" />
 		<property name="area" ref="area2" />
+		<property name="parades">
+			<list></list>
+		</property>
 	</bean>
-	
-	
+
+
 
 	<bean id="parade4" class="domain.Parade">
 		<property name="title" value="Name4" />
@@ -691,7 +691,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 
 	<bean id="position8" class="domain.Position">
 		<property name="name" value="Vice President" />
@@ -719,7 +719,7 @@
 		<property name="parade" ref="parade4" />
 		<property name="member" ref="actor5" />
 	</bean>
-	
+
 	<bean id="inceptionRecord1" class="domain.InceptionRecord">
 		<property name="title" value="inceptionRecord1" />
 		<property name="description" value="inception record description" />
@@ -730,8 +730,8 @@
 			</list>
 		</property>
 	</bean>
-	
-		<bean id="inceptionRecord2" class="domain.InceptionRecord">
+
+	<bean id="inceptionRecord2" class="domain.InceptionRecord">
 		<property name="title" value="inceptionRecord2" />
 		<property name="description" value="inception record description" />
 		<property name="pictures">
@@ -741,8 +741,8 @@
 			</list>
 		</property>
 	</bean>
-	
-		<bean id="inceptionRecord3" class="domain.InceptionRecord">
+
+	<bean id="inceptionRecord3" class="domain.InceptionRecord">
 		<property name="title" value="inceptionRecord3" />
 		<property name="description" value="inception record description" />
 		<property name="pictures">
@@ -752,8 +752,8 @@
 			</list>
 		</property>
 	</bean>
-	
-		<bean id="periodRecord1" class="domain.PeriodRecord">
+
+	<bean id="periodRecord1" class="domain.PeriodRecord">
 		<property name="title" value="periodRecord1" />
 		<property name="description" value="period record description" />
 		<property name="startYear" value="1950" />
@@ -765,8 +765,8 @@
 			</list>
 		</property>
 	</bean>
-	
-			<bean id="periodRecord2" class="domain.PeriodRecord">
+
+	<bean id="periodRecord2" class="domain.PeriodRecord">
 		<property name="title" value="periodRecord2" />
 		<property name="description" value="period record description" />
 		<property name="startYear" value="1800" />
@@ -778,8 +778,8 @@
 			</list>
 		</property>
 	</bean>
-	
-			<bean id="periodRecord3" class="domain.PeriodRecord">
+
+	<bean id="periodRecord3" class="domain.PeriodRecord">
 		<property name="title" value="periodRecord3" />
 		<property name="description" value="period record description" />
 		<property name="startYear" value="2001" />
@@ -791,8 +791,8 @@
 			</list>
 		</property>
 	</bean>
-	
-			<bean id="periodRecord4" class="domain.PeriodRecord">
+
+	<bean id="periodRecord4" class="domain.PeriodRecord">
 		<property name="title" value="periodRecord4" />
 		<property name="description" value="period record description" />
 		<property name="startYear" value="1600" />
@@ -804,31 +804,31 @@
 			</list>
 		</property>
 	</bean>
-	
-				<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
+
+	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
 		<property name="title" value="miscellaneousRecord1" />
 		<property name="description" value="miscellaneous record description" />
-		
+
 	</bean>
-	
-				<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
+
+	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
 		<property name="title" value="miscellaneousRecord2" />
 		<property name="description" value="miscellaneous record description" />
-		
+
 	</bean>
-	
-				<bean id="miscellaneousRecord3" class="domain.MiscellaneousRecord">
+
+	<bean id="miscellaneousRecord3" class="domain.MiscellaneousRecord">
 		<property name="title" value="miscellaneousRecord3" />
 		<property name="description" value="miscellaneous record description" />
-		
+
 	</bean>
-	
-				<bean id="miscellaneousRecord4" class="domain.MiscellaneousRecord">
+
+	<bean id="miscellaneousRecord4" class="domain.MiscellaneousRecord">
 		<property name="title" value="miscellaneousRecord4" />
 		<property name="description" value="miscellaneous record description" />
-		
+
 	</bean>
-	
+
 	<bean id="legalRecord1" class="domain.LegalRecord">
 		<property name="title" value="legalRecord1" />
 		<property name="description" value="legal record description" />
@@ -841,7 +841,7 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="legalRecord2" class="domain.LegalRecord">
+	<bean id="legalRecord2" class="domain.LegalRecord">
 		<property name="title" value="legalRecord2" />
 		<property name="description" value="legal record description" />
 		<property name="legalName" value="legalName2" />
@@ -853,7 +853,7 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="legalRecord3" class="domain.LegalRecord">
+	<bean id="legalRecord3" class="domain.LegalRecord">
 		<property name="title" value="legalRecord3" />
 		<property name="description" value="legal record description" />
 		<property name="legalName" value="legalName3" />
@@ -865,7 +865,7 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="legalRecord4" class="domain.LegalRecord">
+	<bean id="legalRecord4" class="domain.LegalRecord">
 		<property name="title" value="legalRecord4" />
 		<property name="description" value="legal record description" />
 		<property name="legalName" value="legalName4" />
@@ -877,35 +877,35 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="linkRecord1" class="domain.LinkRecord">
 		<property name="title" value="linkRecord1" />
 		<property name="description" value="link record description" />
 		<property name="brotherhood" ref="brotherhood1" />
-		
+
 	</bean>
-	
+
 	<bean id="linkRecord2" class="domain.LinkRecord">
 		<property name="title" value="linkRecord2" />
 		<property name="description" value="link record description" />
 		<property name="brotherhood" ref="brotherhood2" />
-		
+
 	</bean>
-	
+
 	<bean id="linkRecord3" class="domain.LinkRecord">
 		<property name="title" value="linkRecord3" />
 		<property name="description" value="link record description" />
 		<property name="brotherhood" ref="brotherhood3" />
-		
+
 	</bean>
-	
+
 	<bean id="linkRecord4" class="domain.LinkRecord">
 		<property name="title" value="linkRecord4" />
 		<property name="description" value="link record description" />
 		<property name="brotherhood" ref="brotherhood4" />
-		
+
 	</bean>
-	
+
 	<bean id="history1" class="domain.History">
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="inceptionRecord" ref="inceptionRecord1" />
@@ -929,9 +929,9 @@
 				<ref bean="linkRecord1" />
 			</list>
 		</property>
-		</bean>
-	
-		<bean id="history2" class="domain.History">
+	</bean>
+
+	<bean id="history2" class="domain.History">
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="inceptionRecord" ref="inceptionRecord2" />
 		<property name="periodRecord">
@@ -944,7 +944,7 @@
 			<list>
 				<ref bean="miscellaneousRecord2" />
 				<ref bean="miscellaneousRecord3" />
-				
+
 			</list>
 		</property>
 		<property name="legalRecord">
@@ -959,10 +959,10 @@
 				<ref bean="linkRecord3" />
 			</list>
 		</property>
-		
+
 	</bean>
-	
-		<bean id="history3" class="domain.History">
+
+	<bean id="history3" class="domain.History">
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="inceptionRecord" ref="inceptionRecord3" />
 		<property name="periodRecord">
@@ -973,7 +973,7 @@
 		<property name="miscellaneousRecord">
 			<list>
 				<ref bean="miscellaneousRecord4" />
-				
+
 			</list>
 		</property>
 		<property name="legalRecord">
@@ -986,6 +986,6 @@
 				<ref bean="linkRecord4" />
 			</list>
 		</property>
-		
-	</bean> 
+
+	</bean>
 </beans> 

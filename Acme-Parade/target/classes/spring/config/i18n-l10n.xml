@@ -27,6 +27,8 @@
 		<value>/views/administrator/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/profile/messages</value>
+		
+		<value>/views/area/messages</value>
 
 		<value>/views/configurationParameters/messages</value>
 
@@ -39,6 +41,8 @@
 		<value>/views/enrolment/messages</value>
 		<value>/views/stats/messages</value>
 		<value>/views/actor/messages</value>
+		<value>/views/history/messages</value>
+		
 		
 		
 

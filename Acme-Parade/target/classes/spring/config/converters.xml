@@ -33,6 +33,9 @@
 		<bean class="converters.PositionToStringConverter"/>
 		<bean class="converters.ParadeToStringConverter"/>
 		<bean class="converters.RequestToStringConverter"/>
+		<bean class="converters.AreaToStringConverter"/>
+		
+		
 		
 		<!-- 
 			Add your own converters using entries of the following form: 
@@ -49,6 +52,8 @@
 		<bean class="converters.StringToPositionConverter"/>
 		<bean class="converters.StringToParadeConverter"/>
 		<bean class="converters.StringToRequestConverter"/>
+		<bean class="converters.StringToAreaConverter"/>
+		
 		
 	</util:list>
 	
