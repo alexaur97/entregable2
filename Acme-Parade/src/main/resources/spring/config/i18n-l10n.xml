@@ -43,11 +43,8 @@
 		<value>/views/actor/messages</value>
 		<value>/views/history/messages</value>
 		<value>/views/chapter/messages</value>
+		<value>/views/inceptionRecord/messages</value>
 		
-		
-		
-
-
 	</util:list>
 
 </beans>

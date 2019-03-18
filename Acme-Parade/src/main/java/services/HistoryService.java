@@ -39,7 +39,6 @@ public class HistoryService {
 		Assert.notNull(result);
 		return result;
 	}
-
 	public Collection<History> findAll() {
 
 		final Collection<History> res = this.historyRepository.findAll();
@@ -59,7 +58,15 @@ public class HistoryService {
 	}
 	public History create() {
 		return new History();
+}
+	public History findByBrotherhood(final Integer id) {
+		final History result = this.historyRepository.findByBrotherhood(id);
+		return result;
+	}
 
+	public History findByInceptionRecord(final Integer id) {
+		final History result = this.historyRepository.findByInceptionRecord(id);
+		return result;
 	}
 
 }
