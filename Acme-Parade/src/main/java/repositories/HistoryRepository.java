@@ -26,4 +26,10 @@ public interface HistoryRepository extends JpaRepository<History, Integer> {
 	@Query("select h from History h where h.brotherhood.id = ?1")
 	History findHistoryByBrotherhood(int id);
 
+	@Query("select h from History h where h.brotherhood.id=?1")
+	History findByBrotherhood(Integer id);
+
+	@Query("select h from History h where h.inceptionRecord.id=?1")
+	History findByInceptionRecord(Integer id);
+
 }
