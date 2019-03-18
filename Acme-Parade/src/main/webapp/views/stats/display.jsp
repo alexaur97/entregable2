@@ -92,18 +92,21 @@
 	</jstl:forEach>
 </ul>
 
-<spring:message code="stats.brotherhood.area.average" />
-:
-<jstl:out value="${brotherhoodsPerArea[0][0]}" />
-<spring:message code="stats.brotherhood.area.min" />
-:
-<jstl:out value="${brotherhoodsPerArea[0][1]}" />
-<spring:message code="stats.brotherhood.area.max" />
-:
-<jstl:out value="${brotherhoodsPerArea[0][2]}" />
-<spring:message code="stats.brotherhood.area.stddev" />
-:
-<jstl:out value="${brotherhoodsPerArea[0][3]}" />
+
+
+<table>
+	<tr>
+		<th><spring:message code="stats.brotherhood.area.average" /></th>
+		<th><spring:message code="stats.brotherhood.area.min" /></th>
+		<th><spring:message code="stats.brotherhood.area.max" /></th>
+		<th><spring:message code="stats.brotherhood.area.stddev" /></th>
+	</tr>
+	<tr>
+		<jstl:forEach items="${brotherhoodsPerArea}" var="x">
+			<td><jstl:out value="${x}" /></td>
+		</jstl:forEach>
+	</tr>
+</table>
 
 <h4>
 	<spring:message code="stats.brotherhoods.countAndRatio" />
@@ -113,16 +116,16 @@
 	<jstl:choose>
 		<jstl:when test="${lang eq 'en'}">
 			<jstl:forEach items="${areasCountAndRatio}" var="x">
-				<li><jstl:out value="x" /></li>
+				<li><jstl:out value="${x}" /></li>
 			</jstl:forEach>
 		</jstl:when>
 		<jstl:otherwise>
 			<jstl:forEach items="${areasCountAndRatioEs}" var="x">
-				<li><jstl:out value="x" /></li>
+				<li><jstl:out value="${x}" /></li>
 			</jstl:forEach>
 		</jstl:otherwise>
 	</jstl:choose>
-	
+
 </ul>
 
 <jstl:choose>
@@ -147,22 +150,64 @@
 	</jstl:otherwise>
 </jstl:choose>
 
-<spring:message code="stats.records.history.average"/>: <jstl:out value="${recordsPerHistory[0][0]}"/>
-<br/>
-<spring:message code="stats.records.history.min"/>: <jstl:out value="${recordsPerHistory[0][1]}"/>
-<br/>
-<spring:message code="stats.records.history.max"/>: <jstl:out value="${recordsPerHistory[0][2]}"/>
-<br/>
-<spring:message code="stats.records.history.stddev"/>: <jstl:out value="${recordsPerHistory[0][3]}"/>
-<br/>
+<spring:message code="stats.records.history.average" />
+:
+<jstl:out value="${recordsPerHistory[0][0]}" />
+<br />
+<spring:message code="stats.records.history.min" />
+:
+<jstl:out value="${recordsPerHistory[0][1]}" />
+<br />
+<spring:message code="stats.records.history.max" />
+:
+<jstl:out value="${recordsPerHistory[0][2]}" />
+<br />
+<spring:message code="stats.records.history.stddev" />
+:
+<jstl:out value="${recordsPerHistory[0][3]}" />
+<br />
 
-<h4><spring:message code="stats.largest.history.brotherhood"/>:</h4> <jstl:out value="${largestHistoryBrotherhood.title}"/>
-<br/>
-<h4><spring:message code="stats.larger.history.brotherhoods"/>:</h4>
+<h4>
+	<spring:message code="stats.largest.history.brotherhood" />
+	:
+</h4>
+<jstl:out value="${largestHistoryBrotherhood.title}" />
+<br />
+<h4>
+	<spring:message code="stats.larger.history.brotherhoods" />
+	:
+</h4>
 <ol>
-<jstl:forEach items="${largerHistoryBrotherhoods}" var="brotherhood">
-<li><jstl:out value="${brotherhood.title}"/></li>
-</jstl:forEach>
+	<jstl:forEach items="${largerHistoryBrotherhoods}" var="brotherhood">
+		<li><jstl:out value="${brotherhood.title}" /></li>
+	</jstl:forEach>
 </ol>
 
+<h4><spring:message code="stats.finder" /></h4>
+
+<table>
+	<tr>
+		<th><spring:message code="stats.finder.avg" /></th>
+		<th><spring:message code="stats.finder.min" /></th>
+		<th><spring:message code="stats.finder.max" /></th>
+		<th><spring:message code="stats.finder.stddev" /></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${statsFinder[0][0]}" /></td>
+		<td><jstl:out value="${statsFinder[0][1]}" /></td>
+		<td><jstl:out value="${statsFinder[0][2]}" /></td>
+		<td><jstl:out value="${statsFinder[0][3]}" /></td>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<th><spring:message code="stats.finder.empty" /></th>
+		<th><spring:message code="stats.finder.nonEmpty" /></th>
+	</tr>
+	<tr>
+			<td><jstl:out value="${emptyVsNonEmpty[0][0]}" /></td>
+		<td><jstl:out value="${emptyVsNonEmpty[0][1]}" /></td>
+	</tr>
+</table>
 
