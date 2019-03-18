@@ -40,4 +40,14 @@ public class HistoryService {
 		return result;
 	}
 
+	public History findByBrotherhood(final Integer id) {
+		final History result = this.historyRepository.findByBrotherhood(id);
+		return result;
+	}
+
+	public History findByInceptionRecord(final Integer id) {
+		final History result = this.historyRepository.findByInceptionRecord(id);
+		return result;
+	}
+
 }

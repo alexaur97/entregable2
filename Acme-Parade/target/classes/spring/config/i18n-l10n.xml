@@ -41,10 +41,8 @@
 		<value>/views/enrolment/messages</value>
 		<value>/views/stats/messages</value>
 		<value>/views/actor/messages</value>
+		<value>/views/inceptionRecord/messages</value>
 		
-		
-
-
 	</util:list>
 
 </beans>
