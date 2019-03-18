@@ -49,6 +49,7 @@
 					<li class="arrow"></li>
 					<li><a href="brotherhood/create.do"><spring:message code="master.page.signup.brotherhood" /></a></li>
 					<li><a href="member/create.do"><spring:message code="master.page.signup.member" /></a></li>
+					<li><a href="chapter/create.do"><spring:message code="master.page.signup.chapter" /></a></li>
 				</ul>
 			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
