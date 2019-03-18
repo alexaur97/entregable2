@@ -70,7 +70,4 @@ public class AreaService {
 		return res;
 
 	}
-	public void delete(Area area) {
-		this.areaRepository.delete(area);
-	}
 }

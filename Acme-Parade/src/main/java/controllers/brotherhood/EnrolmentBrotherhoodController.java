@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,7 +44,7 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 		Enrolment enrolment;
 		try {
 			final Brotherhood b = this.brotherhoodService.findByPrincipal();
-			//			Assert.notNull(b.getArea());
+			Assert.notNull(b.getArea());
 
 			enrolment = new Enrolment();
 			enrolment.setId(0);

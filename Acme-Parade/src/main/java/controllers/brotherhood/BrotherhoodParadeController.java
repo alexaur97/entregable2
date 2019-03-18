@@ -74,7 +74,7 @@ public class BrotherhoodParadeController extends AbstractController {
 
 		try {
 			final Brotherhood bh = this.brotherhoodService.findByPrincipal();
-			Assert.notNull(bh.getArea(),"Brotherhood without area");
+			Assert.notNull(bh.getArea());
 			parade.setId(0);
 			parade.setBrotherhood(bh);
 
@@ -84,8 +84,14 @@ public class BrotherhoodParadeController extends AbstractController {
 			result.addObject("parade", parade);
 			result.addObject("floats", floats);
 		} catch (final Throwable oops) {
-
-			result = this.createEditModelAndView(parade, "parade.commit.error");
+			if (this.brotherhoodService.findByPrincipal().getArea() == null) {
+				final Collection<Parade> parades = this.paradeService.findParadesByBrotherhood(this.brotherhoodService.findByPrincipal().getId());
+				result = new ModelAndView("parade/list");
+				result.addObject("parades", parades);
+				result.addObject("requestURI", "parade/list.do");
+				result.addObject("message", "parade.area.error");
+			} else
+				result = this.createEditModelAndView(parade, "parade.commit.error");
 
 		}
 
