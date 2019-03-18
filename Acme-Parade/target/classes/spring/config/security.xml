@@ -42,6 +42,10 @@
 		<security:intercept-url pattern="/brotherhood/edit.do" access="permitAll" />
 		<security:intercept-url pattern="/brotherhood/create.do"
 			access="permitAll" />
+		<security:intercept-url pattern="/history/list.do" access="permitAll" />
+			
+		<security:intercept-url pattern="/brotherhood/addArea.do" access="hasRole('BROTHERHOOD')" />
+			
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" />
 
