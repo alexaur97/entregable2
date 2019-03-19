@@ -89,6 +89,9 @@
 <security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a href="brotherhood/addArea.do"><spring:message code="masterpage.addarea" /></a></li>
 		</security:authorize>
+		<security:authorize access="hasRole('CHAPTER')">
+			<li><a href="chapter/parade/list.do"><spring:message code="master.page.parades" /></a></li>
+		</security:authorize>
 			<li>
 				<a class="fNiv">
 					<spring:message code="master.page.profile" />

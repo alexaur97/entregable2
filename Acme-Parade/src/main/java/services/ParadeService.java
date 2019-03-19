@@ -50,7 +50,6 @@ public class ParadeService {
 		return res;
 
 	}
-
 	public Collection<Parade> findParadesAvailableForMember() {
 		final Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
 		final Member member = this.memberService.findByPrincipal();
@@ -82,6 +81,13 @@ public class ParadeService {
 
 		parade.setBrotherhood(bh);
 
+		result = this.paradeRepository.save(parade);
+		return result;
+
+	}
+	public Parade saveChapter(final Parade parade) {
+		final Parade result;
+		Assert.notNull(parade);
 		result = this.paradeRepository.save(parade);
 		return result;
 
@@ -166,5 +172,24 @@ public class ParadeService {
 		cadena = new String(conjunto);
 		return cadena;
 	}
+	public Collection<Parade> findParadesByArea(final int id) {
+		Collection<Parade> res;
+		res = this.paradeRepository.findParadesByArea(id);
+		return res;
+	}
 
+	public Parade rejectRecostruction(final Parade parade, final BindingResult binding) {
+		final Parade res = parade;
+		final Parade a = this.findOne(parade.getId());
+		res.setStatus("REJECTED");
+		res.setBrotherhood(a.getBrotherhood());
+		res.setDescription(a.getDescription());
+		res.setFloats(a.getFloats());
+		res.setMode(a.getMode());
+		res.setMoment(a.getMoment());
+		res.setSegments(a.getSegments());
+		res.setTicker(a.getTicker());
+		res.setTitle(a.getTitle());
+		return res;
+	}
 }

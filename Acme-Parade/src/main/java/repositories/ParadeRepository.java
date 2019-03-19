@@ -16,6 +16,9 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select p from Parade p where p.brotherhood.id = ?1")
 	Collection<Parade> findParadesByBrotherhood(int id);
 
+	@Query("select p from Parade p where p.brotherhood.area.id = ?1 group by status")
+	Collection<Parade> findParadesByArea(int id);
+
 	// FR 12.3.5
 	@Query("select p from Parade p where DATEDIFF(p.moment,CURRENT_DATE)<=30 and p.moment>CURRENT_DATE")
 	Collection<Parade> paradesBefore30Days();

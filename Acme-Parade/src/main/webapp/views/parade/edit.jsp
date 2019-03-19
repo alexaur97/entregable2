@@ -25,7 +25,7 @@
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
-
+	<security:authorize access="hasRole('BROTHERHOOD')">		
 				<form:form action="brotherhood/parade/edit.do"
 					modelAttribute="parade" class="form-horizontal" method="post">
 					<div class="form-group ">
@@ -59,6 +59,22 @@
 							code="parade.cancel" />
 					</div>
 				</form:form>
+				</security:authorize>
+					<security:authorize access="hasRole('CHAPTER')">
+					<form:form action="chapter/parade/reject.do"
+					modelAttribute="parade" class="form-horizontal" method="post">
+					<div class="form-group ">
+
+						<form:hidden path="id"/>
+						<form:hidden path="version"/>
+						<acme:textarea code="parade.explanation" path="explanation" />
+
+						<acme:submit name="save" code="parade.save" />
+						<acme:cancel url="/chapter/parade/list.do"
+							code="parade.cancel" />
+					</div>
+				</form:form>		
+				</security:authorize>
 			</fieldset>
 		
 

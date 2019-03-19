@@ -38,6 +38,21 @@
 		</a>
 		</display:column>
 		</security:authorize>
+		<security:authorize access="hasRole('CHAPTER')">
+			<display:column titleKey="parade.status" property="status" />
+	<display:column titleKey="parade.accept">
+	<jstl:if test="${parade.status==s}">
+			<acme:cancel url="/chapter/parade/accept.do?paradeId=${parade.id}" code="parade.accept" />
+		</jstl:if>
+		
+		</display:column>
+		<display:column titleKey="parade.reject">
+	<jstl:if test="${parade.status==s}">
+			<acme:cancel url="/chapter/parade/reject.do?paradeId=${parade.id}" code="parade.reject" />
+		</jstl:if>
+		
+		</display:column>
+		</security:authorize>
 		
 	<security:authorize access="hasRole('BROTHERHOOD')">		
 	<display:column titleKey="parade.show">
