@@ -31,8 +31,8 @@
 	</bean>
 	
 	<bean id="configurationParameters" class="domain.ConfigurationParameters">
-		<property name="name" value="Acme Madrugá" />
-		<property name="banner" value="https://tinyurl.com/acme-madruga" />
+		<property name="name" value="Acme Parade" />
+		<property name="banner" value="https://tinyurl.com/group-50-acme-parade" />
 		<property name="sysMessage"
 			value="Welcome to Acme Parade the site to organise your parades." />
 		<property name="sysMessageEs"
