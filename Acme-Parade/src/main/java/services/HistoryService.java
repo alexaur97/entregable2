@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.HistoryRepository;
+import domain.Brotherhood;
 import domain.History;
 
 @Service
@@ -17,6 +18,9 @@ public class HistoryService {
 
 	@Autowired
 	private HistoryRepository	historyRepository;
+
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
 
 
 	// FR 4.1.1 ACME PARADE
@@ -58,7 +62,7 @@ public class HistoryService {
 	}
 	public History create() {
 		return new History();
-}
+	}
 	public History findByBrotherhood(final Integer id) {
 		final History result = this.historyRepository.findByBrotherhood(id);
 		return result;
@@ -69,4 +73,18 @@ public class HistoryService {
 		return result;
 	}
 
+	public History findByMiscellaneousRecord(final Integer id) {
+		final History result = this.historyRepository.findByMiscellaneousRecord(id);
+		return result;
+	}
+
+	public History save(final History history) {
+		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
+		if (history.getId() == 0)
+			history.setBrotherhood(principal);
+		else
+			Assert.isTrue(history.getBrotherhood().getId() == principal.getId());
+		final History saved = this.historyRepository.save(history);
+		return saved;
+	}
 }

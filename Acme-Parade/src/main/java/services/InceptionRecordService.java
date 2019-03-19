@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.validation.Validator;
 
 import repositories.InceptionRecordRepository;
 import domain.Brotherhood;
@@ -29,9 +28,6 @@ public class InceptionRecordService {
 
 	@Autowired
 	private HistoryService				historyService;
-
-	@Autowired
-	private Validator					validator;
 
 
 	public InceptionRecord create() {
@@ -65,6 +61,7 @@ public class InceptionRecordService {
 
 		return result;
 	}
+
 	public InceptionRecord findByBrotherhood(final Integer id) {
 		final InceptionRecord result = this.inceptionRecordRepository.findByBrotherhood(id);
 		return result;

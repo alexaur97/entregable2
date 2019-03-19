@@ -43,6 +43,7 @@
 		<value>/views/actor/messages</value>
 		<value>/views/history/messages</value>
 		<value>/views/inceptionRecord/messages</value>
+		<value>/views/miscellaneousRecord/messages</value>
 		
 	</util:list>
 
