@@ -37,4 +37,7 @@ public interface HistoryRepository extends JpaRepository<History, Integer> {
 	@Query("select h from History h join h.miscellaneousRecord m where m.id=?1")
 	History findByMiscellaneousRecord(Integer id);
 
+	@Query("select h from History h join h.linkRecord m where m.id=?1")
+	History findByLinkRecord(Integer id);
+
 }

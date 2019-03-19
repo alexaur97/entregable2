@@ -30,7 +30,8 @@
 		<security:intercept-url pattern="/about/**" access="permitAll" />
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" />
-
+		
+		
 		<security:intercept-url pattern="/brotherhood/list.do" access="permitAll" />
 		<security:intercept-url pattern="/member/listByBrotherhood.do" access="permitAll" />
 		<security:intercept-url pattern="/parade/listByBrotherhood.do" access="permitAll" />
@@ -42,6 +43,10 @@
 		<security:intercept-url pattern="/brotherhood/edit.do" access="permitAll" />
 		<security:intercept-url pattern="/brotherhood/create.do"
 			access="permitAll" />
+		<security:intercept-url pattern="/chapter/create.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/chapter/edit.do"
+			access="permitAll" />	
 		<security:intercept-url pattern="/history/list.do" access="permitAll" />
 			
 		<security:intercept-url pattern="/brotherhood/addArea.do" access="hasRole('BROTHERHOOD')" />
@@ -88,18 +93,21 @@
 		<security:intercept-url pattern="/enrolment/brotherhood/edit.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/request/brotherhood/list.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/request/brotherhood/show.do" access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/inceptionRecord/brotherhood/edit.do" access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/inceptionRecord/brotherhood/display.do" access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/create.do" access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/edit.do" access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/display.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/inceptionRecord/brotherhood/*.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/*.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/linkRecord/brotherhood/*" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/request/brotherhood/*" access="hasRole('BROTHERHOOD')" />
+		
 
 		<security:intercept-url pattern="/dropout/member/*" access="hasRole('MEMBER')" /> 
 		<security:intercept-url pattern="/dropout/member/create.do" access="hasRole('MEMBER')" /> 
 
 
 		<security:intercept-url pattern="/actor/edit.do" access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/chapter/parade/list.do" access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/chapter/parade/accept.do" access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/chapter/parade/reject.do" access="hasRole('CHAPTER')" />
 
 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

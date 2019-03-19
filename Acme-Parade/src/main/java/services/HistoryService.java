@@ -87,4 +87,9 @@ public class HistoryService {
 		final History saved = this.historyRepository.save(history);
 		return saved;
 	}
+
+	public History findByLinkRecord(final Integer id) {
+		final History result = this.historyRepository.findByLinkRecord(id);
+		return result;
+	}
 }
