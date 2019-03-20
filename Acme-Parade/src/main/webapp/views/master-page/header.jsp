@@ -69,6 +69,7 @@
 
 		<security:authorize access="hasRole('MEMBER')">
 			<li><a href="request/member/list.do"><spring:message code="master.page.requests" /></a></li>
+			<li><a href="finder/member/view.do"><spring:message code="master.page.finder" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('BROTHERHOOD')">
