@@ -88,7 +88,7 @@ public class ParadeService {
 	public Parade saveChapter(final Parade parade) {
 		final Parade result;
 		Assert.notNull(parade);
-		result = this.paradeRepository.save(parade);
+		result = this.paradeRepository.saveAndFlush(parade);
 		return result;
 
 	}

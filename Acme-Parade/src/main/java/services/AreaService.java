@@ -126,7 +126,7 @@ public class AreaService {
 		return result;
 
 	}
-	//ORDEN DE LA LISTA MEDIA, MIN, MAX
+	//ORDEN DE LA LISTA MEDIA, MIN, MAX, DESV
 	public List<Double> statsParadesChapters() {
 		Double min = -1.0;
 		Double max = 0.0;

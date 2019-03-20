@@ -72,7 +72,7 @@ public class ChapterParadeController extends AbstractController {
 			final Chapter chapter = this.chapterService.findByPrincipal();
 			parades = this.paradeService.findParadesByArea(chapter.getArea().getId());
 			result = new ModelAndView("parade/list");
-			result.addObject("requestURI", "parade/list.do");
+			result.addObject("requestURI", "parade/accept.do");
 			result.addObject("parades", parades);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -111,13 +111,15 @@ public class ChapterParadeController extends AbstractController {
 			res = new ModelAndView("parade/edit");
 		try {
 			Assert.isTrue(!parade.getExplanation().isEmpty());
-			final Area a = this.chapterService.findByPrincipal().getArea();
+
 			res = new ModelAndView("parade/list");
 			Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
 			this.paradeService.saveChapter(paradeFinal);
-			parades = this.paradeService.findParadesByArea(a.getId());
+			final Chapter chapter = this.chapterService.findByPrincipal();
+			parades = this.paradeService.findParadesByArea(chapter.getArea().getId());
 			res.addObject("parades", parades);
-			res.addObject("requestURI", "/chapter/parade/brotherhood/list.do");
+			res.addObject("requestURI", "parade/list.do");
+
 		} catch (final Throwable oops) {
 			if (parade.getExplanation().isEmpty()) {
 				res = new ModelAndView("parade/edit");
