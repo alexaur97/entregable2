@@ -247,4 +247,20 @@ public class ParadeService {
 		res.setTitle(a.getTitle());
 		return res;
 	}
+	
+	public Collection<Parade> findParadesAcceptedByBrotherhood(final int idBrotherhood) {
+		final Collection<Parade> res = this.paradeRepository.findParadesAcceptedByBrotherhood(idBrotherhood);
+		return res;
+	}
+	
+	public Collection<Parade> findParadesRejectedByBrotherhood(final int idBrotherhood) {
+		final Collection<Parade> res = this.paradeRepository.findParadesRejectedByBrotherhood(idBrotherhood);
+		return res;
+	}
+	
+	public Collection<Parade> findParadesSubmittedByBrotherhood(final int idBrotherhood) {
+		final Collection<Parade> res = this.paradeRepository.findParadesSubmittedByBrotherhood(idBrotherhood);
+		return res;
+	}
+	
 }

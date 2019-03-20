@@ -64,6 +64,31 @@ public class BrotherhoodParadeController extends AbstractController {
 
 		return result;
 	}
+	
+	// List -----------------------------------------------------------
+	@RequestMapping(value = "/myList", method = RequestMethod.GET)
+	public ModelAndView myList() {
+		ModelAndView result;
+		try {
+			final Integer currentActorId = this.actorService.findByPrincipal().getId();
+			Collection<Parade> paradesSubmitted;
+			Collection<Parade> paradesAccepted;
+			Collection<Parade> paradesRejected;
+			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActorId);
+			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
+			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
+
+			result = new ModelAndView("parade/myList");
+			result.addObject("requestURI", "parade/myList.do");
+			result.addObject("paradesSubmitted", paradesSubmitted);
+			result.addObject("paradesAccepted", paradesAccepted);
+			result.addObject("paradesRejected", paradesRejected);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {

@@ -45,5 +45,15 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 			"((p.title like %?1%) or (p.description like %?1%) or (p.ticker like %?1%)) and "+
 			"(p.moment >= ?2 )")
 	Collection<Parade> searchParadesWithoutEndDateOrArea(String keyword, Date dateFrom);
+	
+	@Query("select p from Parade p where p.brotherhood.id = ?1 and p.status = 'ACCEPTED' ")
+	Collection<Parade> findParadesAcceptedByBrotherhood(int id);
+
+	@Query("select p from Parade p where p.brotherhood.id = ?1 and p.status = 'REJECTED' ")
+	Collection<Parade> findParadesRejectedByBrotherhood(int id);
+	
+	@Query("select p from Parade p where p.brotherhood.id = ?1 and p.status = 'SUBMITTED' ")
+	Collection<Parade> findParadesSubmittedByBrotherhood(int id);
+
  
 }
