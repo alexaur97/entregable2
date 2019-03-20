@@ -1,28 +1,22 @@
 
 package services;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ChapterRepository;
 import security.Authority;
-
 import security.LoginService;
 import security.UserAccount;
 import domain.Chapter;
-
 import forms.ChapterRegisterForm;
-
 
 @Service
 @Transactional
@@ -59,7 +53,6 @@ public class ChapterService {
 		this.actorService.auth(c, Authority.CHAPTER);
 		return c;
 	}
-
 
 	public Chapter create() {
 		final Chapter c = new Chapter();

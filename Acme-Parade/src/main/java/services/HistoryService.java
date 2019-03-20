@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.HistoryRepository;
+import security.Authority;
+import security.LoginService;
 import domain.Brotherhood;
 import domain.History;
 
@@ -19,7 +21,6 @@ public class HistoryService {
 	@Autowired
 	private HistoryRepository	historyRepository;
 
-
 	//servicios
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
@@ -27,13 +28,20 @@ public class HistoryService {
 
 	// FR 4.1.1 ACME PARADE
 	public Collection<Double> statsRecordsPerHistory() {
-		final Collection<Double> result = this.historyRepository.statsRecordsPerHistory();
+		final Authority auth = new Authority();
+		auth.setAuthority(Authority.ADMINISTRATOR);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
+		Collection<Double> result;
+		result = this.historyRepository.statsRecordsPerHistory();
 		Assert.notNull(result);
 		return result;
 	}
 
 	// FR 4.1.2 ACME PARADE
 	public History findLargest() {
+		final Authority auth = new Authority();
+		auth.setAuthority(Authority.ADMINISTRATOR);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
 		final History result = this.historyRepository.largestHistory();
 		Assert.notNull(result);
 		return result;
@@ -41,6 +49,9 @@ public class HistoryService {
 
 	// FR 4.1.3 ACME PARADE
 	public Collection<History> findLargerThanAverage() {
+		final Authority auth = new Authority();
+		auth.setAuthority(Authority.ADMINISTRATOR);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
 		final Collection<History> result = this.historyRepository.largerHistoriesThanAverage();
 		Assert.notNull(result);
 		return result;
@@ -93,7 +104,7 @@ public class HistoryService {
 	public History findByLinkRecord(final Integer id) {
 		final History result = this.historyRepository.findByLinkRecord(id);
 		return result;
-}
+	}
 	public History findByUserId(final int id) {
 		final Brotherhood b = this.brotherhoodService.findByPrincipal();
 		final History result = this.historyRepository.findByBrotherhood(b.getId());
