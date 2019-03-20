@@ -34,11 +34,13 @@ public class ConfigurationParametersService {
 		this.administratorService.findByPrincipal();
 
 		if (config.getId() == 0) {
-			config.setName("Acme Madrugá");
+			config.setName("Acme Parade");
 			config.setBanner("https://tinyurl.com/acme-madruga");
 			config.setSysMessage("Welcome to Acme Parade, the site to organise your parades.");
 			config.setSysMessageEs("¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles.");
 			config.setCountryCode("+34");
+			config.setFinderCachedHours(1);
+			config.setFinderMaxResults(10);
 
 			/*
 			 * final Collection<String> positions = new ArrayList<>();

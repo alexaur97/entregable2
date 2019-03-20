@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.HistoryRepository;
+import domain.Brotherhood;
 import domain.History;
 
 @Service
@@ -17,6 +18,11 @@ public class HistoryService {
 
 	@Autowired
 	private HistoryRepository	historyRepository;
+
+
+	//servicios
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
 
 
 	// FR 4.1.1 ACME PARADE
@@ -58,7 +64,7 @@ public class HistoryService {
 	}
 	public History create() {
 		return new History();
-}
+	}
 	public History findByBrotherhood(final Integer id) {
 		final History result = this.historyRepository.findByBrotherhood(id);
 		return result;
@@ -67,6 +73,38 @@ public class HistoryService {
 	public History findByInceptionRecord(final Integer id) {
 		final History result = this.historyRepository.findByInceptionRecord(id);
 		return result;
+	}
+
+	public History findByMiscellaneousRecord(final Integer id) {
+		final History result = this.historyRepository.findByMiscellaneousRecord(id);
+		return result;
+	}
+
+	public History save(final History history) {
+		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
+		if (history.getId() == 0)
+			history.setBrotherhood(principal);
+		else
+			Assert.isTrue(history.getBrotherhood().getId() == principal.getId());
+		final History saved = this.historyRepository.save(history);
+		return saved;
+	}
+
+	public History findByLinkRecord(final Integer id) {
+		final History result = this.historyRepository.findByLinkRecord(id);
+		return result;
+}
+	public History findByUserId(final int id) {
+		final Brotherhood b = this.brotherhoodService.findByPrincipal();
+		final History result = this.historyRepository.findByBrotherhood(b.getId());
+		return result;
+	}
+
+	public void delete(final History history) {
+		final Brotherhood b = this.brotherhoodService.findByPrincipal();
+		Assert.isTrue(history.getBrotherhood().equals(b));
+		this.historyRepository.delete(history.getId());
+
 	}
 
 }
