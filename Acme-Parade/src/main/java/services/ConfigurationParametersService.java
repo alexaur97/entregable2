@@ -39,6 +39,8 @@ public class ConfigurationParametersService {
 			config.setSysMessage("Welcome to Acme Parade, the site to organise your parades.");
 			config.setSysMessageEs("¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles.");
 			config.setCountryCode("+34");
+			config.setFinderCachedHours(1);
+			config.setFinderMaxResults(10);
 
 			/*
 			 * final Collection<String> positions = new ArrayList<>();
