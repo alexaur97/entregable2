@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.FinderService;
 import services.MemberService;
 import controllers.AbstractController;
 import domain.Member;
@@ -26,6 +27,9 @@ public class MemberController extends AbstractController {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private MemberService	memberService;
+	
+	@Autowired
+	private FinderService	finderService;
 
 	@Autowired
 	private ActorService	actorService;
@@ -74,7 +78,8 @@ public class MemberController extends AbstractController {
 		else
 			try {
 				final Member member = this.memberService.reconstruct(memberRegisterForm);
-				this.memberService.save(member);
+				Member memberCreated = this.memberService.save(member);
+				this.finderService.createFinder(memberCreated);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(memberRegisterForm);
