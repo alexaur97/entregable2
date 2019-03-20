@@ -79,6 +79,8 @@
 		<property name="email" value="admin1@gmail.com" />
 		<property name="phoneNumber" value="698765432" />
 		<property name="userAccount" ref="userAccount1" />
+		<property name="finderCachedHours" value="1" />
+		<property name="finderMaxResults" value="10" />
 	</bean>
 	
 </beans>
