@@ -4,6 +4,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -18,6 +19,8 @@ public class ConfigurationParameters extends DomainEntity {
 	private String	sysMessage;
 	private String	sysMessageEs;
 	private String	countryCode;
+	private int	finderCachedHours;
+	private int	finderMaxResults;
 
 
 	@NotBlank
@@ -64,5 +67,23 @@ public class ConfigurationParameters extends DomainEntity {
 
 	public void setSysMessageEs(final String sysMessageEs) {
 		this.sysMessageEs = sysMessageEs;
+	}
+	
+	@NotNull
+	public int getFinderCachedHours() {
+		return finderCachedHours;
+	}
+
+	public void setFinderCachedHours(int finderCachedHours) {
+		this.finderCachedHours = finderCachedHours;
+	}
+	
+	@NotNull
+	public int getFinderMaxResults() {
+		return finderMaxResults;
+	}
+
+	public void setFinderMaxResults(int finderMaxResults) {
+		this.finderMaxResults = finderMaxResults;
 	}
 }
