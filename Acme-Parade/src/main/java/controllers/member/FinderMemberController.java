@@ -104,25 +104,7 @@ public class FinderMemberController extends AbstractController {
 
 		return res;
 	}
-	
-	@RequestMapping(value = "/clean")
-	public ModelAndView clean() {
-		ModelAndView result = new ModelAndView("finder/view");
-		Finder finder = new Finder();
-		Collection<Parade> results = new ArrayList<Parade>();
 
-		try {
-			finder = this.finderService.saveAfterClean(finder);
-			results = finder.getParades();
-			result = new ModelAndView("finder/view");
-			result.addObject("results", results);
-			result.addObject("finder", finder);
-			result.addObject("resquestURI", "/finder/member/view.do");
-		} catch (final Exception e) {
-			result = new ModelAndView("redirect:/#");
-		}
-		return result;
-	}
 	
 }
 
