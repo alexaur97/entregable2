@@ -110,7 +110,8 @@
 		<security:intercept-url pattern="/chapter/parade/list.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/parade/accept.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/parade/reject.do" access="hasRole('CHAPTER')" />
-
+		<security:intercept-url pattern="/chapter/assign.do" access="hasRole('CHAPTER')" />
+	
 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

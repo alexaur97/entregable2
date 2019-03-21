@@ -83,6 +83,7 @@
 		
 		<security:authorize access="hasRole('CHAPTER')">
 			<li><a href="chapter/parade/list.do"><spring:message code="master.page.parades" /></a></li>
+			<li><a href="chapter/assign.do"><spring:message code="master.page.assign" /></a></li>
 		</security:authorize>
 			<li>
 				<a class="fNiv">

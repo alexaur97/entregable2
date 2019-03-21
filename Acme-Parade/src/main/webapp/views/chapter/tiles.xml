@@ -16,4 +16,8 @@
 		<put-attribute name="body" value="/views/chapter/edit.jsp" />
 	</definition>
 	
+	<definition name="chapter/assign" extends="master.page">
+		<put-attribute name="title" value="Assign Area" />
+		<put-attribute name="body" value="/views/chapter/assign.jsp" />
+	</definition>
 </tiles-definitions>
