@@ -336,14 +336,22 @@
 				<ref bean="float2" />
 			</list>
 		</property>
-		<property name="segments">
+		<property name="paths">
 			<list>
-				<ref bean="segment1" />
+				<ref bean="path1" />
 			</list>
 		</property>
 		<property name="brotherhood" ref="brotherhood1" />
 
 
+	</bean>
+	
+	<bean id="path1" class="domain.Path">
+	<property name="segments">
+			<list>
+				<ref bean="segment1" />
+			</list>
+		</property>
 	</bean>
 
 
@@ -360,12 +368,20 @@
 				<ref bean="float3" />
 			</list>
 		</property>
-		<property name="segments">
+		<property name="paths">
+			<list>
+				<ref bean="path2" />
+			</list>
+		</property>
+		<property name="brotherhood" ref="brotherhood2" />
+	</bean>
+	
+	<bean id="path2" class="domain.Path">
+	<property name="segments">
 			<list>
 				<ref bean="segment2" />
 			</list>
 		</property>
-		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
 	<bean id="parade3" class="domain.Parade">
@@ -381,12 +397,20 @@
 				<ref bean="float3" />
 			</list>
 		</property>
-		<property name="segments">
+		<property name="paths">
+			<list>
+				<ref bean="path3" />
+			</list>
+		</property>
+		<property name="brotherhood" ref="brotherhood3" />
+	</bean>
+	
+	<bean id="path3" class="domain.Path">
+	<property name="segments">
 			<list>
 				<ref bean="segment5" />
 			</list>
 		</property>
-		<property name="brotherhood" ref="brotherhood3" />
 	</bean>
 	<!-- MI PARTE -->
 	<bean id="userAccount2" class="security.UserAccount">
@@ -673,15 +697,23 @@
 				<ref bean="float4" />
 			</list>
 		</property>
-		<property name="segments">
+		<property name="paths">
 			<list>
-				<ref bean="segment3" />
-				<ref bean="segment4" />
+				<ref bean="path4" />
 			</list>
 		</property>
 		<property name="brotherhood" ref="brotherhood4" />
 
 
+	</bean>
+	
+	<bean id="path4" class="domain.Path">
+	<property name="segments">
+			<list>
+				<ref bean="segment3" />
+				<ref bean="segment4" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="userAccount9" class="security.UserAccount">
