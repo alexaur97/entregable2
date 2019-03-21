@@ -1,19 +1,22 @@
 
 package controllers.brotherhood;
 
-import javax.validation.Valid;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BrotherhoodService;
 import services.HistoryService;
 import services.LinkRecordService;
 import controllers.AbstractController;
+import domain.Brotherhood;
 import domain.History;
 import domain.LinkRecord;
 
@@ -27,6 +30,9 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 	@Autowired
 	private HistoryService		historyService;
 
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
+
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
@@ -36,6 +42,10 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 			linkRecord = this.linkRecordService.create();
 			result = new ModelAndView("linkRecord/create");
 			result.addObject("linkRecord", linkRecord);
+			final Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+			final Brotherhood principal = this.brotherhoodService.findByPrincipal();
+			brotherhoods.remove(principal);
+			result.addObject("brotherhoods", brotherhoods);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -69,20 +79,28 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final LinkRecord linkRecord, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("linkRecord") LinkRecord linkRecord, final BindingResult binding) {
 		ModelAndView result;
-		if (linkRecord.getId() == 0)
+		linkRecord = this.linkRecordService.reconstruct(linkRecord, binding);
+		if (linkRecord.getId() == 0) {
 			result = new ModelAndView("linkRecord/create");
-		else
+			final Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+			final Brotherhood principal = this.brotherhoodService.findByPrincipal();
+			brotherhoods.remove(principal);
+			result.addObject("brotherhoods", brotherhoods);
+		} else
 			result = new ModelAndView("linkRecord/edit");
 		if (binding.hasErrors())
 			result.addObject("linkRecord", linkRecord);
 		else
 			try {
-				this.linkRecordService.save(linkRecord);
-				result = new ModelAndView("redirect:/linkRecord/brotherhood/display.do?linkRecordId=" + linkRecord.getId());
+				final LinkRecord saved = this.linkRecordService.save(linkRecord);
+				result = new ModelAndView("redirect:/linkRecord/brotherhood/display.do?linkRecordId=" + saved.getId());
 			} catch (final Throwable oops) {
-				result.addObject("message", "linkRecord.commit.error");
+				if (linkRecord.getBrotherhood() == null)
+					result.addObject("message", "linkRecord.brotherhood.error");
+				else
+					result.addObject("message", "linkRecord.commit.error");
 			}
 		return result;
 	}

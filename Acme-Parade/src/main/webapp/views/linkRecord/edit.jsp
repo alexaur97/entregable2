@@ -29,8 +29,10 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<acme:textbox code="linkRecord.title" path="title" />
-	<acme:textarea code="linkRecord.description"
-		path="description" />
+	<acme:textarea code="linkRecord.description" path="description" />
+	<jstl:if test="${linkRecord.id eq 0}">
+	<acme:select items="${brotherhoods}" itemLabel="title" code="linkRecord.brotherhood" path="brotherhood" id="brotherhoods" />
+	</jstl:if>
 	<acme:submit name="save" code="linkRecord.save" />
 	<jstl:if test="${linkRecord.id ne 0}">
 		<acme:submit name="delete" code="linkRecord.delete" />
