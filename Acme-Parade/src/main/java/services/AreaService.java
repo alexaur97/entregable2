@@ -84,21 +84,10 @@ public class AreaService {
 
 	}
 	public Double ratioAreaWithoutChapter() {
-		final Collection<Area> areas = this.areaRepository.findAll();
-		final Collection<Chapter> chapters = this.chapterService.findAll();
-		final Collection<Area> areasSin = new ArrayList<>();
-		final Double res;
-		Boolean acum;
-		for (final Area area : areas) {
-			acum = true;
-			for (final Chapter chapter : chapters)
-				if (chapter.getArea() == area)
-					acum = false;
-			if (acum)
-				areasSin.add(area);
-		}
-		res = (double) areasSin.size() / areas.size();
-		return res;
+		final Double a = (double) this.chapterService.countChapterWithArea();
+		final Double b = (double) this.areaRepository.count();
+		final Double result = 1 - (a / b);
+		return result;
 	}
 	public List<Chapter> chapters10() {
 		Double acum = 0.0;
@@ -106,23 +95,25 @@ public class AreaService {
 		final List<Chapter> result = new ArrayList<>();
 
 		final Collection<Chapter> chapters = this.chapterService.findAll();
+		final List<Double> comparar = new ArrayList<>();
+		final List<Chapter> compararC = new ArrayList<>();
+
 		for (final Chapter chapter : chapters) {
 			final Integer id = chapter.getArea().getId();
 			final Collection<Parade> parades = this.paradeService.findParadesByArea(id);
 			final Double a = (double) parades.size();
+			comparar.add(a);
+			compararC.add(chapter);
 			acum = acum + a;
 		}
 		media = acum / chapters.size();
 		final Double mediaMas10 = media + (media * 0.1);
-		for (final Chapter chapter : chapters) {
-			final Integer id = chapter.getArea().getId();
-			final Collection<Parade> parades = this.paradeService.findParadesByArea(id);
-			final Double a = (double) parades.size();
-			if (a >= mediaMas10)
-				result.add(chapter);
-
+		Integer index = 0;
+		for (final Double d : comparar) {
+			if (d >= mediaMas10)
+				result.add(compararC.get(index));
+			index++;
 		}
-
 		return result;
 
 	}
@@ -133,25 +124,24 @@ public class AreaService {
 		Double acum = 0.0;
 		Double media = 0.0;
 		Double desv = 0.0;
+		final List<Double> acumList = new ArrayList<>();
 		final Collection<Chapter> chapters = this.chapterService.findAll();
 		for (final Chapter chapter : chapters) {
 			final Integer id = chapter.getArea().getId();
 			final Collection<Parade> parades = this.paradeService.findParadesByArea(id);
 			final Double a = (double) parades.size();
 			acum = acum + a;
+			acumList.add(a);
 			if (a < min || min == -1)
 				min = a;
 			if (a > max)
 				max = a;
 		}
+
 		media = acum / chapters.size();
-		for (final Chapter chapter : chapters) {
-			final Integer id = chapter.getArea().getId();
-			final Collection<Parade> parades = this.paradeService.findParadesByArea(id);
-			Double a = (double) parades.size();
+		for (Double a : acumList) {
 			a = (a - media) * (a - media);
 			desv = desv + a;
-
 		}
 		desv = desv / chapters.size();
 		desv = Math.sqrt(desv);
@@ -162,20 +152,6 @@ public class AreaService {
 		result.add(desv);
 		return result;
 
-	}
-	public String modeStat() {
-		Double draftMode = 0.0;
-		Double finMode = 0.0;
-		final Collection<Parade> parades = this.paradeService.findAll();
-		for (final Parade parade : parades)
-			if (parade.getMode().equals("DRAFT"))
-				draftMode++;
-			else
-				finMode++;
-		draftMode = draftMode / parades.size();
-		finMode = finMode / parades.size();
-		final String result = "Draft parade: " + draftMode + " Final parade: " + finMode;
-		return result;
 	}
 
 	public String statusStat() {

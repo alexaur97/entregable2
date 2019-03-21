@@ -1,9 +1,9 @@
+
 package services;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -29,23 +29,24 @@ public class ParadeService {
 	// Repositorios
 
 	@Autowired
-	private ParadeRepository paradeRepository;
+	private ParadeRepository				paradeRepository;
 
 	// Service
 	@Autowired
-	private BrotherhoodService brotherhoodService;
+	private BrotherhoodService				brotherhoodService;
 
 	@Autowired
-	private ConfigurationParametersService configurationParametersService;
+	private ConfigurationParametersService	configurationParametersService;
 
 	@Autowired
-	private MemberService memberService;
+	private MemberService					memberService;
 
 	@Autowired
-	private AdministratorService administratorService;
+	private AdministratorService			administratorService;
 
 	@Autowired
-	private Validator validator;
+	private Validator						validator;
+
 
 	// Metodos CRUD FR 10.2
 
@@ -56,49 +57,39 @@ public class ParadeService {
 	}
 
 	public Collection<Parade> findParadesAvailableForMember() {
-		final Collection<Brotherhood> brotherhoods = this.brotherhoodService
-				.findAll();
+		final Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
 		final Member member = this.memberService.findByPrincipal();
 		final Collection<Parade> res = new ArrayList<Parade>();
 		for (final Brotherhood b : brotherhoods)
 			if (b.getMembers().contains(member))
-				res.addAll(this.paradeRepository.findParadesByBrotherhood(b
-						.getId()));
+				res.addAll(this.paradeRepository.findParadesByBrotherhood(b.getId()));
 
 		// Assert.notNull(res);
 		return res;
 	}
 
-	public Collection<Parade> searchParades(String keyword, Date dateFrom, Date dateTo, Area area) {
-		List<Parade> result = new ArrayList<Parade>();
+	public Collection<Parade> searchParades(final String keyword, final Date dateFrom, final Date dateTo, final Area area) {
+		final List<Parade> result = new ArrayList<Parade>();
 		List<Parade> aux = new ArrayList<>();
-		ConfigurationParameters config = configurationParametersService.find();
-		if (keyword == "" && dateFrom == null && dateTo == null && area == null) {
-			aux = (List<Parade>) findFinalParades();
-		} else {
-			if (area == null) {
-				if (dateTo == null) {
-					aux = (List<Parade>) this.paradeRepository.searchParadesWithoutEndDateOrArea(keyword, dateFrom);
-				} else {
-					aux = (List<Parade>) this.paradeRepository.searchParadesWithoutArea(keyword, dateFrom, dateTo);
-				}
-			} else {
-				if (dateTo == null) {
-					aux = (List<Parade>) this.paradeRepository.searchParadesWithoutEndDate(keyword, dateFrom,area.getId());
-				} else {
-					aux = (List<Parade>) this.paradeRepository.searchParades(keyword, dateFrom, dateTo,area.getId());
-				}
-			}
-		}		
-		for (final Parade parade : aux){
+		final ConfigurationParameters config = this.configurationParametersService.find();
+		if (keyword == "" && dateFrom == null && dateTo == null && area == null)
+			aux = (List<Parade>) this.findFinalParades();
+		else if (area == null) {
+			if (dateTo == null)
+				aux = (List<Parade>) this.paradeRepository.searchParadesWithoutEndDateOrArea(keyword, dateFrom);
+			else
+				aux = (List<Parade>) this.paradeRepository.searchParadesWithoutArea(keyword, dateFrom, dateTo);
+		} else if (dateTo == null)
+			aux = (List<Parade>) this.paradeRepository.searchParadesWithoutEndDate(keyword, dateFrom, area.getId());
+		else
+			aux = (List<Parade>) this.paradeRepository.searchParades(keyword, dateFrom, dateTo, area.getId());
+		for (final Parade parade : aux)
 			if (parade.getMode().equals("FINAL"))
 				result.add(parade);
-		}
-		if (result.size() > config.getFinderMaxResults()) {
+		if (result.size() > config.getFinderMaxResults())
 			return result.subList(0, config.getFinderMaxResults());
-		} else {
+		else
 			return result;
-		}
 	}
 
 	public Parade findOne(final int paradeId) {
@@ -137,11 +128,9 @@ public class ParadeService {
 		return new Parade();
 	}
 
-	public Collection<Parade> findParadesByBrotherhoodForList(
-			final int idBrotherhood) {
+	public Collection<Parade> findParadesByBrotherhoodForList(final int idBrotherhood) {
 		// Assert.notNull(idBrotherhood);
-		final Collection<Parade> res = this.paradeRepository
-				.findParadesByBrotherhood(idBrotherhood);
+		final Collection<Parade> res = this.paradeRepository.findParadesByBrotherhood(idBrotherhood);
 		return res;
 	}
 
@@ -149,15 +138,12 @@ public class ParadeService {
 
 	public Collection<Parade> findParadesByBrotherhood(final int idBrotherhood) {
 		// Assert.notNull(idBrotherhood);
-		final Collection<Parade> res = this.paradeRepository
-				.findParadesByBrotherhood(idBrotherhood);
+		final Collection<Parade> res = this.paradeRepository.findParadesByBrotherhood(idBrotherhood);
 		return res;
 	}
 
-	public Collection<Parade> findFinalParadesByBrotherhood(
-			final int idBrotherhood) {
-		final Collection<Parade> all = this.paradeRepository
-				.findParadesByBrotherhood(idBrotherhood);
+	public Collection<Parade> findFinalParadesByBrotherhood(final int idBrotherhood) {
+		final Collection<Parade> all = this.paradeRepository.findParadesByBrotherhood(idBrotherhood);
 		final Collection<Parade> res = new ArrayList<>();
 		for (final Parade parade : all)
 			if (parade.getMode().equals("FINAL"))
@@ -178,8 +164,7 @@ public class ParadeService {
 
 	public Collection<Parade> paradesBefore30Days() {
 		this.administratorService.findByPrincipal();
-		final Collection<Parade> res = this.paradeRepository
-				.paradesBefore30Days();
+		final Collection<Parade> res = this.paradeRepository.paradesBefore30Days();
 		// Assert.notNull(res);
 		return res;
 	}
@@ -212,9 +197,9 @@ public class ParadeService {
 	}
 
 	public String creaString() {
-		final char[] elementos = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
-				'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T',
-				'U', 'V', 'W', 'X', 'Y', 'Z' };
+		final char[] elementos = {
+			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+		};
 
 		final char[] conjunto = new char[5];
 		String cadena;
@@ -247,20 +232,31 @@ public class ParadeService {
 		res.setTitle(a.getTitle());
 		return res;
 	}
-	
+
 	public Collection<Parade> findParadesAcceptedByBrotherhood(final int idBrotherhood) {
 		final Collection<Parade> res = this.paradeRepository.findParadesAcceptedByBrotherhood(idBrotherhood);
 		return res;
 	}
-	
+
 	public Collection<Parade> findParadesRejectedByBrotherhood(final int idBrotherhood) {
 		final Collection<Parade> res = this.paradeRepository.findParadesRejectedByBrotherhood(idBrotherhood);
 		return res;
 	}
-	
+
 	public Collection<Parade> findParadesSubmittedByBrotherhood(final int idBrotherhood) {
 		final Collection<Parade> res = this.paradeRepository.findParadesSubmittedByBrotherhood(idBrotherhood);
 		return res;
 	}
-	
+	public String modeStat() {
+		final Collection<Double> a = this.paradeRepository.modeStats();
+		final List<Double> b = new ArrayList<>(a);
+		final String result = "Draft parade: " + b.get(0) + " Final parade: " + b.get(1);
+		return result;
+	}
+	public String statusStat() {
+		final Collection<Double> a = this.paradeRepository.statusStats();
+		final List<Double> b = new ArrayList<>(a);
+		final String result = "Submitted parades: " + b.get(0) + "Accepted parades: " + b.get(1) + "Rejected parades: " + b.get(2);
+		return result;
+	}
 }

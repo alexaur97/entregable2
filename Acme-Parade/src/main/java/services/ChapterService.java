@@ -96,5 +96,7 @@ public class ChapterService {
 
 		return result;
 	}
-
+	Integer countChapterWithArea() {
+		return this.chapterRepository.findChapterWithArea();
+	}
 }
