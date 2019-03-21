@@ -64,7 +64,7 @@ public class BrotherhoodParadeController extends AbstractController {
 
 		return result;
 	}
-	
+
 	// List -----------------------------------------------------------
 	@RequestMapping(value = "/myList", method = RequestMethod.GET)
 	public ModelAndView myList() {
@@ -122,6 +122,9 @@ public class BrotherhoodParadeController extends AbstractController {
 
 		return result;
 	}
+
+	//Create a copy
+
 	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)

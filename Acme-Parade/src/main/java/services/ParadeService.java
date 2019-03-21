@@ -200,7 +200,7 @@ public class ParadeService {
 
 	public String creaString() {
 		final char[] elementos = {
-			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'ï¿½', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 		};
 
 		final char[] conjunto = new char[5];
@@ -232,6 +232,16 @@ public class ParadeService {
 		res.setPaths(a.getPaths());
 		res.setTicker(a.getTicker());
 		res.setTitle(a.getTitle());
+		return res;
+	}
+
+	public Parade copyParade(final Parade parade, final BindingResult binding) {
+		final Parade res = parade;
+		final Parade a = this.findOne(parade.getId());
+		res.setStatus("SUBMITTED");
+		res.setTicker(a.getTicker());
+		res.setExplanation(null);
+		res.setMode("DRAFT");
 		return res;
 	}
 

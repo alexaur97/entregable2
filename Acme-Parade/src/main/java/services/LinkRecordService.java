@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.LinkRecordRepository;
 import domain.Brotherhood;
@@ -26,6 +28,9 @@ public class LinkRecordService {
 
 	@Autowired
 	private HistoryService			historyService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	public LinkRecord create() {
@@ -51,6 +56,7 @@ public class LinkRecordService {
 	public LinkRecord save(final LinkRecord linkRecord) {
 		final Brotherhood b = this.brotherhoodService.findByPrincipal();
 		final History history = this.historyService.findByBrotherhood(b.getId());
+		Assert.notNull(linkRecord.getBrotherhood());
 		if (linkRecord.getId() != 0) {
 			final History h = this.historyService.findByLinkRecord(linkRecord.getId());
 			Assert.isTrue(h.getBrotherhood().getId() == b.getId());
@@ -84,6 +90,16 @@ public class LinkRecordService {
 
 	public Collection<LinkRecord> findByBrotherhood(final Integer id) {
 		final Collection<LinkRecord> result = this.linkRecordRepository.findByBrotherhood(id);
+		return result;
+	}
+
+	public LinkRecord reconstruct(final LinkRecord linkRecord, final BindingResult binding) {
+		final LinkRecord result = linkRecord;
+		if (linkRecord.getId() != 0) {
+			final LinkRecord lr = this.findOne(linkRecord.getId());
+			result.setBrotherhood(lr.getBrotherhood());
+		}
+		this.validator.validate(result, binding);
 		return result;
 	}
 

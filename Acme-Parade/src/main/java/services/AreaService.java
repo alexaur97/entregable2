@@ -83,6 +83,15 @@ public class AreaService {
 		return res;
 
 	}
+
+	public Collection<Area> areasSinAsignar() {
+		Collection<Area> res;
+		final Collection<Area> todas = this.areaRepository.findAll();
+		final Collection<Area> asignadas = this.areaRepository.findAreasAsignadas();
+		todas.removeAll(asignadas);
+		res = todas;
+		return res;
+	}
 	public Double ratioAreaWithoutChapter() {
 		final Collection<Area> areas = this.areaRepository.findAll();
 		final Collection<Chapter> chapters = this.chapterService.findAll();

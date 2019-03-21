@@ -127,7 +127,6 @@
 
 	<bean id="chapter1" class="domain.Chapter">
 		<property name="title" value="Chapter" />
-		<property name="area" ref="area1" />
 		<property name="userAccount" ref="userAccount13" />
 		<property name="name" value="Chapter1" />
 		<property name="surname" value="Number one" />
@@ -148,6 +147,8 @@
 		<property name="sysMessageEs"
 			value="¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles" />
 		<property name="countryCode" value="+34" />
+		<property name="finderCachedHours" value="1" />
+		<property name="finderMaxResults" value="10" />
 	</bean>
 
 	<bean id="brotherhood1" class="domain.Brotherhood">
@@ -637,6 +638,7 @@
 		<property name="keyword" value="centro" />
 		<property name="minDate" value="16/03/2019" />
 		<property name="maxDate" value="22/03/2019" />
+		<property name="lastSearch" value="03/03/2019 20:20" />
 		<property name="member" ref="actor2" />
 		<property name="area" ref="area1" />
 		<property name="parades">
@@ -648,6 +650,7 @@
 		<property name="keyword" value="centro" />
 		<property name="minDate" value="15/03/2019" />
 		<property name="maxDate" value="27/03/2019" />
+		<property name="lastSearch" value="03/03/2019 20:20" />
 		<property name="member" ref="actor3" />
 		<property name="area" ref="area2" />
 		<property name="parades">
