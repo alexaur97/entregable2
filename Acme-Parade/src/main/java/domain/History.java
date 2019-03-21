@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -26,7 +27,7 @@ public class History extends DomainEntity {
 
 	//Getters and Setters
 
-	@OneToOne
+	@OneToOne(optional = false)
 	public Brotherhood getBrotherhood() {
 		return this.brotherhood;
 	}
@@ -35,7 +36,7 @@ public class History extends DomainEntity {
 		this.brotherhood = brotherhood;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	public InceptionRecord getInceptionRecord() {
 		return this.inceptionRecord;
 	}
@@ -43,6 +44,8 @@ public class History extends DomainEntity {
 	public void setInceptionRecord(final InceptionRecord inceptionRecord) {
 		this.inceptionRecord = inceptionRecord;
 	}
+
+	@NotNull
 	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<PeriodRecord> getPeriodRecord() {
 		return this.periodRecord;
@@ -52,6 +55,7 @@ public class History extends DomainEntity {
 		this.periodRecord = periodRecord;
 	}
 
+	@NotNull
 	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<MiscellaneousRecord> getMiscellaneousRecord() {
 		return this.miscellaneousRecord;
@@ -61,6 +65,7 @@ public class History extends DomainEntity {
 		this.miscellaneousRecord = miscellaneousRecord;
 	}
 
+	@NotNull
 	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<LegalRecord> getLegalRecord() {
 		return this.legalRecord;
@@ -70,6 +75,7 @@ public class History extends DomainEntity {
 		this.legalRecord = legalRecord;
 	}
 
+	@NotNull
 	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<LinkRecord> getLinkRecord() {
 		return this.linkRecord;

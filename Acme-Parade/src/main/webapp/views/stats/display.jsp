@@ -210,4 +210,41 @@
 		<td><jstl:out value="${emptyVsNonEmpty[0][1]}" /></td>
 	</tr>
 </table>
+<h4><spring:message code="stats.chapters" /></h4>
+<br />
+<spring:message code="stats.area.average" />
+:
+<jstl:out value="${ratioAreasWithoutChapter}" />
+<br />
+<spring:message code="stats.parade.rates" />
+:
+<table>
+	<tr>
+		<th><spring:message code="stats.finder.avg" /></th>
+		<th><spring:message code="stats.finder.min" /></th>
+		<th><spring:message code="stats.finder.max" /></th>
+		<th><spring:message code="stats.finder.stddev" /></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${media}" /></td>
+		<td><jstl:out value="${min}" /></td>
+		<td><jstl:out value="${max}" /></td>
+		<td><jstl:out value="${desv}" /></td>
+	</tr>
+</table>	
+<spring:message code="stats.chapter.ten" />
+:
+<display:table name="chapters10" id="chapter"
+	requestURI="${requestURI}">
+	<display:column titleKey="parade.title"  property="name" />
+		
+</display:table>
+<br />
+<jstl:out value="${modeVs}" />
+<br />
+<spring:message code="stats.ratio.status" />
+:
+<jstl:out value="${statusStats}" />
+<br />
+
 

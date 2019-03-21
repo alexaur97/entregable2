@@ -45,39 +45,39 @@ public class SampleTest extends AbstractTest {
 		Assert.isTrue(false);
 	}
 
-	@Test
-	public void SampleDriver() {
-		final Object testingData[][] = {
-			{
-				"userAccount1", super.getEntityId("userAccount1"), null
-			}, {
-				"userAccount2", super.getEntityId("userAccount2"), null
-			}, {
-				"userAccount3", super.getEntityId("userAccount3"), null
-			}, {
-				"non-existent", 0, AssertionError.class
-			}
-		};
-
-		for (int i = 0; i < testingData.length; i++)
-			this.SampleTemplate((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
-	}
-
-	// Ancillary methods ------------------------------------------------------
-
-	protected void SampleTemplate(final String beanName, final int id, final Class<?> expected) {
-		Class<?> caught;
-		int dbId;
-
-		caught = null;
-		try {
-			dbId = super.getEntityId(beanName);
-			Assert.isTrue(dbId == id);
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-		}
-
-		this.checkExceptions(expected, caught);
-	}
+	//	@Test
+	//	public void SampleDriver() {
+	//		final Object testingData[][] = {
+	//			{
+	//				"userAccount1", super.getEntityId("userAccount1"), null
+	//			}, {
+	//				"userAccount2", super.getEntityId("userAccount2"), null
+	//			}, {
+	//				"userAccount3", super.getEntityId("userAccount3"), null
+	//			}, {
+	//				"non-existent", 0, AssertionError.class
+	//			}
+	//		};
+	//
+	//		for (int i = 0; i < testingData.length; i++)
+	//			this.SampleTemplate((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
+	//	}
+	//
+	//	// Ancillary methods ------------------------------------------------------
+	//
+	//	protected void SampleTemplate(final String beanName, final int id, final Class<?> expected) {
+	//		Class<?> caught;
+	//		int dbId;
+	//
+	//		caught = null;
+	//		try {
+	//			dbId = super.getEntityId(beanName);
+	//			Assert.isTrue(dbId == id);
+	//		} catch (final Throwable oops) {
+	//			caught = oops.getClass();
+	//		}
+	//
+	//		this.checkExceptions(expected, caught);
+	//	}
 
 }

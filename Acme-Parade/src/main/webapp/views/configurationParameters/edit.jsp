@@ -18,6 +18,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
 <form:form modelAttribute="configurationParameters"
 	action="configurationParameters/administrator/edit.do">
 	
@@ -45,7 +47,12 @@
 	<form:input path="countryCode"/>
 	<form:errors cssClass="error" path="countryCode"/>
 	<br/>
-	
+	<acme:textbox type="number" min="0" max="24"  path="finderCachedHours" code="configurationParameters.finderCachedHours"/>
+	<form:errors cssClass="error" path="finderCachedHours"/>
+	<br/>	
+	<acme:textbox type="number" min="0" max="100" path="finderMaxResults" code="configurationParameters.finderMaxResults"/>
+	<form:errors cssClass="error" path="finderMaxResults"/>
+	<br/>
 	<input type="submit" name="save" value="<spring:message code="configurationParameters.save"/>"/>
 	<input type="button" name="cancel" value="<spring:message code="configurationParameters.cancel"/>" onclick="javascript: relativeRedir('#')"/>
 	

@@ -5,9 +5,11 @@ import java.util.Collection;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import domain.History;
 
+@Repository
 public interface HistoryRepository extends JpaRepository<History, Integer> {
 
 	// FR 4.1.1 ACME PARADE
@@ -25,5 +27,17 @@ public interface HistoryRepository extends JpaRepository<History, Integer> {
 
 	@Query("select h from History h where h.brotherhood.id = ?1")
 	History findHistoryByBrotherhood(int id);
+
+	@Query("select h from History h where h.brotherhood.id=?1")
+	History findByBrotherhood(Integer id);
+
+	@Query("select h from History h where h.inceptionRecord.id=?1")
+	History findByInceptionRecord(Integer id);
+
+	@Query("select h from History h join h.miscellaneousRecord m where m.id=?1")
+	History findByMiscellaneousRecord(Integer id);
+
+	@Query("select h from History h join h.linkRecord m where m.id=?1")
+	History findByLinkRecord(Integer id);
 
 }

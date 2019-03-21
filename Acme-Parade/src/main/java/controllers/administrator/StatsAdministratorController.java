@@ -3,6 +3,7 @@ package controllers.administrator;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.AreaService;
 import services.BrotherhoodService;
 import services.EnrolmentService;
 import services.FinderService;
@@ -24,6 +26,7 @@ import services.RequestService;
 import controllers.AbstractController;
 import domain.Area;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.Member;
 import domain.Parade;
 import domain.Position;
@@ -55,6 +58,9 @@ public class StatsAdministratorController extends AbstractController {
 
 	@Autowired
 	private FinderService		finderService;
+
+	@Autowired
+	private AreaService			areaService;
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
@@ -107,17 +113,6 @@ public class StatsAdministratorController extends AbstractController {
 			positionsHist.add(pos);
 		}
 
-		//		int president = this.enrolmentService.enrolmentsByPosition("President");
-		//		int vicePresident = this.enrolmentService.enrolmentsByPosition("Vice President");
-		//		Integer secretary = this.enrolmentService.enrolmentsByPosition("Secretary");
-		//		Integer treasurer = this.enrolmentService.enrolmentsByPosition("Treasure");
-		//		Integer historian = this.enrolmentService.enrolmentsByPosition("Historian");
-		//		Integer fundraiser = this.enrolmentService.enrolmentsByPosition("Fundraiser");
-		//		Integer officer = this.enrolmentService.enrolmentsByPosition("Officer");
-		//		Integer others = this.enrolmentService.enrolmentsByPosition("others");
-		//
-		//		int numero = 3;
-
 		// FR 4.1 ACME PARADE
 		final Collection<Double> recordsPerHistory = this.historyService.statsRecordsPerHistory();
 		final Brotherhood largestHistoryBrotherhood = this.brotherhoodService.findBrotherhoodWithLargestHistory();
@@ -125,6 +120,17 @@ public class StatsAdministratorController extends AbstractController {
 
 		final Collection<Double> statsFinder = this.finderService.findStatsResultsFinders();
 		final Collection<Double> emptyVsNonEmpty = this.finderService.findStatsResultsFinders();
+
+		//FR JAVI
+		final Double ratioAreasWithoutChapter = this.areaService.ratioAreaWithoutChapter();
+		final List<Double> d = this.areaService.statsParadesChapters();
+		final Double media = d.get(0);
+		final Double min = d.get(1);
+		final Double max = d.get(2);
+		final Double desv = d.get(3);
+		final Collection<Chapter> chapters10 = this.areaService.chapters10();
+		final String modeVs = this.areaService.modeStat();
+		final String statusStats = this.areaService.statusStat();
 
 		result = new ModelAndView("stats/display");
 		result.addObject("membersPerBrotherhood", membersPerBrotherhood);
@@ -146,15 +152,16 @@ public class StatsAdministratorController extends AbstractController {
 		result.addObject("largerHistoryBrotherhoods", largerHistoryBrotherhoods);
 		result.addObject("statsFinder", statsFinder);
 		result.addObject("emptyVsNonEmpty", emptyVsNonEmpty);
-		//		result.addObject("president", president);
-		//		result.addObject("vicePresident", vicePresident);
-		//		result.addObject("secretary", secretary);
-		//		result.addObject("treasurer", treasurer);
-		//		result.addObject("historian", historian);
-		//		result.addObject("fundraiser", fundraiser);
-		//		result.addObject("officer", officer);
-		//		result.addObject("others", others);
-		//		result.addObject("numero", numero);
+
+		result.addObject("ratioAreasWithoutChapter", ratioAreasWithoutChapter);
+		result.addObject("media", media);
+		result.addObject("min", min);
+		result.addObject("max", max);
+		result.addObject("desv", desv);
+		result.addObject("chapters10", chapters10);
+		result.addObject("modeVs", modeVs);
+		result.addObject("statusStats", statusStats);
+		result.addObject("requestURI", "/stats/administrator/display.do");
 
 		return result;
 	}

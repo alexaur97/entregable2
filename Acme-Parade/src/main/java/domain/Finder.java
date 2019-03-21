@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Collection;
@@ -21,9 +20,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Finder extends DomainEntity {
 
-	private String				keyword;
-	private Date				minDate;
-	private Date				maxDate;
+	public String				keyword;
+	public Date				minDate;
+	public Date				maxDate;
 
 	public Member				member;
 	public Area					area;
@@ -40,6 +39,8 @@ public class Finder extends DomainEntity {
 		this.keyword = keyword;
 	}
 
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date getMinDate() {
 		return this.minDate;
 	}
@@ -48,6 +49,8 @@ public class Finder extends DomainEntity {
 		this.minDate = minDate;
 	}
 
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date getMaxDate() {
 		return this.maxDate;
 	}

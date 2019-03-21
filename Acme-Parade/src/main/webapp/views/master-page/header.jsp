@@ -49,6 +49,7 @@
 					<li class="arrow"></li>
 					<li><a href="brotherhood/create.do"><spring:message code="master.page.signup.brotherhood" /></a></li>
 					<li><a href="member/create.do"><spring:message code="master.page.signup.member" /></a></li>
+					<li><a href="chapter/create.do"><spring:message code="master.page.signup.chapter" /></a></li>
 				</ul>
 			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
@@ -68,26 +69,20 @@
 
 		<security:authorize access="hasRole('MEMBER')">
 			<li><a href="request/member/list.do"><spring:message code="master.page.requests" /></a></li>
+			<li><a href="finder/member/view.do"><spring:message code="master.page.finder" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a href="brotherhood/parade/list.do"><spring:message code="master.page.parades" /></a></li>
-		</security:authorize>
-		
-				<security:authorize access="hasRole('BROTHERHOOD')">
+			<li><a href="brotherhood/parade/myList.do"><spring:message code="master.page.myparades" /></a></li>
 			<li><a href="member/brotherhood/list.do"><spring:message code="master.page.mymembers" /></a></li>
-		</security:authorize>
-
-        <security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a href="request/brotherhood/list.do"><spring:message code="master.page.requests" /></a></li>
-		</security:authorize>
-		
-		<security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a href="brotherhood/float/list.do"><spring:message code="master.page.floats" /></a></li>
+			<li><a href="brotherhood/addArea.do"><spring:message code="masterpage.addarea" /></a></li>
 		</security:authorize>
 		
-<security:authorize access="hasRole('BROTHERHOOD')">
-			<li><a href="brotherhood/addArea.do"><spring:message code="masterpage.addarea" /></a></li>
+		<security:authorize access="hasRole('CHAPTER')">
+			<li><a href="chapter/parade/list.do"><spring:message code="master.page.parades" /></a></li>
 		</security:authorize>
 			<li>
 				<a class="fNiv">

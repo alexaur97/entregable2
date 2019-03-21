@@ -61,26 +61,6 @@ public class PositionService {
 		return this.positionRepository.checkIfNotAssigned(positionId);
 	}
 
-	public Position toForm(final int positionId) {
-		final Position res = new Position();
-		final Position position = this.findOne(positionId);
-		res.setName(position.getName());
-		res.setNameEs(position.getNameEs());
-		return res;
-	}
-
-	public Position reconstruct(final Position position) {
-		final Position res;
-		if (position.getId() == 0)
-			res = this.create();
-		else
-			res = this.findOne(position.getId());
-		res.setName(position.getName());
-		res.setNameEs(position.getNameEs());
-		res.setId(position.getId());
-		return res;
-	}
-
 	public Integer numberOfPositionsById(final Integer id) {
 		final Integer res = this.positionRepository.numberOfPositionsById(id);
 		Assert.notNull(res);

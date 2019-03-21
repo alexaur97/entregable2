@@ -32,6 +32,7 @@ public class Parade extends DomainEntity {
 	private String				mode;
 	private String				status;
 
+	private String				explanation;
 	// Atributos Publicos
 
 	public Brotherhood			brotherhood;
@@ -126,6 +127,14 @@ public class Parade extends DomainEntity {
 
 	public void setSegments(final Collection<Segment> segments) {
 		this.segments = segments;
+	}
+
+	public String getExplanation() {
+		return this.explanation;
+	}
+
+	public void setExplanation(final String explanation) {
+		this.explanation = explanation;
 	}
 
 }
