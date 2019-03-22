@@ -40,14 +40,14 @@
 		
 		
 	
-			Add your own converters using entries of the following form: 
+			
 			<bean class="converters.StringToClass" /> 
 
 		<bean class="converters.LegalRecordToStringConverter"/>
 		
 
 	
-			Add your own converters using entries of the following form:
+			
 			<bean class="converters.StringToClass" />
 
 		
