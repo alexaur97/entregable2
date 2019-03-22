@@ -24,10 +24,19 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:display code="linkRecord.title" value="${linkRecord.title}"/>
-<acme:display code="linkRecord.description" value="${linkRecord.description}"/>
+<acme:display code="periodRecord.title" value="${periodRecord.title}"/>
+<acme:display code="periodRecord.description" value="${periodRecord.description}"/>
+<acme:display code="periodRecord.startYear" value="${periodRecord.startYear}"/>
+<acme:display code="periodRecord.endYear" value="${periodRecord.endYear}"/>
+
 <br />
-<br/>
-<acme:button url="/linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}" code="linkRecord.edit"/>
+<spring:message code="periodRecord.pictures" />
+:
+<ul>
+	<jstl:forEach items="${periodRecord.pictures}" var="x">
+		<li><a href="${x}"><jstl:out value="${x}"/></a></li>
+	</jstl:forEach>
+</ul>
+<acme:button url="/periodRecord/brotherhood/edit.do?periodRecordId=${periodRecord.id}" code="periodRecord.edit"/>
 <acme:cancel url="/history/brotherhood/myList.do"
-code="linkRecord.cancel" />
+code="periodRecord.cancel" />

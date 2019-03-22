@@ -24,10 +24,19 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:display code="linkRecord.title" value="${linkRecord.title}"/>
-<acme:display code="linkRecord.description" value="${linkRecord.description}"/>
+<acme:display code="legalRecord.title" value="${legalRecord.title}"/>
+<acme:display code="legalRecord.description" value="${legalRecord.description}"/>
+<acme:display code="legalRecord.legalName" value="${legalRecord.legalName}"/>
+<acme:display code="legalRecord.vatNumber" value="${legalRecord.vatNumber}"/>
+
 <br />
-<br/>
-<acme:button url="/linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}" code="linkRecord.edit"/>
+<spring:message code="legalRecord.laws" />
+:
+<ul>
+	<jstl:forEach items="${legalRecord.laws}" var="x">
+		<li><a href="${x}"><jstl:out value="${x}"/></a></li>
+	</jstl:forEach>
+</ul>
+<acme:button url="/legalRecord/brotherhood/edit.do?legalRecordId=${legalRecord.id}" code="legalRecord.edit"/>
 <acme:cancel url="/history/brotherhood/myList.do"
-code="linkRecord.cancel" />
+code="legalRecord.cancel" />

@@ -75,6 +75,10 @@
 			<li><a href="brotherhood/parade/list.do"><spring:message code="master.page.parades" /></a></li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('BROTHERHOOD')">
+			<li><a href="history/brotherhood/myList.do"><spring:message code="master.page.history" /></a></li>
+		</security:authorize>
+		
 				<security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a href="member/brotherhood/list.do"><spring:message code="master.page.mymembers" /></a></li>
 		</security:authorize>

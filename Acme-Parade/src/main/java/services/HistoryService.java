@@ -19,7 +19,6 @@ public class HistoryService {
 	@Autowired
 	private HistoryRepository	historyRepository;
 
-
 	//servicios
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
@@ -93,7 +92,7 @@ public class HistoryService {
 	public History findByLinkRecord(final Integer id) {
 		final History result = this.historyRepository.findByLinkRecord(id);
 		return result;
-}
+	}
 	public History findByUserId(final int id) {
 		final Brotherhood b = this.brotherhoodService.findByPrincipal();
 		final History result = this.historyRepository.findByBrotherhood(b.getId());
@@ -105,6 +104,16 @@ public class HistoryService {
 		Assert.isTrue(history.getBrotherhood().equals(b));
 		this.historyRepository.delete(history.getId());
 
+	}
+
+	public History findByPeriodRecord(final Integer id) {
+		final History result = this.historyRepository.findByPeriodRecord(id);
+		return result;
+	}
+
+	public History findByLegalRecord(final int id) {
+		final History result = this.historyRepository.findByLegalRecord(id);
+		return result;
 	}
 
 }
