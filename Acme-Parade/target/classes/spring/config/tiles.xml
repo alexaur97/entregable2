@@ -41,7 +41,7 @@
 		
 		
 		<value>/views/area/tiles.xml</value>
-		
+		<value>/views/finder/tiles.xml</value>
 		<value>/views/actor/tiles.xml</value>
 		
 		<value>/views/chapter/tiles.xml</value>
