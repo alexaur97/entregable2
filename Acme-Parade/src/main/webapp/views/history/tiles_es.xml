@@ -13,7 +13,10 @@
 		<put-attribute name="title" value="Historia" />
 		<put-attribute name="body" value="/views/history/list.jsp" />
 	</definition>
-	
+		<definition name="history/myList" extends="master.page">
+		<put-attribute name="title" value="Historia" />
+		<put-attribute name="body" value="/views/history/myList.jsp" />
+	</definition>
 	
 
 </tiles-definitions>

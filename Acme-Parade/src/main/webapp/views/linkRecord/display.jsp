@@ -28,6 +28,7 @@
 <acme:display code="linkRecord.description"
 	value="${linkRecord.description}" />
 <br />
+
 <spring:message code="linkRecord.brotherhood" />
 :
 <a
@@ -38,3 +39,9 @@
 	url="/linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}"
 	code="linkRecord.edit" />
 <acme:cancel url="/history/brotherhood/list.do" code="linkRecord.cancel" />
+
+<br/>
+<acme:button url="/linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}" code="linkRecord.edit"/>
+<acme:cancel url="/history/brotherhood/myList.do"
+code="linkRecord.cancel" />
+

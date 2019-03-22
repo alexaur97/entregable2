@@ -118,4 +118,14 @@ public class HistoryService {
 
 	}
 
+	public History findByPeriodRecord(final Integer id) {
+		final History result = this.historyRepository.findByPeriodRecord(id);
+		return result;
+	}
+
+	public History findByLegalRecord(final int id) {
+		final History result = this.historyRepository.findByLegalRecord(id);
+		return result;
+	}
+
 }

@@ -25,6 +25,8 @@
 		<put-attribute name="body" value="/views/area/edit.jsp" />
 	</definition>
 	
+
+	
 	
 
 </tiles-definitions>

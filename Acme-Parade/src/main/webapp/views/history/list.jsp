@@ -32,7 +32,7 @@
 	requestURI="${requestURI }">
 	<display:column titleKey="inceptionRecord.pictures" > <img src="${inceptionRecord.pictures}" alt="floatLogo" height="200" width="350"/></display:column>
 	<display:column titleKey="inceptionRecord.title" property="title" />
-	<display:column titleKey="inceptionRecord.description" property="description" />
+	<display:column titleKey="inceptionRecord.description" property="description" />		
 </display:table>
 
 <h3>
@@ -46,7 +46,10 @@
 	<display:column titleKey="legalRecord.legalName" property="legalName" />
 	<display:column titleKey="legalRecord.vatNumber" property="vatNumber" />
 	<display:column titleKey="legalRecord.laws" property="laws" />
-</display:table>
+
+	</display:table>
+	
+
 
 <h3>
 	<spring:message code="history.LinkRecord" />
@@ -57,7 +60,9 @@
 	<display:column titleKey="linkRecord.title" property="title" />
 	<display:column titleKey="linkRecord.description" property="description" />
 	<display:column titleKey="linkRecord.brotherhood" property="brotherhood.title" />	
-</display:table>
+	</display:table>
+
+
 
 <h3>
 	<spring:message code="history.MiscellaneousRecord" />
@@ -67,7 +72,9 @@
 	requestURI="${requestURI }">
 	<display:column titleKey="miscellaneousRecord.title" property="title" />
 	<display:column titleKey="miscellaneousRecord.description" property="description" />
-</display:table>
+	</display:table>
+
+
 
 <h3>
 	<spring:message code="history.periodRecord" />
@@ -80,6 +87,6 @@
 	<display:column titleKey="periodRecord.startYear" property="startYear" />
 	<display:column titleKey="periodRecord.endYear" property="endYear" />
 	<display:column titleKey="periodRecord.pictures" > <img src="${periodRecord.pictures}" alt="floatLogo" height="200" width="350"/></display:column>
-		
+		</display:table>
 
-</display:table>
+

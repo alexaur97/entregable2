@@ -16,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.ParadeRepository;
+import security.Authority;
+import security.LoginService;
 import domain.Area;
 import domain.Brotherhood;
 import domain.ConfigurationParameters;
@@ -198,7 +200,7 @@ public class ParadeService {
 
 	public String creaString() {
 		final char[] elementos = {
-			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'ï¿½', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 		};
 
 		final char[] conjunto = new char[5];
@@ -227,9 +229,19 @@ public class ParadeService {
 		res.setFloats(a.getFloats());
 		res.setMode(a.getMode());
 		res.setMoment(a.getMoment());
-		res.setSegments(a.getSegments());
+		res.setPaths(a.getPaths());
 		res.setTicker(a.getTicker());
 		res.setTitle(a.getTitle());
+		return res;
+	}
+
+	public Parade copyParade(final Parade parade, final BindingResult binding) {
+		final Parade res = parade;
+		final Parade a = this.findOne(parade.getId());
+		res.setStatus("SUBMITTED");
+		res.setTicker(a.getTicker());
+		res.setExplanation(null);
+		res.setMode("DRAFT");
 		return res;
 	}
 
@@ -246,6 +258,17 @@ public class ParadeService {
 	public Collection<Parade> findParadesSubmittedByBrotherhood(final int idBrotherhood) {
 		final Collection<Parade> res = this.paradeRepository.findParadesSubmittedByBrotherhood(idBrotherhood);
 		return res;
+	}
+
+	// FR 3.3
+	public Collection<Parade> findByPrincipal() {
+		final Authority auth = new Authority();
+		auth.setAuthority(Authority.BROTHERHOOD);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
+		final Collection<Parade> result;
+		final Brotherhood b = this.brotherhoodService.findByPrincipal();
+		result = this.findParadesByBrotherhood(b.getId());
+		return result;
 	}
 	public Collection<Double> modeStat() {
 		final Collection<Double> result = this.paradeRepository.modeStats();

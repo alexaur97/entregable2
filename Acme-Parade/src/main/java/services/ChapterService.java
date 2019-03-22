@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ChapterRepository;
 import security.Authority;
@@ -27,6 +29,9 @@ public class ChapterService {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private Validator			validator;
 
 
 	public Collection<Chapter> findAll() {
@@ -95,6 +100,25 @@ public class ChapterService {
 		result.setTitle(r.getTitle());
 
 		return result;
+	}
+
+	public Chapter reconstructAssign(final Chapter chapter, final BindingResult binding) {
+		final Chapter result = chapter;
+		final Chapter res = this.chapterRepository.findOne(this.findByPrincipal().getId());
+		result.setAddress(res.getAddress());
+		result.setEmail(res.getEmail());
+		result.setId(res.getId());
+		result.setMiddleName(res.getMiddleName());
+		result.setName(res.getName());
+		result.setPhoneNumber(res.getPhoneNumber());
+		result.setPhoto(res.getPhoto());
+		result.setSurname(res.getSurname());
+		result.setUserAccount(res.getUserAccount());
+		result.setVersion(res.getVersion());
+		result.setTitle(res.getTitle());
+		this.validator.validate(result, binding);
+		return result;
+
 	}
 	Integer countChapterWithArea() {
 		return this.chapterRepository.findChapterWithArea();

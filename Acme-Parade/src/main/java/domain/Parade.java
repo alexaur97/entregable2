@@ -37,7 +37,7 @@ public class Parade extends DomainEntity {
 
 	public Brotherhood			brotherhood;
 	public Collection<Float>	floats;
-	public Collection<Segment>	segments;
+	public Collection<Path>		paths;
 
 
 	// Getters y Setters
@@ -121,12 +121,12 @@ public class Parade extends DomainEntity {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<Segment> getSegments() {
-		return this.segments;
+	public Collection<Path> getPaths() {
+		return this.paths;
 	}
 
-	public void setSegments(final Collection<Segment> segments) {
-		this.segments = segments;
+	public void setPaths(final Collection<Path> paths) {
+		this.paths = paths;
 	}
 
 	public String getExplanation() {
