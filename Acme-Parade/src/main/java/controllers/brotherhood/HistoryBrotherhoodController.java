@@ -59,6 +59,8 @@ public class HistoryBrotherhoodController extends AbstractController {
 			Assert.notNull(b.getId());
 
 			history = this.historyService.findHistoryByBrotherhood(b.getId());
+			Assert.isTrue(b.equals(history.getBrotherhood()));
+
 			final InceptionRecord inceptionRecord = history.getInceptionRecord();
 			final Collection<LegalRecord> legalRecord = history.getLegalRecord();
 			final Collection<MiscellaneousRecord> miscellaneousRecord = history.getMiscellaneousRecord();
