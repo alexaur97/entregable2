@@ -39,5 +39,9 @@
 	<display:column titleKey="brotherhood.history">
 		<acme:cancel url="/history/list.do?brotherhoodId=${brotherhood.id}" code="brotherhood.history" />
 	</display:column>
+	
+	<security:authorize access="hasRole('BROTHERHOOD')">
+		<acme:cancel url="/brotherhood/parade/create.do" code="parade.create"/>
+		</security:authorize>
 
 </display:table>

@@ -24,24 +24,15 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:display code="linkRecord.title" value="${linkRecord.title}" />
-<acme:display code="linkRecord.description"
-	value="${linkRecord.description}" />
-<br />
-
-<spring:message code="linkRecord.brotherhood" />
-:
-<a
-	href="brotherhood/display.do?brotherhoodId=${linkRecord.brotherhood.id}"><jstl:out
-		value="${linkRecord.brotherhood.title}" /></a>
-<br />
-<acme:button
-	url="/linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}"
-	code="linkRecord.edit" />
-<acme:cancel url="/history/brotherhood/list.do" code="linkRecord.cancel" />
-
-<br/>
-<acme:button url="/linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}" code="linkRecord.edit"/>
-<acme:cancel url="/history/brotherhood/myList.do"
-code="linkRecord.cancel" />
-
+<form:form modelAttribute="legalRecord" action="legalRecord/brotherhood/edit.do">
+<form:hidden path="id"/>
+<form:hidden path="version"/>
+<acme:textbox code="legalRecord.title" path="title"/>
+<acme:textarea code="legalRecord.description" path="description"/>
+<acme:textarea code="legalRecord.legalName" path="legalName"/>
+<acme:textarea code="legalRecord.vatNumber" path="vatNumber"/>
+<acme:textarea code="legalRecord.laws" path="laws"/>
+<acme:submit name="save" code="legalRecord.save"/>
+<acme:cancel url="/legalRecord/brotherhood/display.do?legalRecordId=${legalRecord.id}"
+code="legalRecord.cancel" />
+</form:form>

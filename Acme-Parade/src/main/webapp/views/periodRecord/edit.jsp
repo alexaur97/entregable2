@@ -24,24 +24,15 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:display code="linkRecord.title" value="${linkRecord.title}" />
-<acme:display code="linkRecord.description"
-	value="${linkRecord.description}" />
-<br />
-
-<spring:message code="linkRecord.brotherhood" />
-:
-<a
-	href="brotherhood/display.do?brotherhoodId=${linkRecord.brotherhood.id}"><jstl:out
-		value="${linkRecord.brotherhood.title}" /></a>
-<br />
-<acme:button
-	url="/linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}"
-	code="linkRecord.edit" />
-<acme:cancel url="/history/brotherhood/list.do" code="linkRecord.cancel" />
-
-<br/>
-<acme:button url="/linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}" code="linkRecord.edit"/>
-<acme:cancel url="/history/brotherhood/myList.do"
-code="linkRecord.cancel" />
-
+<form:form modelAttribute="periodRecord" action="periodRecord/brotherhood/edit.do">
+<form:hidden path="id"/>
+<form:hidden path="version"/>
+<acme:textbox code="periodRecord.title" path="title"/>
+<acme:textarea code="periodRecord.description" path="description"/>
+<acme:textarea code="periodRecord.startYear" path="startYear"/>
+<acme:textarea code="periodRecord.endYear" path="endYear"/>
+<acme:textarea code="periodRecord.pictures" path="pictures"/>
+<acme:submit name="save" code="periodRecord.save"/>
+<acme:cancel url="/periodRecord/brotherhood/display.do?periodRecordId=${periodRecord.id}"
+code="periodRecord.cancel" />
+</form:form>

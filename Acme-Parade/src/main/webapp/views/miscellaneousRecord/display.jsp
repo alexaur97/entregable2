@@ -29,5 +29,5 @@
 <br />
 <br/>
 <acme:button url="/miscellaneousRecord/brotherhood/edit.do?miscellaneousRecordId=${miscellaneousRecord.id}" code="miscellaneousRecord.edit"/>
-<acme:cancel url="/history/brotherhood/list.do"
+<acme:cancel url="/history/brotherhood/myList.do"
 code="miscellaneousRecord.cancel" />

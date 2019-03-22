@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.BrotherhoodService;
 import services.HistoryService;
 import controllers.AbstractController;
 import domain.History;
@@ -27,11 +26,11 @@ public class HistoryController extends AbstractController {
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private HistoryService		historyService;
+	private HistoryService	historyService;
 
-	@Autowired
-	private BrotherhoodService	brotherhoodService;
 
+	//	@Autowired
+	//	private BrotherhoodService	brotherhoodService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(final Integer brotherhoodId) {

@@ -74,7 +74,17 @@
 
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a href="brotherhood/parade/list.do"><spring:message code="master.page.parades" /></a></li>
+
 			<li><a href="brotherhood/parade/myList.do"><spring:message code="master.page.myparades" /></a></li>
+
+		</security:authorize>
+		
+		<security:authorize access="hasRole('BROTHERHOOD')">
+			<li><a href="history/brotherhood/myList.do"><spring:message code="master.page.history" /></a></li>
+		</security:authorize>
+		
+				<security:authorize access="hasRole('BROTHERHOOD')">
+
 			<li><a href="member/brotherhood/list.do"><spring:message code="master.page.mymembers" /></a></li>
 			<li><a href="request/brotherhood/list.do"><spring:message code="master.page.requests" /></a></li>
 			<li><a href="brotherhood/float/list.do"><spring:message code="master.page.floats" /></a></li>

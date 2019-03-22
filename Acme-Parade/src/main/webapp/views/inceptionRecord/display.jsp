@@ -35,5 +35,5 @@
 	</jstl:forEach>
 </ul>
 <acme:button url="/inceptionRecord/brotherhood/edit.do?inceptionRecordId=${inceptionRecord.id}" code="inceptionRecord.edit"/>
-<acme:cancel url="/history/brotherhood/list.do"
+<acme:cancel url="/history/brotherhood/myList.do"
 code="inceptionRecord.cancel" />

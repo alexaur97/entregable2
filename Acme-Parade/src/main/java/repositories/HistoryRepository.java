@@ -40,4 +40,9 @@ public interface HistoryRepository extends JpaRepository<History, Integer> {
 	@Query("select h from History h join h.linkRecord m where m.id=?1")
 	History findByLinkRecord(Integer id);
 
+	@Query("select h from History h join h.periodRecord m where m.id=?1")
+	History findByPeriodRecord(Integer id);
+
+	@Query("select h from History h join h.legalRecord m where m.id=?1")
+	History findByLegalRecord(Integer id);
 }
