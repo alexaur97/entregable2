@@ -17,7 +17,7 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select p from Parade p where p.brotherhood.id = ?1")
 	Collection<Parade> findParadesByBrotherhood(int id);
 
-	@Query("select p from Parade p where p.brotherhood.area.id = ?1 group by status")
+	@Query("select p from Parade p where p.brotherhood.area.id = ?1 order by status")
 	Collection<Parade> findParadesByArea(int id);
 
 	// FR 12.3.5
@@ -47,6 +47,6 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 
 	@Query("select sum(case when p.mode='DRAFT' then 1.0 else 0.0 end),sum(case when p.mode='FINAL' then 1.0 else 0.0 end)from Parade p")
 	Collection<Double> modeStats();
-	@Query("select sum(case when p.status='SUBMITTED' then 1.0 else 0.0 end),sum(case when p.status='ACCEPTED' then 1.0 else 0.0 end),sum(case when p.status='ACCEPTED' then 1.0 else 0.0 end)from Parade p")
+	@Query("select sum(case when p.status='SUBMITTED' then 1.0 else 0.0 end),sum(case when p.status='ACCEPTED' then 1.0 else 0.0 end),sum(case when p.status='REJECTED' then 1.0 else 0.0 end)from Parade p")
 	Collection<Double> statusStats();
 }

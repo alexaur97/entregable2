@@ -129,8 +129,8 @@ public class StatsAdministratorController extends AbstractController {
 		final Double max = d.get(2);
 		final Double desv = d.get(3);
 		final Collection<Chapter> chapters10 = this.areaService.chapters10();
-		final String modeVs = this.paradeService.modeStat();
-		final String statusStats = this.areaService.statusStat();
+		final Collection<Double> modeVs = this.paradeService.modeStat();
+		final Collection<Double> statusStats = this.paradeService.statusStat();
 
 		result = new ModelAndView("stats/display");
 		result.addObject("membersPerBrotherhood", membersPerBrotherhood);

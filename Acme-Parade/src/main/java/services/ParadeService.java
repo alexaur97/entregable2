@@ -247,16 +247,12 @@ public class ParadeService {
 		final Collection<Parade> res = this.paradeRepository.findParadesSubmittedByBrotherhood(idBrotherhood);
 		return res;
 	}
-	public String modeStat() {
-		final Collection<Double> a = this.paradeRepository.modeStats();
-		final List<Double> b = new ArrayList<>(a);
-		final String result = "Draft parade: " + b.get(0) + " Final parade: " + b.get(1);
+	public Collection<Double> modeStat() {
+		final Collection<Double> result = this.paradeRepository.modeStats();
 		return result;
 	}
-	public String statusStat() {
-		final Collection<Double> a = this.paradeRepository.statusStats();
-		final List<Double> b = new ArrayList<>(a);
-		final String result = "Submitted parades: " + b.get(0) + "Accepted parades: " + b.get(1) + "Rejected parades: " + b.get(2);
+	public Collection<Double> statusStat() {
+		final Collection<Double> result = this.paradeRepository.statusStats();
 		return result;
 	}
 }

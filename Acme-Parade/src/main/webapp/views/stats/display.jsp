@@ -240,11 +240,25 @@
 		
 </display:table>
 <br />
-<jstl:out value="${modeVs}" />
+<spring:message code="stats.parade.mode.draft" />
+<br />
+<jstl:out value="${modeVs[0][0]}" />
+<br />
+<spring:message code="stats.parade.mode.final" />
+<br />
+<jstl:out value="${modeVs[0][1]}" />
 <br />
 <spring:message code="stats.ratio.status" />
 :
-<jstl:out value="${statusStats}" />
+<br />
+<spring:message code="stats.parade.status.submitted" />
+<jstl:out value="${statusStats[0][0]}" />
+<br />
+<spring:message code="stats.parade.status.accepted" />
+<jstl:out value="${statusStats[0][1]}" />
+<br />
+<spring:message code="stats.parade.status.rejected" />
+<jstl:out value="${statusStats[0][2]}" />
 <br />
 
 

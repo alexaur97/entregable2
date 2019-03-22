@@ -154,25 +154,4 @@ public class AreaService {
 
 	}
 
-	public String statusStat() {
-		Double sub = 0.0;
-		Double acc = 0.0;
-		Double rej = 0.0;
-
-		final Collection<Parade> parades = this.paradeService.findAll();
-		for (final Parade parade : parades) {
-			if (parade.getStatus().equals("SUBMITTED"))
-				sub++;
-			if (parade.getStatus().equals("ACCEPTED"))
-				acc++;
-			if (parade.getStatus().equals("REJECTED"))
-				rej++;
-		}
-		sub = sub / parades.size();
-		acc = acc / parades.size();
-		rej = rej / parades.size();
-
-		final String result = "Submitted parades: " + sub + "Accepted parades: " + acc + "Rejected parades: " + rej;
-		return result;
-	}
 }

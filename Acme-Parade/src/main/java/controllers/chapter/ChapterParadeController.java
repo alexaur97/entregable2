@@ -39,18 +39,18 @@ public class ChapterParadeController extends AbstractController {
 	public ModelAndView list() {
 
 		ModelAndView result;
-		//		try {
-		final Chapter chapter = this.chapterService.findByPrincipal();
-		Collection<Parade> parades;
-		parades = this.paradeService.findParadesByArea(chapter.getArea().getId());
-		final String s = "SUBMITTED";
-		result = new ModelAndView("parade/list");
-		result.addObject("requestURI", "parade/list.do");
-		result.addObject("parades", parades);
-		result.addObject("s", s);
-		//		} catch (final Exception e) {
-		//			result = new ModelAndView("redirect:/#");
-		//		}
+		try {
+			final Chapter chapter = this.chapterService.findByPrincipal();
+			Collection<Parade> parades;
+			parades = this.paradeService.findParadesByArea(chapter.getArea().getId());
+			final String s = "SUBMITTED";
+			result = new ModelAndView("parade/list");
+			result.addObject("requestURI", "parade/list.do");
+			result.addObject("parades", parades);
+			result.addObject("s", s);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
 
 		return result;
 	}
@@ -63,6 +63,7 @@ public class ChapterParadeController extends AbstractController {
 		try {
 
 			Assert.notNull(paradeId);
+			final String s = "SUBMITTED";
 			final Parade parade = this.paradeService.findOne(paradeId);
 			final Area a = this.chapterService.findByPrincipal().getArea();
 			Assert.isTrue(parade.getBrotherhood().getArea().equals(a));
@@ -74,6 +75,7 @@ public class ChapterParadeController extends AbstractController {
 			result = new ModelAndView("parade/list");
 			result.addObject("requestURI", "parade/accept.do");
 			result.addObject("parades", parades);
+			result.addObject("s", s);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -83,7 +85,6 @@ public class ChapterParadeController extends AbstractController {
 	@RequestMapping(value = "/reject", method = RequestMethod.GET)
 	public ModelAndView reject(@RequestParam final int paradeId) {
 		ModelAndView result;
-		final Collection<Parade> parades;
 
 		try {
 
@@ -92,7 +93,6 @@ public class ChapterParadeController extends AbstractController {
 			final Area a = this.chapterService.findByPrincipal().getArea();
 			Assert.isTrue(parade.getBrotherhood().getArea().equals(a));
 			Assert.isTrue(parade.getStatus().equals("SUBMITTED"));
-			final Chapter chapter = this.chapterService.findByPrincipal();
 			result = new ModelAndView("parade/edit");
 			result.addObject("requestURI", "parade/reject.do");
 			result.addObject("parade", parade);
@@ -111,7 +111,7 @@ public class ChapterParadeController extends AbstractController {
 			res = new ModelAndView("parade/edit");
 		try {
 			Assert.isTrue(!parade.getExplanation().isEmpty());
-
+			final String s = "SUBMITTED";
 			res = new ModelAndView("parade/list");
 			Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
 			this.paradeService.saveChapter(paradeFinal);
@@ -119,6 +119,7 @@ public class ChapterParadeController extends AbstractController {
 			parades = this.paradeService.findParadesByArea(chapter.getArea().getId());
 			res.addObject("parades", parades);
 			res.addObject("requestURI", "parade/list.do");
+			res.addObject("s", s);
 
 		} catch (final Throwable oops) {
 			if (parade.getExplanation().isEmpty()) {
