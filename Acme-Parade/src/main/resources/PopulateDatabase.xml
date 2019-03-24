@@ -868,7 +868,7 @@
 		<property name="title" value="legalRecord1" />
 		<property name="description" value="legal record description" />
 		<property name="legalName" value="legalName1" />
-		<property name="vatNumber" value="4564753" />
+		<property name="vatNumber" value="21.0" />
 		<property name="laws">
 			<list>
 				<value>ley1</value>
@@ -880,7 +880,7 @@
 		<property name="title" value="legalRecord2" />
 		<property name="description" value="legal record description" />
 		<property name="legalName" value="legalName2" />
-		<property name="vatNumber" value="6778753" />
+		<property name="vatNumber" value="0.0" />
 		<property name="laws">
 			<list>
 				<value>ley1</value>
@@ -892,7 +892,7 @@
 		<property name="title" value="legalRecord3" />
 		<property name="description" value="legal record description" />
 		<property name="legalName" value="legalName3" />
-		<property name="vatNumber" value="1564652" />
+		<property name="vatNumber" value="100.0" />
 		<property name="laws">
 			<list>
 				<value>ley1</value>
@@ -904,7 +904,7 @@
 		<property name="title" value="legalRecord4" />
 		<property name="description" value="legal record description" />
 		<property name="legalName" value="legalName4" />
-		<property name="vatNumber" value="4564753" />
+		<property name="vatNumber" value="99.99" />
 		<property name="laws">
 			<list>
 				<value>ley1</value>

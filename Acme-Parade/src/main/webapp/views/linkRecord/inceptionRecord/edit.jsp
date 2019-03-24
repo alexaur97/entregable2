@@ -24,16 +24,15 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:display code="inceptionRecord.title" value="${inceptionRecord.title}"/>
-<acme:display code="inceptionRecord.description" value="${inceptionRecord.description}"/>
-<br />
-<spring:message code="inceptionRecord.pictures" />
-:
-<ul>
-	<jstl:forEach items="${inceptionRecord.pictures}" var="x">
-		<li><a href="${x}"><jstl:out value="${x}"/></a></li>
-	</jstl:forEach>
-</ul>
-<acme:button url="/inceptionRecord/brotherhood/edit.do?inceptionRecordId=${inceptionRecord.id}" code="inceptionRecord.edit"/>
-<acme:cancel url="/history/brotherhood/myList.do"
-code="inceptionRecord.cancel" />
+<form:form modelAttribute="inceptionRecord"
+	action="inceptionRecord/brotherhood/edit.do">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<acme:textbox code="inceptionRecord.title" path="title" />
+	<acme:textarea code="inceptionRecord.description" path="description" />
+	<acme:textarea code="inceptionRecord.pictures" path="pictures" />
+	<acme:submit name="save" code="inceptionRecord.save" />
+	<acme:cancel url="/history/brotherhood/myList.do"
+		code="inceptionRecord.cancel" />
+
+</form:form>

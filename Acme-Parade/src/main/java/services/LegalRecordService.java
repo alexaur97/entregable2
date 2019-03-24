@@ -50,14 +50,25 @@ public class LegalRecordService {
 		return result;
 	}
 	public void delete(final int id) {
-		this.brotherhoodService.findByPrincipal();
+		final Brotherhood b = this.brotherhoodService.findByPrincipal();
+		final History h = this.historyService.findByBrotherhood(b.getId());
+		final LegalRecord legalRecord = this.legalRecordRepository.findOne(id);
+		final Collection<LegalRecord> records = h.getLegalRecord();
+		records.remove(legalRecord);
+		h.setLegalRecord(records);
+		this.historyService.save(h);
 		this.legalRecordRepository.delete(id);
 	}
 	public LegalRecord save(final LegalRecord legalRecord) {
 		final Brotherhood b = this.brotherhoodService.findByPrincipal();
-		if (legalRecord.getId() != 0) {
-			final History h = this.historyService.findByLegalRecord(legalRecord.getId());
+		final History h = this.historyService.findByBrotherhood(b.getId());
+		if (legalRecord.getId() != 0)
 			Assert.isTrue(h.getBrotherhood().getId() == b.getId());
+		else {
+			final Collection<LegalRecord> records = h.getLegalRecord();
+			records.add(legalRecord);
+			h.setLegalRecord(records);
+			this.historyService.save(h);
 		}
 		final LegalRecord result = this.legalRecordRepository.save(legalRecord);
 		Assert.notNull(result);

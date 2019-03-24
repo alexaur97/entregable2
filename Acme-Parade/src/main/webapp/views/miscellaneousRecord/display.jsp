@@ -28,6 +28,14 @@
 <acme:display code="miscellaneousRecord.description" value="${miscellaneousRecord.description}"/>
 <br />
 <br/>
-<acme:button url="/miscellaneousRecord/brotherhood/edit.do?miscellaneousRecordId=${miscellaneousRecord.id}" code="miscellaneousRecord.edit"/>
-<acme:cancel url="/history/brotherhood/myList.do"
-code="miscellaneousRecord.cancel" />
+<security:authorize access="hasRole('BROTHERHOOD')">
+	<acme:button
+		url="/miscellaneousRecord/brotherhood/edit.do?miscellaneousRecordId=${miscellaneousRecord.id}"
+		code="miscellaneousRecord.edit" />
+	<acme:cancel url="/history/brotherhood/myList.do"
+		code="miscellaneousRecord.cancel" />
+</security:authorize>
+<security:authorize access="isAnonymous()">
+	<acme:cancel url="/history/list.do"
+		code="miscellaneousRecord.cancel" />
+</security:authorize>

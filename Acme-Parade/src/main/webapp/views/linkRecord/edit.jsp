@@ -31,13 +31,15 @@
 	<acme:textbox code="linkRecord.title" path="title" />
 	<acme:textarea code="linkRecord.description" path="description" />
 	<jstl:if test="${linkRecord.id eq 0}">
-	<acme:select items="${brotherhoods}" itemLabel="title" code="linkRecord.brotherhood" path="brotherhood" id="brotherhoods" />
+		<acme:select items="${brotherhoods}" itemLabel="title"
+			code="linkRecord.brotherhood" path="brotherhood" id="brotherhoods" />
 	</jstl:if>
+	<br />
 	<acme:submit name="save" code="linkRecord.save" />
 	<jstl:if test="${linkRecord.id ne 0}">
 		<acme:submit name="delete" code="linkRecord.delete" />
 	</jstl:if>
-	<acme:cancel
-		url="/linkRecord/brotherhood/display.do?linkRecordId=${linkRecord.id}"
+	<acme:cancel url="/history/brotherhood/myList.do"
 		code="linkRecord.cancel" />
+
 </form:form>

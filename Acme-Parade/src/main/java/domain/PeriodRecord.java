@@ -8,8 +8,10 @@ import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -43,6 +45,7 @@ public class PeriodRecord extends DomainEntity {
 	}
 
 	@Min(1500)
+	@NotNull
 	public Integer getStartYear() {
 		return this.startYear;
 	}
@@ -51,6 +54,7 @@ public class PeriodRecord extends DomainEntity {
 		this.startYear = startYear;
 	}
 
+	@NotNull
 	public Integer getEndYear() {
 		return this.endYear;
 	}
@@ -60,6 +64,7 @@ public class PeriodRecord extends DomainEntity {
 	}
 
 	@ElementCollection
+	@NotEmpty
 	public Collection<String> getPictures() {
 		return this.pictures;
 	}

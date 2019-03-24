@@ -17,7 +17,6 @@ import services.HistoryService;
 import services.LinkRecordService;
 import controllers.AbstractController;
 import domain.Brotherhood;
-import domain.History;
 import domain.LinkRecord;
 
 @Controller
@@ -109,9 +108,8 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 	public ModelAndView delete(final LinkRecord linkRecord) {
 		ModelAndView result;
 		try {
-			final History history = this.historyService.findByLinkRecord(linkRecord.getId());
 			this.linkRecordService.delete(linkRecord);
-			result = new ModelAndView("redirect:/history/brotherhood/display.do?historyId=" + history.getId());
+			result = new ModelAndView("redirect:/history/brotherhood/myList.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("linkRecord/edit");
 			result.addObject("message", "linkRecord.commit.error");

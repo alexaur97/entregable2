@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.HistoryService;
 import services.LegalRecordService;
 import controllers.AbstractController;
-import domain.History;
 import domain.LegalRecord;
 
 @Controller
@@ -27,6 +26,20 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 	@Autowired
 	private HistoryService		historyService;
 
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		LegalRecord legalRecord;
+		try {
+			legalRecord = this.legalRecordService.create();
+			result = new ModelAndView("legalRecord/create");
+			result.addObject("legalRecord", legalRecord);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int legalRecordId) {
@@ -79,9 +92,8 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 	public ModelAndView delete(final LegalRecord legalRecord) {
 		ModelAndView result;
 		try {
-			final History history = this.historyService.findByLegalRecord(legalRecord.getId());
 			this.legalRecordService.delete(legalRecord.getId());
-			result = new ModelAndView("redirect:/history/brotherhood/display.do?historyId=" + history.getId());
+			result = new ModelAndView("redirect:/history/brotherhood/myList.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("legalRecord/edit");
 			result.addObject("message", "legalRecord.commit.error");

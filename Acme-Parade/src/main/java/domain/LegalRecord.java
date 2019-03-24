@@ -7,7 +7,9 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -19,7 +21,7 @@ public class LegalRecord extends DomainEntity {
 	private String				title;
 	private String				description;
 	private String				legalName;
-	private Integer				vatNumber;
+	private Double				vatNumber;
 	private Collection<String>	laws;
 
 
@@ -50,12 +52,14 @@ public class LegalRecord extends DomainEntity {
 		this.legalName = legalName;
 	}
 
-	@Min(1)
-	public Integer getVatNumber() {
+	@Min(0)
+	@Digits(integer = 2, fraction = 2)
+	@NotNull
+	public Double getVatNumber() {
 		return this.vatNumber;
 	}
 
-	public void setVatNumber(final Integer vatNumber) {
+	public void setVatNumber(final Double vatNumber) {
 		this.vatNumber = vatNumber;
 	}
 

@@ -36,6 +36,6 @@
 		<acme:submit name="delete" code="miscellaneousRecord.delete" />
 	</jstl:if>
 	<acme:cancel
-		url="/miscellaneousRecord/brotherhood/display.do?miscellaneousRecordId=${miscellaneousRecord.id}"
+		url="/history/brotherhood/myList.do"
 		code="miscellaneousRecord.cancel" />
 </form:form>

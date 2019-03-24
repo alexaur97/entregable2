@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.HistoryService;
 import services.PeriodRecordService;
 import controllers.AbstractController;
-import domain.History;
 import domain.PeriodRecord;
 
 @Controller
@@ -27,6 +26,20 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	@Autowired
 	private HistoryService		historyService;
 
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		PeriodRecord periodRecord;
+		try {
+			periodRecord = this.periodRecordService.create();
+			result = new ModelAndView("periodRecord/create");
+			result.addObject("periodRecord", periodRecord);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int periodRecordId) {
@@ -73,8 +86,13 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 					result = new ModelAndView("redirect:/periodRecord/brotherhood/display.do?periodRecordId=" + periodRecord.getId());
 				}
 			} catch (final Throwable oops) {
-				result = new ModelAndView("periodRecord/edit");
-				result.addObject("message", "periodRecord.commit.error");
+				if (periodRecord.getStartYear() > periodRecord.getEndYear()) {
+					result = new ModelAndView("periodRecord/edit");
+					result.addObject("message", "periodRecord.years.error");
+				} else {
+					result = new ModelAndView("periodRecord/edit");
+					result.addObject("message", "periodRecord.commit.error");
+				}
 			}
 		return result;
 	}
@@ -83,9 +101,8 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	public ModelAndView delete(final PeriodRecord periodRecord) {
 		ModelAndView result;
 		try {
-			final History history = this.historyService.findByLinkRecord(periodRecord.getId());
 			this.periodRecordService.delete(periodRecord.getId());
-			result = new ModelAndView("redirect:/history/brotherhood/display.do?historyId=" + history.getId());
+			result = new ModelAndView("redirect:/history/brotherhood/myList.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("periodRecord/edit");
 			result.addObject("message", "periodRecord.commit.error");

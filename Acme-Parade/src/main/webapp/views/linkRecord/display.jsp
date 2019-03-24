@@ -34,14 +34,17 @@
 <a
 	href="brotherhood/display.do?brotherhoodId=${linkRecord.brotherhood.id}"><jstl:out
 		value="${linkRecord.brotherhood.title}" /></a>
-<br />
-<acme:button
-	url="/linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}"
-	code="linkRecord.edit" />
-<acme:cancel url="/history/brotherhood/list.do" code="linkRecord.cancel" />
 
 <br/>
-<acme:button url="/linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}" code="linkRecord.edit"/>
-<acme:cancel url="/history/brotherhood/myList.do"
-code="linkRecord.cancel" />
+<security:authorize access="hasRole('BROTHERHOOD')">
+	<acme:button
+		url="/linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}"
+		code="linkRecord.edit" />
+	<acme:cancel url="/history/brotherhood/myList.do"
+		code="linkRecord.cancel" />
+</security:authorize>
+<security:authorize access="isAnonymous()">
+	<acme:cancel url="/history/list.do"
+		code="linkRecord.cancel" />
+</security:authorize>
 

@@ -37,6 +37,14 @@
 		<li><a href="${x}"><jstl:out value="${x}"/></a></li>
 	</jstl:forEach>
 </ul>
-<acme:button url="/legalRecord/brotherhood/edit.do?legalRecordId=${legalRecord.id}" code="legalRecord.edit"/>
-<acme:cancel url="/history/brotherhood/myList.do"
-code="legalRecord.cancel" />
+<security:authorize access="hasRole('BROTHERHOOD')">
+	<acme:button
+		url="/legalRecord/brotherhood/edit.do?legalRecordId=${legalRecord.id}"
+		code="legalRecord.edit" />
+	<acme:cancel url="/history/brotherhood/myList.do"
+		code="legalRecord.cancel" />
+</security:authorize>
+<security:authorize access="isAnonymous()">
+	<acme:cancel url="/history/list.do"
+		code="legalRecord.cancel" />
+</security:authorize>

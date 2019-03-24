@@ -34,22 +34,13 @@
 		<bean class="converters.ParadeToStringConverter"/>
 		<bean class="converters.RequestToStringConverter"/>
 		<bean class="converters.AreaToStringConverter"/>
-
-		<bean class="converters.StringToFinderConverter" />
 		<bean class="converters.FinderToStringConverter" />
-		
-		
-	
-			
-			<bean class="converters.StringToClass" /> 
-
 		<bean class="converters.LegalRecordToStringConverter"/>
-		
 
-	
-			
-			<bean class="converters.StringToClass" />
-
+<!-- 
+			Add your own converters using entries of the following form: 
+			<bean class="converters.StringToClass" /> 
+		-->
 		
 		<bean class="converters.StringToActorConverter"/>
 		<bean class="converters.StringToAdministratorConverter"/>
@@ -62,7 +53,7 @@
 		<bean class="converters.StringToParadeConverter"/>
 		<bean class="converters.StringToRequestConverter"/>
 		<bean class="converters.StringToAreaConverter"/>
-
+		<bean class="converters.StringToFinderConverter" />
 		<bean class="converters.StringToLegalRecordConverter"/>
 
 

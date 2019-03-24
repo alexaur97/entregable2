@@ -33,6 +33,9 @@
 <acme:textarea code="periodRecord.endYear" path="endYear"/>
 <acme:textarea code="periodRecord.pictures" path="pictures"/>
 <acme:submit name="save" code="periodRecord.save"/>
-<acme:cancel url="/periodRecord/brotherhood/display.do?periodRecordId=${periodRecord.id}"
+<jstl:if test="${periodRecord.id ne 0}">
+		<acme:submit name="delete" code="periodRecord.delete" />
+	</jstl:if>
+<acme:cancel url="/history/brotherhood/myList.do"
 code="periodRecord.cancel" />
 </form:form>

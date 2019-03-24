@@ -10,13 +10,18 @@
 
 <tiles-definitions>
 
+	<definition name="periodRecord/create" extends="master.page">
+		<put-attribute name="title" value="Crear registro periódico" />
+		<put-attribute name="body" value="/views/periodRecord/edit.jsp" />
+	</definition>
+
 	<definition name="periodRecord/edit" extends="master.page">
-		<put-attribute name="title" value="Editar registro del período" />
+		<put-attribute name="title" value="Editar registro periódico" />
 		<put-attribute name="body" value="/views/periodRecord/edit.jsp" />
 	</definition>
 
 	<definition name="periodRecord/display" extends="master.page">
-		<put-attribute name="title" value="Desplegar registro del período" />
+		<put-attribute name="title" value="Desplegar registro periódico" />
 		<put-attribute name="body" value="/views/periodRecord/display.jsp" />
 	</definition>
 

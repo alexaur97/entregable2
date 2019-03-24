@@ -38,9 +38,17 @@ public class PeriodRecordService {
 
 	public PeriodRecord save(final PeriodRecord periodRecord) {
 		final Brotherhood b = this.brotherhoodService.findByPrincipal();
-		if (periodRecord.getId() != 0) {
-			final History h = this.historyService.findByPeriodRecord(periodRecord.getId());
+		final History h = this.historyService.findByBrotherhood(b.getId());
+		final Integer startYear = periodRecord.getStartYear();
+		final Integer endYear = periodRecord.getEndYear();
+		Assert.isTrue(startYear <= endYear);
+		if (periodRecord.getId() != 0)
 			Assert.isTrue(h.getBrotherhood().getId() == b.getId());
+		else {
+			final Collection<PeriodRecord> records = h.getPeriodRecord();
+			records.add(periodRecord);
+			h.setPeriodRecord(records);
+			this.historyService.save(h);
 		}
 		final PeriodRecord result = this.periodRecordRepository.save(periodRecord);
 		Assert.notNull(result);
@@ -62,7 +70,13 @@ public class PeriodRecordService {
 		return result;
 	}
 	public void delete(final int id) {
-		this.brotherhoodService.findByPrincipal();
+		final Brotherhood b = this.brotherhoodService.findByPrincipal();
+		final History h = this.historyService.findByBrotherhood(b.getId());
+		final PeriodRecord periodRecord = this.periodRecordRepository.findOne(id);
+		final Collection<PeriodRecord> records = h.getPeriodRecord();
+		records.remove(periodRecord);
+		h.setPeriodRecord(records);
+		this.historyService.save(h);
 		this.periodRecordRepository.delete(id);
 	}
 	public Boolean validatePictures(final Collection<String> pictures) {

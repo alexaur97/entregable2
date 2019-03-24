@@ -24,15 +24,20 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form modelAttribute="legalRecord" action="legalRecord/brotherhood/edit.do">
-<form:hidden path="id"/>
-<form:hidden path="version"/>
-<acme:textbox code="legalRecord.title" path="title"/>
-<acme:textarea code="legalRecord.description" path="description"/>
-<acme:textarea code="legalRecord.legalName" path="legalName"/>
-<acme:textarea code="legalRecord.vatNumber" path="vatNumber"/>
-<acme:textarea code="legalRecord.laws" path="laws"/>
-<acme:submit name="save" code="legalRecord.save"/>
-<acme:cancel url="/legalRecord/brotherhood/display.do?legalRecordId=${legalRecord.id}"
-code="legalRecord.cancel" />
+<form:form modelAttribute="legalRecord"
+	action="legalRecord/brotherhood/edit.do">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<acme:textbox code="legalRecord.title" path="title" />
+	<acme:textarea code="legalRecord.description" path="description" />
+	<acme:textarea code="legalRecord.legalName" path="legalName" />
+	<acme:textarea code="legalRecord.vatNumber" path="vatNumber" />
+	<acme:textarea code="legalRecord.laws" path="laws" />
+	<acme:submit name="save" code="legalRecord.save" />
+
+	<jstl:if test="${legalRecord.id ne 0}">
+		<acme:submit name="delete" code="legalRecord.delete" />
+	</jstl:if>
+	<acme:cancel url="/history/brotherhood/myList.do"
+		code="legalRecord.cancel" />
 </form:form>

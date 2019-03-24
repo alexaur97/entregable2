@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.HistoryService;
 import services.MiscellaneousRecordService;
 import controllers.AbstractController;
-import domain.History;
 import domain.MiscellaneousRecord;
 
 @Controller
@@ -91,9 +90,8 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 	public ModelAndView delete(final MiscellaneousRecord miscellaneousRecord) {
 		ModelAndView result;
 		try {
-			final History history = this.historyService.findByMiscellaneousRecord(miscellaneousRecord.getId());
 			this.miscellaneousRecordService.delete(miscellaneousRecord);
-			result = new ModelAndView("redirect:/history/brotherhood/display.do?historyId=" + history.getId());
+			result = new ModelAndView("redirect:/history/brotherhood/myList.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("miscellaneousRecord/edit");
 			result.addObject("message", "miscellaneousRecord.commit.error");
