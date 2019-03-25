@@ -68,6 +68,7 @@
 		<security:intercept-url pattern="/brotherhood/parade/create.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/parade/edit.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/parade/show.do" access="hasRole('BROTHERHOOD')" />
+				<security:intercept-url pattern="/brotherhood/parade/copy.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/parade/myList.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/request/brotherhood/decide.do" access="hasRole('BROTHERHOOD')" />
 

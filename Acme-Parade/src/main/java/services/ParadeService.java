@@ -245,6 +245,32 @@ public class ParadeService {
 		return res;
 	}
 
+	public Parade copyParade(final Parade parade) {
+
+		final Parade res = new Parade();
+
+		final String pattern = "YYMMdd";
+		final DateFormat df = new SimpleDateFormat(pattern);
+		final Date fecha = parade.getMoment();
+		final String fechaFormateada = df.format(fecha);
+
+		final String cadena = this.creaString();
+		final String ticker = fechaFormateada + "-" + cadena;
+		res.setTicker(ticker);
+
+		res.setStatus("SUBMITTED");
+		res.setTitle(parade.getTitle());
+		res.setExplanation(null);
+		res.setMode("DRAFT");
+		res.setDescription(parade.getDescription());
+		res.setFloats(parade.getFloats());
+		res.setPaths(parade.getPaths());
+		res.setVersion(parade.getVersion());
+		res.setBrotherhood(parade.getBrotherhood());
+		res.setMoment(parade.getMoment());
+		return res;
+	}
+
 	public Collection<Parade> findParadesAcceptedByBrotherhood(final int idBrotherhood) {
 		final Collection<Parade> res = this.paradeRepository.findParadesAcceptedByBrotherhood(idBrotherhood);
 		return res;

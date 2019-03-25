@@ -46,6 +46,11 @@
 		<spring:message code="parade.show" />
 		</a>
 	</display:column>
+		<display:column titleKey="parade.copy">
+		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
+		<spring:message code="parade.copy" />
+		</a>
+	</display:column>
 	</security:authorize>
 </display:table>
 
@@ -64,6 +69,11 @@
 	<display:column titleKey="parade.show">
 		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
 		<spring:message code="parade.show" />
+		</a>
+	</display:column>
+	<display:column titleKey="parade.copy">
+		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
+		<spring:message code="parade.copy" />
 		</a>
 	</display:column>
 	</security:authorize>
@@ -85,6 +95,11 @@
 	<display:column titleKey="parade.show">
 		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
 		<spring:message code="parade.show" />
+		</a>
+	</display:column>
+	<display:column titleKey="parade.copy">
+		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
+		<spring:message code="parade.copy" />
 		</a>
 	</display:column>
 	</security:authorize>
