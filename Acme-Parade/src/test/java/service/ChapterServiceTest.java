@@ -32,7 +32,7 @@ public class ChapterServiceTest extends AbstractTest {
 	// Valid Case FR 7.1 ACME PARADE
 	// 
 	@Test
-	public void testStatsCreate() {
+	public void testChapterCreate() {
 		super.authenticate(null);
 		final ChapterRegisterForm registerForm = new ChapterRegisterForm();
 		registerForm.setName("Test Name");
@@ -57,7 +57,7 @@ public class ChapterServiceTest extends AbstractTest {
 	}
 	// Invalid Case FR 7.1 ACME PARADE - Name can´t be null
 	@Test(expected = ConstraintViolationException.class)
-	public void testStatsCreateNegative() {
+	public void testChapterCreateNegative() {
 		super.authenticate(null);
 		final ChapterRegisterForm registerForm = new ChapterRegisterForm();
 		registerForm.setSurName("Test Surname");

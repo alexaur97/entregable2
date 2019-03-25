@@ -40,4 +40,9 @@
 		<put-attribute name="title" value="Parade" />
 		<put-attribute name="body" value="/views/parade/show.jsp" />
 	</definition>
+	
+	<definition name="path/listByParade" extends="master.page">
+		<put-attribute name="title" value="Paths" />
+		<put-attribute name="body" value="/views/path/list.jsp" />
+	</definition>
 </tiles-definitions>
