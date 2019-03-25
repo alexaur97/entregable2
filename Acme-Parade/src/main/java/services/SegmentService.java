@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.SegmentRepository;
 import security.Authority;
@@ -29,7 +31,7 @@ public class SegmentService {
 	private PathService			pathService;
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	private Validator			validator;
 
 
 	// FR 3.3 ACME PARADE
@@ -69,18 +71,39 @@ public class SegmentService {
 	// FR 3.3 ACME PARADE
 	public void delete(final Segment segment) {
 		Assert.isTrue(this.checkBrotherhoodSegment(segment));
+		final Path path = this.pathService.findPathBySegment(segment);
+		Collection<Segment> segments;
+		segments = path.getSegments();
+		segments.remove(segment);
+		path.setSegments(segments);
+		this.pathService.save(path);
 		this.segmentRepository.delete(segment.getId());
 	}
 
 	// FR 3.3 ACME PARADE
-	public Segment save(final Segment segment, final Path path, final Parade parade) {
+	public Segment save(final Segment segment) {
 		final Authority auth = new Authority();
 		auth.setAuthority(Authority.BROTHERHOOD);
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
-		final Segment result;
-		path.getSegments().add(segment);
-		this.pathService.save(path, parade);
-		result = this.segmentRepository.save(segment);
-		return result;
+		return this.segmentRepository.save(segment);
 	}
+
+	public Segment reconstruct(final Segment segment, final BindingResult binding) {
+		final Segment res = segment;
+		this.validator.validate(res, binding);
+		return res;
+	}
+
+	public Boolean validateOrigin(final Segment segment, final Path path) {
+		Boolean b = true;
+		if (path.getSegments().size() > 1)
+			for (final Segment s : path.getSegments())
+				if (s.getSequence() == segment.getSequence() - 1 && segment.getSequence() > 1)
+					if (!(s.getDestinationX() == segment.getOriginX() && s.getDestinationY() == segment.getOriginY())) {
+						b = false;
+						break;
+					}
+		return b;
+	}
+
 }

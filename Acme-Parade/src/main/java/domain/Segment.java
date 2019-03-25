@@ -10,6 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,7 +30,7 @@ public class Segment extends DomainEntity {
 
 
 	// Getters y Setters
-
+	@NotNull
 	@Min(-90)
 	@Max(90)
 	public Integer getOriginX() {
@@ -39,7 +40,7 @@ public class Segment extends DomainEntity {
 	public void setOriginX(final Integer originX) {
 		this.originX = originX;
 	}
-
+	@NotNull
 	@Min(-180)
 	@Max(180)
 	public Integer getOriginY() {
@@ -49,7 +50,7 @@ public class Segment extends DomainEntity {
 	public void setOriginY(final Integer originY) {
 		this.originY = originY;
 	}
-
+	@NotNull
 	@Min(-90)
 	@Max(90)
 	public Integer getDestinationX() {
@@ -59,7 +60,7 @@ public class Segment extends DomainEntity {
 	public void setDestinationX(final Integer destinationX) {
 		this.destinationX = destinationX;
 	}
-
+	@NotNull
 	@Min(-180)
 	@Max(180)
 	public Integer getDestinationY() {
@@ -90,6 +91,7 @@ public class Segment extends DomainEntity {
 		this.destinationTime = destinationTime;
 	}
 
+	@NotNull
 	@Min(1)
 	public Integer getSequence() {
 		return this.sequence;

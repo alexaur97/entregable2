@@ -46,6 +46,9 @@
 		<spring:message code="parade.show" />
 		</a>
 	</display:column>
+	<display:column titleKey="parade.paths">
+		<acme:cancel url="/path/listByParade.do?paradeId=${parade.id}" code="parade.paths" />
+	</display:column>
 	</security:authorize>
 </display:table>
 

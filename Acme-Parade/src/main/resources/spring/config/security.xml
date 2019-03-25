@@ -74,7 +74,16 @@
 		<security:intercept-url pattern="/brotherhood/float/list.do" access="hasRole('BROTHERHOOD')" /> 
 		<security:intercept-url pattern="/brotherhood/float/create.do" access="hasRole('BROTHERHOOD')" /> 
 		<security:intercept-url pattern="/brotherhood/float/edit.do" access="hasRole('BROTHERHOOD')" /> 
-		<security:intercept-url pattern="/brotherhood/float/show.do" access="hasRole('BROTHERHOOD')" /> 
+		<security:intercept-url pattern="/brotherhood/float/show.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/path/listByParade.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/path/create.do" access="hasRole('BROTHERHOOD')" /> 
+		<security:intercept-url pattern="/path/list.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/path/delete.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/path/createSegment.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/path/editSegment.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/path/deleteSegment.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/path/edit.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/path/createSeg.do" access="hasRole('BROTHERHOOD')" />
 
 
 		<security:intercept-url pattern="/area/administrator/list.do" access="hasRole('ADMINISTRATOR')" />

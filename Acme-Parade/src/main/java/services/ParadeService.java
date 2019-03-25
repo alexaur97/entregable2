@@ -23,6 +23,7 @@ import domain.Brotherhood;
 import domain.ConfigurationParameters;
 import domain.Member;
 import domain.Parade;
+import domain.Path;
 
 @Service
 @Transactional
@@ -268,6 +269,26 @@ public class ParadeService {
 		final Collection<Parade> result;
 		final Brotherhood b = this.brotherhoodService.findByPrincipal();
 		result = this.findParadesByBrotherhood(b.getId());
+		return result;
+	}
+
+	// FR 3.3
+	public Parade addPath(final Parade parade, final Path path) {
+		Parade result;
+		final Collection<Path> paths = parade.getPaths();
+		paths.add(path);
+		parade.setPaths(paths);
+		result = this.save(parade);
+		return result;
+	}
+
+	public Parade findParadeByPath(final Path path) {
+		final Collection<Parade> parades = this.findByPrincipal();
+		Parade result = null;
+		for (final Parade p : parades)
+			if (p.getPaths().contains(path))
+				result = p;
+		Assert.notNull(result);
 		return result;
 	}
 

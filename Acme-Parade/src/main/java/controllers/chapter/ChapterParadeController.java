@@ -78,7 +78,6 @@ public class ChapterParadeController extends AbstractController {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
-
 	}
 	@RequestMapping(value = "/reject", method = RequestMethod.GET)
 	public ModelAndView reject(@RequestParam final int paradeId) {
