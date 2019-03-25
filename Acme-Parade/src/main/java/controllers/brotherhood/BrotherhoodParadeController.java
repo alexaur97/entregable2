@@ -110,9 +110,18 @@ public class BrotherhoodParadeController extends AbstractController {
 			result.addObject("floats", floats);
 		} catch (final Throwable oops) {
 			if (this.brotherhoodService.findByPrincipal().getArea() == null) {
-				final Collection<Parade> parades = this.paradeService.findParadesByBrotherhood(this.brotherhoodService.findByPrincipal().getId());
-				result = new ModelAndView("parade/list");
-				result.addObject("parades", parades);
+				result = new ModelAndView("parade/myList");
+				final Integer currentActorId = this.actorService.findByPrincipal().getId();
+				Collection<Parade> paradesSubmitted;
+				Collection<Parade> paradesAccepted;
+				Collection<Parade> paradesRejected;
+				paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActorId);
+				paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
+				paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
+
+				result.addObject("paradesSubmitted", paradesSubmitted);
+				result.addObject("paradesAccepted", paradesAccepted);
+				result.addObject("paradesRejected", paradesRejected);
 				result.addObject("requestURI", "parade/list.do");
 				result.addObject("message", "parade.area.error");
 			} else

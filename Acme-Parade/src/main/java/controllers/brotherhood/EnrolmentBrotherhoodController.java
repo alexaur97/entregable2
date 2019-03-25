@@ -45,7 +45,6 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 		try {
 			final Brotherhood b = this.brotherhoodService.findByPrincipal();
 			Assert.notNull(b.getArea());
-
 			enrolment = new Enrolment();
 			enrolment.setId(0);
 			final Collection<Member> members = this.memberService.findAllNotIn();
