@@ -18,6 +18,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Chapter;
+import forms.ActorEditForm;
 import forms.ChapterRegisterForm;
 
 @Service
@@ -122,5 +123,19 @@ public class ChapterService {
 	}
 	Integer countChapterWithArea() {
 		return this.chapterRepository.findChapterWithArea();
+	}
+
+	public Chapter reconstructEdit(final ActorEditForm actorEditForm) {
+		final Chapter res;
+		res = this.findByPrincipal();
+		res.setName(actorEditForm.getName());
+		res.setMiddleName(actorEditForm.getMiddleName());
+		res.setSurname(actorEditForm.getSurname());
+		res.setPhoto(actorEditForm.getPhoto());
+		res.setEmail(actorEditForm.getEmail());
+		res.setPhoneNumber(actorEditForm.getPhoneNumber());
+		res.setAddress(actorEditForm.getAddress());
+		Assert.notNull(res);
+		return res;
 	}
 }

@@ -13,11 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.AdministratorService;
 import services.BrotherhoodService;
+import services.ChapterService;
 import services.MemberService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.Member;
 import forms.ActorEditForm;
 
@@ -33,6 +35,8 @@ public class ActorController extends AbstractController {
 	private MemberService			memberService;
 	@Autowired
 	private AdministratorService	administratorService;
+	@Autowired
+	private ChapterService			chapterService;
 
 
 	//JAVI
@@ -41,8 +45,8 @@ public class ActorController extends AbstractController {
 		ModelAndView result;
 
 		try {
-			Actor actor = this.actorService.findByPrincipal();
-			ActorEditForm actorEditForm = this.actorService.toForm(actor);
+			final Actor actor = this.actorService.findByPrincipal();
+			final ActorEditForm actorEditForm = this.actorService.toForm(actor);
 			result = new ModelAndView("actor/edit");
 			result.addObject("actorEditForm", actorEditForm);
 		} catch (final Exception e) {
@@ -52,23 +56,26 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView save(@Valid ActorEditForm actorEditForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final ActorEditForm actorEditForm, final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors()) {
 			res = new ModelAndView("actor/edit");
 			res.addObject("actorEditForm", actorEditForm);
-		} else {
+		} else
 			try {
-				Actor actor = this.actorService.findByPrincipal();
+				final Actor actor = this.actorService.findByPrincipal();
 				if (this.actorService.authEdit(actor, "BROTHERHOOD")) {
-					Brotherhood brotherhood = this.brotherhoodService.reconstructEdit(actorEditForm);
+					final Brotherhood brotherhood = this.brotherhoodService.reconstructEdit(actorEditForm);
 					this.brotherhoodService.save(brotherhood);
 				} else if (this.actorService.authEdit(actor, "MEMBER")) {
-					Member member = this.memberService.reconstructEdit(actorEditForm);
+					final Member member = this.memberService.reconstructEdit(actorEditForm);
 					this.memberService.save(member);
-				} else {
-					Administrator administrator = this.administratorService.reconstructEdit(actorEditForm);
+				} else if (this.actorService.authEdit(actor, "ADMINISTRATOR")) {
+					final Administrator administrator = this.administratorService.reconstructEdit(actorEditForm);
 					this.administratorService.save(administrator);
+				} else {
+					final Chapter chapter = this.chapterService.reconstructEdit(actorEditForm);
+					this.chapterService.save(chapter);
 				}
 				res = new ModelAndView("redirect:/#");
 			} catch (final Throwable oops) {
@@ -76,7 +83,6 @@ public class ActorController extends AbstractController {
 				res.addObject("requestURI", "actor/edit.do");
 				res.addObject("message", "actor.commit.error");
 			}
-		}
 		return res;
 	}
 	//JAVI
