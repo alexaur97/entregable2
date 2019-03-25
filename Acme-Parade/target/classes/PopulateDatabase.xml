@@ -892,7 +892,7 @@
 		<property name="title" value="legalRecord3" />
 		<property name="description" value="legal record description" />
 		<property name="legalName" value="legalName3" />
-		<property name="vatNumber" value="100.0" />
+		<property name="vatNumber" value="10.0" />
 		<property name="laws">
 			<list>
 				<value>ley1</value>

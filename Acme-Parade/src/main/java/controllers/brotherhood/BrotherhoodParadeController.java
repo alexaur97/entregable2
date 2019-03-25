@@ -125,6 +125,33 @@ public class BrotherhoodParadeController extends AbstractController {
 
 	//Create a copy
 
+	@RequestMapping(value = "/copy", method = RequestMethod.GET)
+	public ModelAndView copy(final int paradeId) {
+		ModelAndView result;
+		try {
+			final Integer currentActorId = this.actorService.findByPrincipal().getId();
+			Collection<Parade> paradesSubmitted;
+			Collection<Parade> paradesAccepted;
+			Collection<Parade> paradesRejected;
+			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActorId);
+			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
+			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
+			final Parade parade = this.paradeService.findOne(paradeId);
+			Assert.notNull(parade);
+			final Parade paradeFinal = this.paradeService.copyParade(parade);
+			Assert.notNull(paradeFinal);
+			this.paradeService.save(paradeFinal);
+			result = new ModelAndView("parade/myList");
+			result.addObject("paradesSubmitted", paradesSubmitted);
+			result.addObject("paradesAccepted", paradesAccepted);
+			result.addObject("paradesRejected", paradesRejected);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+
+	}
+
 	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
