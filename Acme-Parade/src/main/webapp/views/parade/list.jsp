@@ -31,6 +31,9 @@
 	<display:column titleKey="parade.moment" property="moment" />
 	<display:column titleKey="parade.ticker" property="ticker" />
 	<display:column titleKey="parade.mode" property="mode" />
+	<display:column titleKey="parade.status" property="status" />
+	
+	
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<display:column titleKey="parade.edit">
 		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">

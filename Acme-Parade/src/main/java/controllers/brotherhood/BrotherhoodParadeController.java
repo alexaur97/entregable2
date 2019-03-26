@@ -17,10 +17,12 @@ import services.ActorService;
 import services.BrotherhoodService;
 import services.FloatService;
 import services.ParadeService;
+import services.PathService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Float;
 import domain.Parade;
+import domain.Path;
 
 @Controller
 @RequestMapping("/brotherhood/parade/")
@@ -39,6 +41,9 @@ public class BrotherhoodParadeController extends AbstractController {
 
 	@Autowired
 	private FloatService		floatService;
+
+	@Autowired
+	private PathService			pathService;
 
 
 	public BrotherhoodParadeController() {
@@ -166,8 +171,9 @@ public class BrotherhoodParadeController extends AbstractController {
 			Assert.isTrue(parade.getBrotherhood().equals(bh));
 
 			final Collection<Float> floats = this.floatService.findFloatsByBrotherhood(bh.getId());
-			res.addObject("parade", parade);
+			final Collection<Path> paths = this.pathService.findPathsByParade(paradeId);
 			res.addObject("floats", floats);
+			res.addObject("paths", paths);
 		} catch (final Exception e) {
 			res = new ModelAndView("redirect:/#");
 		}

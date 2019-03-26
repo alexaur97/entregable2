@@ -175,6 +175,7 @@ public class ParadeService {
 
 	public Parade reconstruct(final Parade parade, final BindingResult binding) {
 		final Parade res = parade;
+		res.setStatus("SUBMITTED");
 		if (parade.getMoment() != null) {
 
 			final String pattern = "YYMMdd";
