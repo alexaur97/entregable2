@@ -2,6 +2,8 @@
 package services;
 
 import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.transaction.Transactional;
 
@@ -101,5 +103,15 @@ public class ActorService {
 	public Collection<String> findAllEmails() {
 		final Collection<String> result = this.actorRepository.findAllEmails();
 		return result;
+	}
+
+	public boolean validateCountryCode(final String phoneNumber) {
+		final String regex = "^\\+\\d{2}";
+		final Pattern patt = Pattern.compile(regex);
+		Boolean b = false;
+		final Matcher matcher = patt.matcher(phoneNumber);
+		if (!matcher.matches())
+			b = true;
+		return b;
 	}
 }

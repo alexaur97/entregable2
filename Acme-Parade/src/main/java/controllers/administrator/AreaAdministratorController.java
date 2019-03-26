@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,9 @@ public class AreaAdministratorController extends AbstractController {
 
 	@Autowired
 	private AreaService				areaService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	// List -----------------------------------------------------------	
@@ -95,6 +99,7 @@ public class AreaAdministratorController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@ModelAttribute("area") final Area area, final BindingResult binding) {
 		ModelAndView res;
+		this.validator.validate(area, binding);
 
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(area);
@@ -118,7 +123,7 @@ public class AreaAdministratorController extends AbstractController {
 			this.areaService.delete(area);
 			result = new ModelAndView("redirect:/area/administrator/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(area, "area.commit.error");
+			result = this.createEditModelAndView(area, "area.commit.errorDelete");
 
 		}
 

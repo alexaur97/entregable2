@@ -51,6 +51,7 @@
 		<value>/views/legalRecord/tiles.xml</value>
 		<value>/views/periodRecord/tiles.xml</value>
 		
+		<value>/views/path/tiles.xml</value>
 		
 	</util:list>
 

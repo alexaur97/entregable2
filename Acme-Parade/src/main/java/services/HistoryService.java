@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +14,26 @@ import security.Authority;
 import security.LoginService;
 import domain.Brotherhood;
 import domain.History;
+import domain.InceptionRecord;
+import domain.LegalRecord;
+import domain.LinkRecord;
+import domain.MiscellaneousRecord;
+import domain.PeriodRecord;
+import forms.HistoryCreateForm;
 
 @Service
 @Transactional
 public class HistoryService {
 
 	@Autowired
-	private HistoryRepository	historyRepository;
+	private HistoryRepository		historyRepository;
 
 	//servicios
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
+	private InceptionRecordService	inceptionRecordService;
 
 
 	// FR 4.1.1 ACME PARADE
@@ -74,7 +84,10 @@ public class HistoryService {
 
 	}
 	public History create() {
-		return new History();
+		final History result = new History();
+		final InceptionRecord inceptionRecord = new InceptionRecord();
+		result.setInceptionRecord(inceptionRecord);
+		return result;
 	}
 	public History findByBrotherhood(final Integer id) {
 		final History result = this.historyRepository.findByBrotherhood(id);
@@ -125,6 +138,30 @@ public class HistoryService {
 
 	public History findByLegalRecord(final int id) {
 		final History result = this.historyRepository.findByLegalRecord(id);
+		return result;
+	}
+
+	public History reconstruct(final HistoryCreateForm historyCreateForm) {
+		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
+		final History result = this.create();
+		final InceptionRecord inceptionRecord = result.getInceptionRecord();
+		inceptionRecord.setDescription(historyCreateForm.getInceptionRecordDescription());
+		inceptionRecord.setPictures(historyCreateForm.getInceptionRecordPictures());
+		inceptionRecord.setTitle(historyCreateForm.getInceptionRecordTitle());
+
+		result.setInceptionRecord(inceptionRecord);
+		result.setBrotherhood(principal);
+
+		final Collection<LegalRecord> lr = new ArrayList<>();
+		final Collection<LinkRecord> lir = new ArrayList<>();
+		final Collection<PeriodRecord> pr = new ArrayList<>();
+		final Collection<MiscellaneousRecord> mr = new ArrayList<>();
+
+		result.setLegalRecord(lr);
+		result.setLinkRecord(lir);
+		result.setMiscellaneousRecord(mr);
+		result.setPeriodRecord(pr);
+
 		return result;
 	}
 

@@ -28,18 +28,18 @@ import forms.MemberRegisterForm;
 public class MemberService {
 
 	@Autowired
-	private MemberRepository		memberRepository;
+	private MemberRepository				memberRepository;
 	@Autowired
-	private BrotherhoodRepository	brotherhoodRepository;
+	private BrotherhoodRepository			brotherhoodRepository;
 
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private BrotherhoodService				brotherhoodService;
 
 	@Autowired
-	private EnrolmentService		enrolmentService;
+	private ConfigurationParametersService	configurationParametersService;
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService					actorService;
 
 
 	public Member findOne(final int memberId) {
@@ -65,6 +65,13 @@ public class MemberService {
 	public Member save(final Member m) {
 		this.actorService.auth(m, "MEMBER");
 		Assert.notNull(m);
+		final String phoneNumber = m.getPhoneNumber();
+		final Boolean b = this.actorService.validateCountryCode(phoneNumber);
+		final String countryCode = this.configurationParametersService.find().getCountryCode();
+		if (b)
+			m.setPhoneNumber(countryCode + " " + phoneNumber);
+		else
+			m.setPhoneNumber(phoneNumber);
 		return this.memberRepository.save(m);
 	}
 	//RF 8.2
@@ -183,5 +190,4 @@ public class MemberService {
 		Assert.notNull(res);
 		return res;
 	}
-
 }

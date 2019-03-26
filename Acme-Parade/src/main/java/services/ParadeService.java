@@ -178,6 +178,11 @@ public class ParadeService {
 
 	public Parade reconstruct(final Parade parade, final BindingResult binding) {
 		final Parade res = parade;
+		if (parade.getMode().equals("DRAFT"))
+			res.setStatus("DRAFT");
+		else
+			res.setStatus("SUBMITTED");
+
 		if (parade.getMoment() != null) {
 
 			final String pattern = "YYMMdd";
@@ -240,16 +245,6 @@ public class ParadeService {
 		return res;
 	}
 
-	public Parade copyParade(final Parade parade, final BindingResult binding) {
-		final Parade res = parade;
-		final Parade a = this.findOne(parade.getId());
-		res.setStatus("SUBMITTED");
-		res.setTicker(a.getTicker());
-		res.setExplanation(null);
-		res.setMode("DRAFT");
-		return res;
-	}
-
 	public Parade copyParade(final Parade parade) {
 
 		final Parade res = new Parade();
@@ -263,7 +258,8 @@ public class ParadeService {
 		final String ticker = fechaFormateada + "-" + cadena;
 		res.setTicker(ticker);
 
-		res.setStatus("SUBMITTED");
+		res.setId(0);
+		res.setStatus("CLEARED");
 		res.setTitle(parade.getTitle());
 		res.setExplanation(null);
 		res.setMode("DRAFT");
@@ -288,6 +284,11 @@ public class ParadeService {
 
 	public Collection<Parade> findParadesSubmittedByBrotherhood(final int idBrotherhood) {
 		final Collection<Parade> res = this.paradeRepository.findParadesSubmittedByBrotherhood(idBrotherhood);
+		return res;
+	}
+
+	public Collection<Parade> findParadesClearedByBrotherhood(final int idBrotherhood) {
+		final Collection<Parade> res = this.paradeRepository.findParadesClearedByBrotherhood(idBrotherhood);
 		return res;
 	}
 

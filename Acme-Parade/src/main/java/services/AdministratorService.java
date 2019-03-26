@@ -24,10 +24,13 @@ public class AdministratorService {
 
 	// Repositorios propios
 	@Autowired
-	private AdministratorRepository	administratorRepository;
+	private AdministratorRepository			administratorRepository;
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService					actorService;
+
+	@Autowired
+	private ConfigurationParametersService	configurationParametersService;
 
 
 	// Servicios ajenos
@@ -123,7 +126,13 @@ public class AdministratorService {
 		result.setSurname(r.getSurName());
 		result.setPhoto(r.getPhoto());
 		result.setEmail(r.getEmail());
-		result.setPhoneNumber(r.getPhone());
+		final String phoneNumber = r.getPhone();
+		final Boolean b = this.actorService.validateCountryCode(phoneNumber);
+		final String countryCode = this.configurationParametersService.find().getCountryCode();
+		if (b)
+			result.setPhoneNumber(countryCode + " " + phoneNumber);
+		else
+			result.setPhoneNumber(phoneNumber);
 		result.setAddress(r.getAddress());
 
 		return result;

@@ -34,13 +34,16 @@
 						<form:hidden path="version"/>
 						<acme:textbox code="parade.title" path="title" />
 						<acme:textarea code="parade.description" path="description" />
-						<acme:textbox placeholder="dd/MM/yyyy HH:mm" code="parade.moment" path="moment" />
+						<acme:textbox placeholder="yyyy-MM-dd" code="parade.moment" path="moment" />
 						
 						
 						<form:select code="parade.mode" path="mode" >
 							<form:option value="FINAL"></form:option>
 							<form:option value="DRAFT"></form:option>
 						</form:select>
+						
+
+	
 						
 						<br>
 						<br>
@@ -55,7 +58,7 @@
 							<acme:submitConfirmation name="delete" code="parade.delete"
 								onclick="parade.delete.confirmation" />
 						</jstl:if>
-						<acme:cancel url="/brotherhood/parade/list.do"
+						<acme:cancel url="/brotherhood/parade/myList.do"
 							code="parade.cancel" />
 					</div>
 				</form:form>
