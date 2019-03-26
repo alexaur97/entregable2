@@ -2,10 +2,12 @@
 package controllers.all;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +54,10 @@ public class ChapterController extends AbstractController {
 		result = new ModelAndView("chapter/edit");
 		result.addObject("chapterRegisterForm", chapterRegisterForm);
 		result.addObject("message", messageCode);
+		final Locale l = LocaleContextHolder.getLocale();
+		final String lang = l.getLanguage();
+		result.addObject("lang", lang);
+
 		return result;
 	}
 

@@ -2,11 +2,12 @@
 package controllers.all;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -35,7 +36,8 @@ public class BrotherhoodController extends AbstractController {
 	private ActorService		actorService;
 
 	@Autowired
-	private AreaService areaService;
+	private AreaService			areaService;
+
 
 	public BrotherhoodController() {
 		super();
@@ -108,6 +110,9 @@ public class BrotherhoodController extends AbstractController {
 		result = new ModelAndView("brotherhood/edit");
 		result.addObject("brotherhoodRegisterForm", brotherhoodRegisterForm);
 		result.addObject("message", messageCode);
+		final Locale l = LocaleContextHolder.getLocale();
+		final String lang = l.getLanguage();
+		result.addObject("lang", lang);
 
 		return result;
 	}
@@ -116,10 +121,10 @@ public class BrotherhoodController extends AbstractController {
 	public ModelAndView addArea() {
 		ModelAndView result;
 		try {
-			Assert.isNull(this.brotherhoodService.findByPrincipal().getArea(),"Este brotherhood ya tiene area asignada");
+			Assert.isNull(this.brotherhoodService.findByPrincipal().getArea(), "Este brotherhood ya tiene area asignada");
 			result = new ModelAndView("brotherhood/addArea");
-final Brotherhood brotherhood = new Brotherhood();
-Collection<Area> areas = this.areaService.findAll();
+			final Brotherhood brotherhood = new Brotherhood();
+			final Collection<Area> areas = this.areaService.findAll();
 			result.addObject("brotherhood", brotherhood);
 			result.addObject("areas", areas);
 
@@ -129,26 +134,25 @@ Collection<Area> areas = this.areaService.findAll();
 		return result;
 	}
 	@RequestMapping(value = "/addArea", method = RequestMethod.POST, params = "save")
-	public ModelAndView addArea(Brotherhood brotherhood, final BindingResult binding) {
+	public ModelAndView addArea(final Brotherhood brotherhood, final BindingResult binding) {
 		ModelAndView result;
-		if (binding.hasErrors()){
+		if (binding.hasErrors()) {
 			result = new ModelAndView("brotherhood/addArea");
-		Collection<Area> areas = this.areaService.findAll();
-		result.addObject("brotherhood", brotherhood);
-		result.addObject("areas", areas);
-		}else{
+			final Collection<Area> areas = this.areaService.findAll();
+			result.addObject("brotherhood", brotherhood);
+			result.addObject("areas", areas);
+		} else
 			try {
 				final Brotherhood brotherhoodFinal = this.brotherhoodService.recostructionArea(brotherhood, binding);
-					this.brotherhoodService.save(brotherhoodFinal);
-					result = new ModelAndView("redirect:/#");
-				
+				this.brotherhoodService.save(brotherhoodFinal);
+				result = new ModelAndView("redirect:/#");
+
 			} catch (final Throwable oops) {
 				result = new ModelAndView("brotherhood/addArea");
-				Collection<Area> areas = this.areaService.findAll();
+				final Collection<Area> areas = this.areaService.findAll();
 				result.addObject("brotherhood", brotherhood);
 				result.addObject("areas", areas);
 			}
-		}
 		return result;
 	}
 }

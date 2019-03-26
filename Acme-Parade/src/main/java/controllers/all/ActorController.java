@@ -1,9 +1,12 @@
 
 package controllers.all;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +52,10 @@ public class ActorController extends AbstractController {
 			final ActorEditForm actorEditForm = this.actorService.toForm(actor);
 			result = new ModelAndView("actor/edit");
 			result.addObject("actorEditForm", actorEditForm);
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			result.addObject("lang", lang);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -61,6 +68,10 @@ public class ActorController extends AbstractController {
 		if (binding.hasErrors()) {
 			res = new ModelAndView("actor/edit");
 			res.addObject("actorEditForm", actorEditForm);
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			res.addObject("lang", lang);
+
 		} else
 			try {
 				final Actor actor = this.actorService.findByPrincipal();
@@ -80,6 +91,10 @@ public class ActorController extends AbstractController {
 				res = new ModelAndView("redirect:/#");
 			} catch (final Throwable oops) {
 				res = new ModelAndView("actor/edit");
+				final Locale l = LocaleContextHolder.getLocale();
+				final String lang = l.getLanguage();
+				res.addObject("lang", lang);
+
 				res.addObject("requestURI", "actor/edit.do");
 				res.addObject("message", "actor.commit.error");
 			}

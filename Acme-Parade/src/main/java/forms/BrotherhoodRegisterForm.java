@@ -84,7 +84,6 @@ public class BrotherhoodRegisterForm {
 		this.email = email;
 	}
 
-	@Pattern(regexp = "\\+\\d{2}([ ]{1}[(]{1}\\d{1,3}[)]{1})? \\d{4,}|\\+\\d{2} \\d{4,}|\\d{4,}|Null")
 	public String getPhone() {
 		return this.phone;
 	}
@@ -149,8 +148,8 @@ public class BrotherhoodRegisterForm {
 
 	@NotNull
 	@Past
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getEstablishmentDate() {
 		return this.establishmentDate;
 	}

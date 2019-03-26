@@ -36,9 +36,6 @@ public class MemberService {
 	private BrotherhoodService		brotherhoodService;
 
 	@Autowired
-	private EnrolmentService		enrolmentService;
-
-	@Autowired
 	private ActorService			actorService;
 
 
@@ -183,5 +180,4 @@ public class MemberService {
 		Assert.notNull(res);
 		return res;
 	}
-
 }
