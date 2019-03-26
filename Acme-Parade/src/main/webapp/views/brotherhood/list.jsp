@@ -40,8 +40,12 @@
 		<acme:cancel url="/history/list.do?brotherhoodId=${brotherhood.id}" code="brotherhood.history" />
 	</display:column>
 	
+	<display:column titleKey="brotherhood.display">
+		<acme:cancel url="/brotherhood/display.do?brotherhoodId=${brotherhood.id}" code="brotherhood.display" />
+	</display:column>
+	
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<acme:cancel url="/brotherhood/parade/create.do" code="parade.create"/>
 		</security:authorize>
-
+	
 </display:table>
