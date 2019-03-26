@@ -115,15 +115,21 @@ public class BrotherhoodFloatController extends AbstractController {
 		else
 			try {
 				final Boolean b = this.floatService.validatePictures(floaat.getPictures());
-				if (!b)
+				if (!b) {
 					res = this.createEditModelAndView(floaat, "float.picture.error");
-				else {
+					res.addObject("message", "float.picture.error");
+
+				} else {
 					this.floatService.save(floaat);
 					res = new ModelAndView("redirect:/brotherhood/float/list.do");
 				}
 			} catch (final Throwable oops) {
+				final Boolean b = this.floatService.validatePictures(floaat.getPictures());
+				if (!b)
+					res = this.createEditModelAndView(floaat, "float.picture.error");
 				res = this.createEditModelAndView(floaat, "float.commit.error");
 			}
+
 		return res;
 	}
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
@@ -142,6 +148,7 @@ public class BrotherhoodFloatController extends AbstractController {
 
 		return result;
 	}
+
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int floatId) {
 		ModelAndView result;
@@ -154,16 +161,12 @@ public class BrotherhoodFloatController extends AbstractController {
 			final Integer idB = this.brotherhoodService.findByPrincipal().getId();
 			final Collection<Float> floats = this.floatService.findFloatsByBrotherhood(idB);
 			Assert.isTrue(floats.contains(floaat));
+			result = new ModelAndView("float/show");
+			result.addObject("floaat", floaat);
+			result.addObject("pictures", floaat.getPictures());
 
-			final Boolean b = this.floatService.validatePictures(floaat.getPictures());
-			if (!b)
-				result = new ModelAndView("redirect:/#");
-			else {
-				result = new ModelAndView("float/show");
-				result.addObject("floaat", floaat);
-				result.addObject("pictures", floaat.getPictures());
-			}
 		} catch (final Throwable oops) {
+
 			result = new ModelAndView("redirect:/#");
 		}
 

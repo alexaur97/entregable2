@@ -55,23 +55,29 @@ public class HistoryBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		History history;
 		try {
+
 			final Brotherhood b = this.brotherhoodService.findByPrincipal();
 			Assert.notNull(b.getId());
-
 			history = this.historyService.findHistoryByBrotherhood(b.getId());
-			Assert.isTrue(b.equals(history.getBrotherhood()));
 
-			final InceptionRecord inceptionRecord = history.getInceptionRecord();
-			final Collection<LegalRecord> legalRecord = history.getLegalRecord();
-			final Collection<MiscellaneousRecord> miscellaneousRecord = history.getMiscellaneousRecord();
-			final Collection<LinkRecord> linkRecord = history.getLinkRecord();
-			final Collection<PeriodRecord> periodRecord = history.getPeriodRecord();
-			result = new ModelAndView("history/myList");
-			result.addObject("inceptionRecords", inceptionRecord);
-			result.addObject("legalRecords", legalRecord);
-			result.addObject("miscellaneousRecords", miscellaneousRecord);
-			result.addObject("linkRecords", linkRecord);
-			result.addObject("periodRecords", periodRecord);
+			if (!history.equals(null)) {
+
+				Assert.isTrue(b.equals(history.getBrotherhood()));
+
+				final InceptionRecord inceptionRecord = history.getInceptionRecord();
+				final Collection<LegalRecord> legalRecord = history.getLegalRecord();
+				final Collection<MiscellaneousRecord> miscellaneousRecord = history.getMiscellaneousRecord();
+				final Collection<LinkRecord> linkRecord = history.getLinkRecord();
+				final Collection<PeriodRecord> periodRecord = history.getPeriodRecord();
+				result = new ModelAndView("history/myList");
+				result.addObject("inceptionRecords", inceptionRecord);
+				result.addObject("legalRecords", legalRecord);
+				result.addObject("miscellaneousRecords", miscellaneousRecord);
+				result.addObject("linkRecords", linkRecord);
+				result.addObject("periodRecords", periodRecord);
+
+			} else
+				result = new ModelAndView("redirect:/history/create.do");
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -89,9 +95,6 @@ public class HistoryBrotherhoodController extends AbstractController {
 		try {
 			this.brotherhoodService.findByPrincipal();
 			history.setId(0);
-
-			result = new ModelAndView("history/list");
-			result.addObject("history", history);
 			result = this.createEditModelAndView(history);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");

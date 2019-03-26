@@ -74,15 +74,20 @@ public class BrotherhoodParadeController extends AbstractController {
 			Collection<Parade> paradesSubmitted;
 			Collection<Parade> paradesAccepted;
 			Collection<Parade> paradesRejected;
+			Collection<Parade> paradesCleared;
+
 			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActorId);
 			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
 			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
+			paradesCleared = this.paradeService.findParadesClearedByBrotherhood(currentActorId);
 
 			result = new ModelAndView("parade/myList");
 			result.addObject("requestURI", "parade/myList.do");
 			result.addObject("paradesSubmitted", paradesSubmitted);
 			result.addObject("paradesAccepted", paradesAccepted);
 			result.addObject("paradesRejected", paradesRejected);
+			result.addObject("paradesCleared", paradesCleared);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -115,13 +120,18 @@ public class BrotherhoodParadeController extends AbstractController {
 				Collection<Parade> paradesSubmitted;
 				Collection<Parade> paradesAccepted;
 				Collection<Parade> paradesRejected;
+				Collection<Parade> paradesCleared;
+
 				paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActorId);
 				paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
 				paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
+				paradesCleared = this.paradeService.findParadesClearedByBrotherhood(currentActorId);
 
 				result.addObject("paradesSubmitted", paradesSubmitted);
 				result.addObject("paradesAccepted", paradesAccepted);
 				result.addObject("paradesRejected", paradesRejected);
+				result.addObject("paradesCleared", paradesCleared);
+
 				result.addObject("requestURI", "parade/list.do");
 				result.addObject("message", "parade.area.error");
 			} else
@@ -138,29 +148,32 @@ public class BrotherhoodParadeController extends AbstractController {
 	public ModelAndView copy(final int paradeId) {
 		ModelAndView result;
 		try {
-			final Integer currentActorId = this.actorService.findByPrincipal().getId();
-			Collection<Parade> paradesSubmitted;
-			Collection<Parade> paradesAccepted;
-			Collection<Parade> paradesRejected;
-			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActorId);
-			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
-			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
 			final Parade parade = this.paradeService.findOne(paradeId);
 			Assert.notNull(parade);
 			final Parade paradeFinal = this.paradeService.copyParade(parade);
 			Assert.notNull(paradeFinal);
 			this.paradeService.save(paradeFinal);
+			final Integer currentActorId = this.actorService.findByPrincipal().getId();
+			Collection<Parade> paradesSubmitted;
+			Collection<Parade> paradesAccepted;
+			Collection<Parade> paradesRejected;
+			Collection<Parade> paradesCleared;
+			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActorId);
+			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
+			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
+			paradesCleared = this.paradeService.findParadesClearedByBrotherhood(currentActorId);
 			result = new ModelAndView("parade/myList");
 			result.addObject("paradesSubmitted", paradesSubmitted);
 			result.addObject("paradesAccepted", paradesAccepted);
 			result.addObject("paradesRejected", paradesRejected);
+			result.addObject("paradesCleared", paradesCleared);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
 
 	}
-
 	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -210,7 +223,7 @@ public class BrotherhoodParadeController extends AbstractController {
 		try {
 
 			this.paradeService.delete(parade);
-			result = new ModelAndView("redirect:/brotherhood/parade/list.do");
+			result = new ModelAndView("redirect:/brotherhood/parade/MyList.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(parade, "parade.commit.error");
 

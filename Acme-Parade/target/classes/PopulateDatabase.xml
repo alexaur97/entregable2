@@ -287,6 +287,8 @@
 		<property name="destinationY" value="-30" />
 		<property name="originTime" value="11/02/2018 10:00" />
 		<property name="destinationTime" value="15/09/2018 15:00" />
+		<property name="sequence" value="2" />
+		
 	</bean>
 
 	<bean id="segment3" class="domain.Segment">
@@ -296,6 +298,8 @@
 		<property name="destinationY" value="-130" />
 		<property name="originTime" value="11/02/2018 10:00" />
 		<property name="destinationTime" value="15/09/2018 15:00" />
+		<property name="sequence" value="3" />
+		
 	</bean>
 
 	<bean id="segment4" class="domain.Segment">
@@ -305,6 +309,7 @@
 		<property name="destinationY" value="-100" />
 		<property name="originTime" value="11/02/2018 10:00" />
 		<property name="destinationTime" value="15/09/2018 15:00" />
+		<property name="sequence" value="4" />
 	</bean>
 
 	<bean id="segment5" class="domain.Segment">
@@ -314,6 +319,7 @@
 		<property name="destinationY" value="-30" />
 		<property name="originTime" value="11/02/2018 10:00" />
 		<property name="destinationTime" value="15/09/2018 15:00" />
+		<property name="sequence" value="5" />
 	</bean>
 
 
@@ -338,6 +344,7 @@
 		<property name="paths">
 			<list>
 				<ref bean="path1" />
+				<ref bean="path5" />
 			</list>
 		</property>
 		<property name="brotherhood" ref="brotherhood1" />
@@ -351,6 +358,9 @@
 				<ref bean="segment1" />
 			</list>
 		</property>
+	</bean>
+	
+	<bean id="path5" class="domain.Path">
 	</bean>
 
 

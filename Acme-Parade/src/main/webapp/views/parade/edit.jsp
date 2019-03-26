@@ -55,7 +55,7 @@
 							<acme:submitConfirmation name="delete" code="parade.delete"
 								onclick="parade.delete.confirmation" />
 						</jstl:if>
-						<acme:cancel url="/brotherhood/parade/list.do"
+						<acme:cancel url="/brotherhood/parade/myList.do"
 							code="parade.cancel" />
 					</div>
 				</form:form>

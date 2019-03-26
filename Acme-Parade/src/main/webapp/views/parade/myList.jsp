@@ -65,7 +65,14 @@
 	<display:column style="color:green"  titleKey="parade.moment" property="moment" />
 	<display:column style="color:green"  titleKey="parade.ticker" property="ticker" />
 	<display:column style="color:green"  titleKey="parade.mode" property="mode" />	
-	<security:authorize access="hasRole('BROTHERHOOD')">		
+	<security:authorize access="hasRole('BROTHERHOOD')">	
+	
+	<display:column titleKey="parade.edit">
+		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
+		<spring:message code="parade.edit" />
+		</a>
+		</display:column>
+			
 	<display:column titleKey="parade.show">
 		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
 		<spring:message code="parade.show" />
@@ -91,7 +98,48 @@
 	<display:column style="color:red" titleKey="parade.ticker" property="ticker" />
 	<display:column style="color:red" titleKey="parade.mode" property="mode" />
 		
-	<security:authorize access="hasRole('BROTHERHOOD')">		
+	<security:authorize access="hasRole('BROTHERHOOD')">	
+	
+	<display:column titleKey="parade.edit">
+		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
+		<spring:message code="parade.edit" />
+		</a>
+		</display:column>
+			
+	<display:column titleKey="parade.show">
+		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
+		<spring:message code="parade.show" />
+		</a>
+	</display:column>
+	<display:column titleKey="parade.copy">
+		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
+		<spring:message code="parade.copy" />
+		</a>
+	</display:column>
+	</security:authorize>
+</display:table>
+
+
+<h3>
+	<spring:message code="parade.clearedParades" />
+</h3>
+
+<display:table name="paradesCleared" id="parade"
+	requestURI="${requestURI}">
+	<display:column style="color:blue" titleKey="parade.title"  property="title" />
+	<display:column style="color:blue" titleKey="parade.description" property="description" />
+	<display:column style="color:blue" titleKey="parade.moment" property="moment" />
+	<display:column style="color:blue" titleKey="parade.ticker" property="ticker" />
+	<display:column style="color:blue" titleKey="parade.mode" property="mode" />
+		
+	<security:authorize access="hasRole('BROTHERHOOD')">	
+	
+	<display:column titleKey="parade.edit">
+		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
+		<spring:message code="parade.edit" />
+		</a>
+		</display:column>
+			
 	<display:column titleKey="parade.show">
 		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
 		<spring:message code="parade.show" />
