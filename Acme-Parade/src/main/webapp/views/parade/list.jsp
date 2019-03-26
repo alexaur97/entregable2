@@ -65,6 +65,4 @@
 	</display:column>
 	</security:authorize>
 </display:table>
-		<security:authorize access="hasRole('BROTHERHOOD')">
-		<acme:cancel url="/brotherhood/parade/create.do" code="parade.create"/>
-		</security:authorize>
+		
