@@ -24,7 +24,7 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table name="members" id="member"
+<display:table pagesize="5" name="members" id="member"
 	requestURI="${requestURI }">
 	<display:column titleKey="member.name" property="name" />
 	<display:column titleKey="member.middleName" property="middleName" />

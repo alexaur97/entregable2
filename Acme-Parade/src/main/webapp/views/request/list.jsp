@@ -27,7 +27,7 @@
 <h3>
 	<spring:message code="request.acceptedRequests" />
 </h3>
-<display:table name="acceptedRequests" id="acceptedRequest"
+<display:table pagesize="5" name="acceptedRequests" id="acceptedRequest"
 	requestURI="${requestURI }">
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<display:column style="color:green" titleKey="request.member"
@@ -43,7 +43,7 @@
 <h3>
 	<spring:message code="request.pendingRequests" />
 </h3>
-<display:table name="pendingRequests" id="pendingRequest"
+<display:table pagesize="5" name="pendingRequests" id="pendingRequest"
 	requestURI="${requestURI }">
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<display:column style="color:grey" titleKey="request.member"
@@ -73,7 +73,7 @@
 <h3>
 	<spring:message code="request.rejectedRequests" />
 </h3>
-<display:table name="rejectedRequests" id="rejectedRequest"
+<display:table pagesize="5" name="rejectedRequests" id="rejectedRequest"
 	requestURI="${requestURI }">
 	<display:column style="color:orange" titleKey="request.status" property="status" />
 	<display:column style="color:orange" titleKey="request.parade"

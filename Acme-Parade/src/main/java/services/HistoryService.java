@@ -26,14 +26,11 @@ import forms.HistoryCreateForm;
 public class HistoryService {
 
 	@Autowired
-	private HistoryRepository		historyRepository;
+	private HistoryRepository	historyRepository;
 
 	//servicios
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
-
-	@Autowired
-	private InceptionRecordService	inceptionRecordService;
+	private BrotherhoodService	brotherhoodService;
 
 
 	// FR 4.1.1 ACME PARADE

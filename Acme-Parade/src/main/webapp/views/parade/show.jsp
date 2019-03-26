@@ -30,7 +30,7 @@
 <br/><spring:message code="parade.brotherhood"/>: <jstl:out value="${parade.brotherhood.title}"></jstl:out>
 
 <br/><spring:message code="parade.floats"/>
-:<display:table name="floats" id="float"
+:<display:table pagesize="5" name="floats" id="float"
 	requestURI="${requestURI }">
 	<display:column titleKey="parade.title" property="title" />
 

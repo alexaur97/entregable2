@@ -28,7 +28,7 @@
 	<spring:message code="history.inceptionRecord" />
 </h3>
 
-<display:table name="inceptionRecords" id="inceptionRecord"
+<display:table pagesize="5" name="inceptionRecords" id="inceptionRecord"
 	requestURI="${requestURI }">
 	<display:column titleKey="inceptionRecord.pictures" > <img src="${inceptionRecord.pictures}" alt="floatLogo" height="200" width="350"/></display:column>
 	<display:column titleKey="inceptionRecord.title" property="title" />
@@ -39,7 +39,7 @@
 	<spring:message code="history.legalRecord" />
 </h3>
 
-<display:table name="legalRecords" id="legalRecord"
+<display:table pagesize="5" name="legalRecords" id="legalRecord"
 	requestURI="${requestURI }">
 	<display:column titleKey="legalRecord.title" property="title" />
 	<display:column titleKey="legalRecord.description" property="description" />
@@ -55,7 +55,7 @@
 	<spring:message code="history.LinkRecord" />
 </h3>
 
-<display:table name="linkRecords" id="linkRecord"
+<display:table pagesize="5" name="linkRecords" id="linkRecord"
 	requestURI="${requestURI }">
 	<display:column titleKey="linkRecord.title" property="title" />
 	<display:column titleKey="linkRecord.description" property="description" />
@@ -68,7 +68,7 @@
 	<spring:message code="history.MiscellaneousRecord" />
 </h3>
 
-<display:table name="miscellaneousRecords" id="miscellaneousRecord"
+<display:table pagesize="5" name="miscellaneousRecords" id="miscellaneousRecord"
 	requestURI="${requestURI }">
 	<display:column titleKey="miscellaneousRecord.title" property="title" />
 	<display:column titleKey="miscellaneousRecord.description" property="description" />
@@ -80,7 +80,7 @@
 	<spring:message code="history.periodRecord" />
 </h3>
 
-<display:table name="periodRecords" id="periodRecord"
+<display:table pagesize="5" name="periodRecords" id="periodRecord"
 	requestURI="${requestURI }">
 	<display:column titleKey="periodRecord.title" property="title" />
 	<display:column titleKey="periodRecord.description" property="description" />

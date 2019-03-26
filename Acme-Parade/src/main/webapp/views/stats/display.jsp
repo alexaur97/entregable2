@@ -234,7 +234,7 @@
 </table>	
 <spring:message code="stats.chapter.ten" />
 :
-<display:table name="chapters10" id="chapter"
+<display:table pagesize="5" name="chapters10" id="chapter"
 	requestURI="${requestURI}">
 	<display:column titleKey="parade.title"  property="name" />
 		

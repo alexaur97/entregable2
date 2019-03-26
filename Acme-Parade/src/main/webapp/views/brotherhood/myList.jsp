@@ -23,7 +23,7 @@
 
 <h2><spring:message	code="brotherhood.exbrotherhoods"/></h2>
 
-<display:table name="brotherhoodsPast" id="brotherhood"
+<display:table pagesize="5" name="brotherhoodsPast" id="brotherhood"
 	requestURI="${requestURI }">
 	<display:column titleKey="brotherhood.photo" > <img src="${brotherhood.photo}" alt="BrotherhoodLogo" height="200" width="350"/></display:column>
 	<display:column titleKey="brotherhood.title" property="title" />
@@ -44,7 +44,7 @@
 
 <h2><spring:message	code="brotherhood.currentbrotherhoods"/></h2>
 
-<display:table name="brotherhoodsCurrent" id="brotherhood"
+<display:table pagesize="5" name="brotherhoodsCurrent" id="brotherhood"
 	requestURI="${requestURI }">
 	<display:column titleKey="brotherhood.photo" > <img src="${brotherhood.photo}" alt="BrotherhoodLogo" height="200" width="350"/></display:column>
 	<display:column titleKey="brotherhood.title" property="title" />
