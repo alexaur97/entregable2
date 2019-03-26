@@ -33,24 +33,35 @@ import forms.BrotherhoodRegisterForm;
 public class BrotherhoodService {
 
 	@Autowired
-	private BrotherhoodRepository	brotherhoodRepository;
+	private BrotherhoodRepository			brotherhoodRepository;
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService					actorService;
 
 	@Autowired
-	private HistoryService			historyService;
+	private HistoryService					historyService;
 
 	@Autowired
-	private AreaService				areaService;
+	private AreaService						areaService;
+
 	@Autowired
-	private Validator				validator;
+	private ConfigurationParametersService	configurationParametersService;
+
+	@Autowired
+	private Validator						validator;
 
 
-	public Brotherhood save(final Brotherhood b) {
-		Assert.notNull(b);
+	public Brotherhood save(final Brotherhood brotherhood) {
+		final String phoneNumber = brotherhood.getPhoneNumber();
+		final Boolean b = this.actorService.validateCountryCode(phoneNumber);
+		final String countryCode = this.configurationParametersService.find().getCountryCode();
+		if (b)
+			brotherhood.setPhoneNumber(countryCode + " " + phoneNumber);
+		else
+			brotherhood.setPhoneNumber(phoneNumber);
+		Assert.notNull(brotherhood);
 		//		this.findByPrincipal();
-		return this.brotherhoodRepository.save(b);
+		return this.brotherhoodRepository.save(brotherhood);
 
 	}
 	//RF.2 List the brotherhoods in the system
