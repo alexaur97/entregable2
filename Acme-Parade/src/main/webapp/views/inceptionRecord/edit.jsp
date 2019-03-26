@@ -32,6 +32,8 @@
 	<acme:textarea code="inceptionRecord.description" path="description" />
 	<acme:textarea code="inceptionRecord.pictures" path="pictures" />
 	<spring:message code="inceptionRecord.photos"/>
+	<br>
+	<br>
 	<acme:submit name="save" code="inceptionRecord.save" />
 	<acme:cancel url="/history/brotherhood/myList.do"
 		code="inceptionRecord.cancel" />

@@ -36,7 +36,10 @@
 						<acme:textbox code="float.title" path="title" />
 						<acme:textarea code="float.description" path="description" />
 						<acme:textbox code="float.pictures" path="pictures" />
-
+						<spring:message code = "float.photos"/>
+						
+						<br>
+						<br>
 	
 		
 						

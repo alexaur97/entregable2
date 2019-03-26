@@ -34,6 +34,7 @@
 <acme:textbox code="brotherhood.title" path="title" />
 <acme:textbox placeholder="dd/MM/yyyy HH:mm" code="brotherhood.establishmentDate" path="establishmentDate" />
 <acme:textarea code="brotherhood.photos" path="photos" />
+<spring:message code="brotherhood.photos"/>
 
 <spring:message code="brotherhood.check"/><form:checkbox path="terms"/>
 
