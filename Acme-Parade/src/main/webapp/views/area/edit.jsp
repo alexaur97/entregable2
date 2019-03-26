@@ -33,7 +33,7 @@
 						<form:hidden path="id"/>
 						<form:hidden path="version"/>
 						<acme:textbox code="area.name" path="name" />
-						<acme:textbox code="area.photo" path="photo" />
+						<acme:textbox placeholder="x.jpg, y.jpg" code="area.photo" path="photo" />
 						
 						<br>
 						<acme:submit name="save" code="area.save" />

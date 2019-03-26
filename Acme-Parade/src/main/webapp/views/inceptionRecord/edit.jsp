@@ -30,7 +30,7 @@
 	<form:hidden path="version" />
 	<acme:textbox code="inceptionRecord.title" path="title" />
 	<acme:textarea code="inceptionRecord.description" path="description" />
-	<acme:textarea code="inceptionRecord.pictures" path="pictures" />
+	<acme:textbox placeholder="x.jpg, y.jpg" code="inceptionRecord.pictures" path="pictures" />
 	<acme:submit name="save" code="inceptionRecord.save" />
 	<acme:cancel url="/history/brotherhood/myList.do"
 		code="inceptionRecord.cancel" />
