@@ -33,8 +33,9 @@
 						<form:hidden path="id"/>
 						<form:hidden path="version"/>
 						<acme:textbox code="area.name" path="name" />
-						<acme:textbox placeholder="x.jpg, y.jpg" code="area.photo" path="photo" />
 						
+						<acme:textarea code="area.photo" path="photo" />
+						<spring:message code="area.photos"/>
 						<br>
 						<acme:submit name="save" code="area.save" />
 						<jstl:if test="${area.id!=0}">

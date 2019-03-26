@@ -123,7 +123,7 @@ public class AreaAdministratorController extends AbstractController {
 			this.areaService.delete(area);
 			result = new ModelAndView("redirect:/area/administrator/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(area, "area.commit.error");
+			result = this.createEditModelAndView(area, "area.commit.errorDelete");
 
 		}
 

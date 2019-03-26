@@ -31,7 +31,8 @@
 <acme:textarea code="periodRecord.description" path="description"/>
 <acme:textarea code="periodRecord.startYear" path="startYear"/>
 <acme:textarea code="periodRecord.endYear" path="endYear"/>
-<acme:textbox placeholder="x.jpg, y.jpg" code="periodRecord.pictures" path="pictures"/>
+<acme:textarea code="periodRecord.pictures" path="pictures"/>
+<spring:message code = "periodRecord.photos"/>
 <acme:submit name="save" code="periodRecord.save"/>
 <jstl:if test="${periodRecord.id ne 0}">
 		<acme:submit name="delete" code="periodRecord.delete" />
