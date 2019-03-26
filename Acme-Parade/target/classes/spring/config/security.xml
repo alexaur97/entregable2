@@ -55,7 +55,6 @@
 			
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" />
-		<security:intercept-url pattern="/brotherhood/display.do" access="permitAll" />
 
 		<security:intercept-url pattern="/administrator/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/edit.do" access="hasRole('ADMINISTRATOR')" />

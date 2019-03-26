@@ -24,7 +24,7 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table name="areas" id="area"
+<display:table pagesize="5" name="areas" id="area"
 	requestURI="${requestURI}">
 	<display:column titleKey="area.name"  property="name" />
 	<

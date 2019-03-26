@@ -24,7 +24,7 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table name="floats" id="floaat"
+<display:table pagesize="5" name="floats" id="floaat"
 	requestURI="${requestURI }">
 	<display:column titleKey="float.title" property="title" />
 	<display:column titleKey="float.edit">

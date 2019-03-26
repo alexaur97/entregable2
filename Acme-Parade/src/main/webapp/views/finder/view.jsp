@@ -43,7 +43,7 @@
 </fieldset>
 <div class="table-responsive">	
 
-<display:table name="parades" id="parade"
+<display:table pagesize="5" name="parades" id="parade"
 	requestURI="${requestURI}">
 	<display:column titleKey="parade.title"  property="title" />
 	<display:column titleKey="parade.description" property="description" />

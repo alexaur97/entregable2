@@ -28,7 +28,7 @@
 	<spring:message code="parade.submittedParades" />
 </h3>
 
-<display:table name="paradesSubmitted" id="parade"
+<display:table pagesize="5" name="paradesSubmitted" id="parade"
 	requestURI="${requestURI}">
 	<display:column style="color:grey" titleKey="parade.title"  property="title" />
 	<display:column style="color:grey" titleKey="parade.description" property="description" />
@@ -65,7 +65,7 @@
 	<spring:message code="parade.acceptedParades" />
 </h3>
 
-<display:table name="paradesAccepted" id="parade"
+<display:table pagesize="5" name="paradesAccepted" id="parade"
 	requestURI="${requestURI}">
 	<display:column style="color:green"  titleKey="parade.title"  property="title" />
 	<display:column style="color:green"  titleKey="parade.description" property="description" />
@@ -105,7 +105,7 @@
 	<spring:message code="parade.rejectedParades" />
 </h3>
 
-<display:table name="paradesRejected" id="parade"
+<display:table pagesize="5" name="paradesRejected" id="parade"
 	requestURI="${requestURI}">
 	<display:column style="color:red" titleKey="parade.title"  property="title" />
 	<display:column style="color:red" titleKey="parade.description" property="description" />
@@ -141,7 +141,7 @@
 	<spring:message code="parade.clearedParades" />
 </h3>
 
-<display:table name="paradesCleared" id="parade"
+<display:table pagesize="5" name="paradesCleared" id="parade"
 	requestURI="${requestURI}">
 	<display:column style="color:blue" titleKey="parade.title"  property="title" />
 	<display:column style="color:blue" titleKey="parade.description" property="description" />
