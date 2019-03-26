@@ -338,6 +338,7 @@
 		<property name="paths">
 			<list>
 				<ref bean="path1" />
+				<ref bean="path5" />
 			</list>
 		</property>
 		<property name="brotherhood" ref="brotherhood1" />
@@ -351,6 +352,9 @@
 				<ref bean="segment1" />
 			</list>
 		</property>
+	</bean>
+	
+	<bean id="path5" class="domain.Path">
 	</bean>
 
 

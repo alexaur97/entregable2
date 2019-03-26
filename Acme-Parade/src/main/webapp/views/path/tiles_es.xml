@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- * tiles_es.xml * * Copyright (C) 2014 Universidad de Sevilla * * The 
+	use of this project is hereby constrained to the conditions of the * TDG 
+	Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="path/listByBrotherhood" extends="master.page">
+		<put-attribute name="title" value="Recorridos" />
+		<put-attribute name="body" value="/views/path/list.jsp" />
+	</definition>
+	
+	<definition name="path/list" extends="master.page">
+		<put-attribute name="title" value="Recorridos" />
+		<put-attribute name="body" value="/views/path/list.jsp" />
+	</definition>
+	
+	
+	<definition name="path/create" extends="master.page">
+		<put-attribute name="title" value="Crear Recorrido" />
+		<put-attribute name="body" value="/views/path/list.jsp" />
+	</definition>
+	
+	<definition name="path/delete" extends="master.page">
+		<put-attribute name="title" value="Eliminar Recorrido" />
+		<put-attribute name="body" value="/views/path/list.jsp" />
+	</definition>
+	
+	<definition name="path/deleteSegment" extends="master.page">
+		<put-attribute name="title" value="Eliminar tramo" />
+		<put-attribute name="body" value="/views/path/list.jsp" />
+	</definition>
+	
+	<definition name="path/editSegment" extends="master.page">
+		<put-attribute name="title" value="Editat tramo" />
+		<put-attribute name="body" value="/views/path/edit.jsp" />
+	</definition>
+	
+	<definition name="path/edit" extends="master.page">
+		<put-attribute name="title" value="Editar tramo" />
+		<put-attribute name="body" value="/views/path/edit.jsp" />
+	</definition>
+	
+	<definition name="path/createSegment" extends="master.page">
+		<put-attribute name="title" value="Crear tramo" />
+		<put-attribute name="body" value="/views/path/create.jsp" />
+	</definition>
+	
+	<definition name="path/createSeg" extends="master.page">
+		<put-attribute name="title" value="Eliminar tramo" />
+		<put-attribute name="body" value="/views/path/create.jsp" />
+	</definition>
+	
+
+</tiles-definitions>

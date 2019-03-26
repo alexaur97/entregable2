@@ -23,6 +23,7 @@ import domain.Brotherhood;
 import domain.ConfigurationParameters;
 import domain.Member;
 import domain.Parade;
+import domain.Path;
 
 @Service
 @Transactional
@@ -76,17 +77,19 @@ public class ParadeService {
 		final List<Parade> result = new ArrayList<Parade>();
 		List<Parade> aux = new ArrayList<>();
 		final ConfigurationParameters config = this.configurationParametersService.find();
-		if (keyword == "" && dateFrom == null && dateTo == null && area == null)
+		if (keyword == "" && dateFrom == null && dateTo == null && area == null){
 			aux = (List<Parade>) this.findFinalParades();
-		else if (area == null) {
-			if (dateTo == null)
+		}else if (area == null) {
+			if (dateTo == null){
 				aux = (List<Parade>) this.paradeRepository.searchParadesWithoutEndDateOrArea(keyword, dateFrom);
-			else
+			}else{
 				aux = (List<Parade>) this.paradeRepository.searchParadesWithoutArea(keyword, dateFrom, dateTo);
-		} else if (dateTo == null)
+			}
+		} else if (dateTo == null){
 			aux = (List<Parade>) this.paradeRepository.searchParadesWithoutEndDate(keyword, dateFrom, area.getId());
-		else
+		}else{
 			aux = (List<Parade>) this.paradeRepository.searchParades(keyword, dateFrom, dateTo, area.getId());
+		}
 		for (final Parade parade : aux)
 			if (parade.getMode().equals("FINAL"))
 				result.add(parade);
@@ -202,7 +205,7 @@ public class ParadeService {
 
 	public String creaString() {
 		final char[] elementos = {
-			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 		};
 
 		final char[] conjunto = new char[5];
@@ -308,4 +311,25 @@ public class ParadeService {
 		final Collection<Double> result = this.paradeRepository.statusStats();
 		return result;
 	}
+
+	// FR 3.3
+	public Parade addPath(final Parade parade, final Path path) {
+		Parade result;
+		final Collection<Path> paths = parade.getPaths();
+		paths.add(path);
+		parade.setPaths(paths);
+		result = this.save(parade);
+		return result;
+	}
+
+	public Parade findParadeByPath(final Path path) {
+		final Collection<Parade> parades = this.findByPrincipal();
+		Parade result = null;
+		for (final Parade p : parades)
+			if (p.getPaths().contains(path))
+				result = p;
+		Assert.notNull(result);
+		return result;
+	}
+
 }

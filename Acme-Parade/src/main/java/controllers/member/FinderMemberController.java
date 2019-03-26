@@ -71,7 +71,7 @@ public class FinderMemberController extends AbstractController {
 				this.finderService.save(finder);
 				res = new ModelAndView("redirect:/finder/member/view.do");
 			} catch (final Throwable oops) {
-				res.addObject("message", "request.commit.error");
+				res.addObject("message", "finder.commit.error");
 				res.addObject("parades", parades);
 				res.addObject("areas", areas);
 				res.addObject("finder", finder);
@@ -96,7 +96,7 @@ public class FinderMemberController extends AbstractController {
 				this.finderService.saveAfterClean(finder);
 				res = new ModelAndView("redirect:/finder/member/view.do");
 			} catch (final Throwable oops) {
-				res.addObject("message", "request.commit.error");
+				res.addObject("message", "finder.clean.commit.error");
 				res.addObject("parades", parades);
 				res.addObject("areas", areas);
 				res.addObject("finder", finder);
