@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -14,6 +15,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -21,8 +24,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Finder extends DomainEntity {
 
 	public String				keyword;
-	public Date				minDate;
-	public Date				maxDate;
+	public Date					minDate;
+	public Date					maxDate;
 
 	public Member				member;
 	public Area					area;
@@ -31,6 +34,7 @@ public class Finder extends DomainEntity {
 	public Date					lastSearch;
 
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getKeyword() {
 		return this.keyword;
 	}

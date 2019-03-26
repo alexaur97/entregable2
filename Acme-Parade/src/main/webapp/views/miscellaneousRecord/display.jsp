@@ -24,9 +24,10 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:display code="miscellaneousRecord.title" value="${miscellaneousRecord.title}"/>
-<acme:display code="miscellaneousRecord.description" value="${miscellaneousRecord.description}"/>
-<br />
+<spring:message code="miscellaneousRecord.title" /> : <jstl:out value="${miscellaneousRecord.title}" />
+<br/>
+<spring:message code="miscellaneousRecord.description" /> : <jstl:out value="${miscellaneousRecord.description}" />
+<br/>
 <br/>
 <security:authorize access="hasRole('BROTHERHOOD')">
 	<acme:button

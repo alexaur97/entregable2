@@ -7,6 +7,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
 public class AdministratorRegisterForm {
@@ -25,6 +27,7 @@ public class AdministratorRegisterForm {
 
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getName() {
 		return this.name;
 	}
@@ -33,6 +36,7 @@ public class AdministratorRegisterForm {
 		this.name = name;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getMiddleName() {
 		return this.middleName;
 	}
@@ -42,6 +46,7 @@ public class AdministratorRegisterForm {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSurName() {
 		return this.surName;
 	}
@@ -51,6 +56,7 @@ public class AdministratorRegisterForm {
 	}
 
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhoto() {
 		return this.photo;
 	}
@@ -61,6 +67,7 @@ public class AdministratorRegisterForm {
 
 	@Column(unique = true)
 	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*\\>")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getEmail() {
 		return this.email;
 	}
@@ -69,6 +76,7 @@ public class AdministratorRegisterForm {
 		this.email = email;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhone() {
 		return this.phone;
 	}
@@ -77,6 +85,7 @@ public class AdministratorRegisterForm {
 		this.phone = phone;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getAddress() {
 		return this.address;
 	}
@@ -87,6 +96,7 @@ public class AdministratorRegisterForm {
 
 	@Size(min = 5, max = 32)
 	@Column(unique = true)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getUsername() {
 		return this.username;
 	}
@@ -96,6 +106,7 @@ public class AdministratorRegisterForm {
 	}
 
 	@Size(min = 5, max = 32)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPassword() {
 		return this.password;
 	}
@@ -105,6 +116,7 @@ public class AdministratorRegisterForm {
 	}
 
 	@Size(min = 5, max = 32)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getConfirmPassword() {
 		return this.confirmPassword;
 	}
