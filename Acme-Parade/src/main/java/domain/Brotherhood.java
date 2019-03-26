@@ -49,8 +49,8 @@ public class Brotherhood extends Actor {
 
 	@NotNull
 	@Past
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getEstablishmentDate() {
 		return this.establishmentDate;
 	}

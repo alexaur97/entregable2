@@ -2,10 +2,12 @@
 package controllers.all;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -123,6 +125,9 @@ public class BrotherhoodController extends AbstractController {
 		result = new ModelAndView("brotherhood/edit");
 		result.addObject("brotherhoodRegisterForm", brotherhoodRegisterForm);
 		result.addObject("message", messageCode);
+		final Locale l = LocaleContextHolder.getLocale();
+		final String lang = l.getLanguage();
+		result.addObject("lang", lang);
 
 		return result;
 	}

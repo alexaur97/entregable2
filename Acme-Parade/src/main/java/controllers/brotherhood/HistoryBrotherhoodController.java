@@ -23,6 +23,7 @@ import domain.LegalRecord;
 import domain.LinkRecord;
 import domain.MiscellaneousRecord;
 import domain.PeriodRecord;
+import forms.HistoryCreateForm;
 
 @Controller
 @RequestMapping("history/brotherhood")
@@ -60,7 +61,7 @@ public class HistoryBrotherhoodController extends AbstractController {
 			Assert.notNull(b.getId());
 			history = this.historyService.findHistoryByBrotherhood(b.getId());
 
-			if (!history.equals(null)) {
+			if (history != null) {
 
 				Assert.isTrue(b.equals(history.getBrotherhood()));
 
@@ -77,7 +78,8 @@ public class HistoryBrotherhoodController extends AbstractController {
 				result.addObject("periodRecords", periodRecord);
 
 			} else
-				result = new ModelAndView("redirect:/history/create.do");
+				result = new ModelAndView("redirect:/history/brotherhood/create.do");
+
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -90,12 +92,15 @@ public class HistoryBrotherhoodController extends AbstractController {
 	public ModelAndView create() {
 
 		ModelAndView result;
-		final History history = new History();
 
 		try {
-			this.brotherhoodService.findByPrincipal();
-			history.setId(0);
-			result = this.createEditModelAndView(history);
+
+			final Brotherhood principal = this.brotherhoodService.findByPrincipal();
+			final History h = this.historyService.findByBrotherhood(principal.getId());
+			Assert.isNull(h);
+			final HistoryCreateForm historyCreateForm = new HistoryCreateForm();
+			result = this.createEditModelAndView(historyCreateForm);
+
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 
@@ -154,19 +159,25 @@ public class HistoryBrotherhoodController extends AbstractController {
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("history") final History history, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("history") final HistoryCreateForm historyCreateForm, final BindingResult binding) {
 		ModelAndView res;
 
 		if (binding.hasErrors())
-			res = this.createEditModelAndView(history);
+			res = this.createEditModelAndView(historyCreateForm);
 
 		else
 			try {
-				this.historyService.save(history);
-				res = new ModelAndView("redirect:/history/list.do");
+				final History history = this.historyService.reconstruct(historyCreateForm);
+				final Boolean b = this.brotherhoodService.validatePictures(historyCreateForm.getInceptionRecordPictures());
+				if (!b)
+					res = this.createEditModelAndView(historyCreateForm, "history.photo.error");
+				else {
+					this.historyService.save(history);
+					res = new ModelAndView("redirect:/history/brotherhood/myList.do");
+				}
 
 			} catch (final Throwable oops) {
-				res = this.createEditModelAndView(history, "history.commit.error");
+				res = this.createEditModelAndView(historyCreateForm, "history.commit.error");
 			}
 		return res;
 	}
@@ -180,20 +191,19 @@ public class HistoryBrotherhoodController extends AbstractController {
 			result = new ModelAndView("redirect:/history/list.do");
 		} catch (final Throwable oops) {
 			final String msg = oops.getMessage();
-			result = this.createEditModelAndView(history, msg);
 
 		}
 
-		return result;
+		return null;
 	}
 
-	protected ModelAndView createEditModelAndView(final History history) {
-		return this.createEditModelAndView(history, null);
+	protected ModelAndView createEditModelAndView(final HistoryCreateForm historyCreateForm) {
+		return this.createEditModelAndView(historyCreateForm, null);
 	}
-	protected ModelAndView createEditModelAndView(final History history, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final HistoryCreateForm historyCreateForm, final String messageCode) {
 		final ModelAndView res;
-		res = new ModelAndView("history/edit");
-		res.addObject("history", history);
+		res = new ModelAndView("history/create");
+		res.addObject("historyCreateForm", historyCreateForm);
 
 		return res;
 	}
