@@ -179,7 +179,7 @@ public class ParadeService {
 	public Parade reconstruct(final Parade parade, final BindingResult binding) {
 		final Parade res = parade;
 		if (parade.getMode().equals("DRAFT"))
-			res.setStatus("DRAFT");
+			res.setStatus("CLEARED");
 		else
 			res.setStatus("SUBMITTED");
 

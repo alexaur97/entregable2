@@ -197,6 +197,7 @@ public class BrotherhoodParadeController extends AbstractController {
 			final Collection<Path> paths = this.pathService.findPathsByParade(paradeId);
 			res.addObject("floats", floats);
 			res.addObject("paths", paths);
+			res.addObject("parade", parade);
 		} catch (final Exception e) {
 			res = new ModelAndView("redirect:/#");
 		}
