@@ -9,7 +9,7 @@
  --%>
 
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
@@ -88,7 +88,10 @@
 			<li><a href="member/brotherhood/list.do"><spring:message code="master.page.mymembers" /></a></li>
 			<li><a href="request/brotherhood/list.do"><spring:message code="master.page.requests" /></a></li>
 			<li><a href="brotherhood/float/list.do"><spring:message code="master.page.floats" /></a></li>
+			
+			<jstl:if test="${brotherhood.area eq null}">
 			<li><a href="brotherhood/addArea.do"><spring:message code="masterpage.addarea" /></a></li>
+			</jstl:if>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CHAPTER')">

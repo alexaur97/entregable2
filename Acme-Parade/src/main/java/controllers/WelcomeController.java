@@ -20,8 +20,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.BrotherhoodService;
 import services.ConfigurationParametersService;
 import services.FinderService;
+import domain.Brotherhood;
 import domain.ConfigurationParameters;
 
 @Controller
@@ -32,7 +35,13 @@ public class WelcomeController extends AbstractController {
 	private ConfigurationParametersService	configurationParametersService;
 
 	@Autowired
-	FinderService	finderService;
+	FinderService							finderService;
+
+	@Autowired
+	ActorService							actorService;
+
+	@Autowired
+	BrotherhoodService						brotherhoodService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -72,6 +81,13 @@ public class WelcomeController extends AbstractController {
 		result.addObject("moment", moment);
 		result.addObject("lang", lang);
 
+		try {
+			final Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
+			result.addObject("brotherhood", brotherhood);
+
+		} catch (final Exception e) {
+
+		}
 		return result;
 	}
 }
