@@ -160,13 +160,19 @@
 		<spring:message code="parade.paths" />
 		</a>
 	</display:column>
+	
+
 	<display:column titleKey="parade.copy">
 		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
 		<spring:message code="parade.copy" />
 		</a>
 	</display:column>
+			
+			
+	
 	</security:authorize>
 </display:table>
 				
+<acme:button url="/brotherhood/parade/create.do" code="parade.create"/>
 
 

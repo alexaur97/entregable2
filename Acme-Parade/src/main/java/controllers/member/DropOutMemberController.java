@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,6 +49,8 @@ public class DropOutMemberController {
 			final Integer id = member.getId();
 			final Brotherhood brotherhood = this.brotherhoodService.findOne(brotherhoodId);
 
+			final Collection<Member> members = brotherhood.getMembers();
+			Assert.isTrue(members.contains(member));
 			final Date date = new Date();
 			final DropOut dropOut = this.dropOutService.create(member, brotherhood, date);
 			this.dropOutService.save(dropOut);

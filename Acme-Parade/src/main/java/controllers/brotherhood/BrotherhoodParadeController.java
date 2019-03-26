@@ -174,8 +174,28 @@ public class BrotherhoodParadeController extends AbstractController {
 			result.addObject("paradesRejected", paradesRejected);
 			result.addObject("paradesCleared", paradesCleared);
 
-		} catch (final Exception e) {
-			result = new ModelAndView("redirect:/#");
+		} catch (final Throwable oops) {
+			final Integer currentActorId = this.actorService.findByPrincipal().getId();
+			result = new ModelAndView("parade/myList");
+			Collection<Parade> paradesSubmitted;
+			Collection<Parade> paradesAccepted;
+			Collection<Parade> paradesRejected;
+			Collection<Parade> paradesCleared;
+			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActorId);
+			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
+			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
+			paradesCleared = this.paradeService.findParadesClearedByBrotherhood(currentActorId);
+			result = new ModelAndView("parade/myList");
+			result.addObject("paradesSubmitted", paradesSubmitted);
+			result.addObject("paradesAccepted", paradesAccepted);
+			result.addObject("paradesRejected", paradesRejected);
+			result.addObject("paradesCleared", paradesCleared);
+			result.addObject("message", oops.getMessage());
+			final String msg = oops.getMessage();
+			if (msg.equals("finalStatus")) {
+				final Boolean finalStatus = true;
+				result.addObject("finalStatus", finalStatus);
+			}
 		}
 		return result;
 
@@ -197,6 +217,7 @@ public class BrotherhoodParadeController extends AbstractController {
 			final Collection<Path> paths = this.pathService.findPathsByParade(paradeId);
 			res.addObject("floats", floats);
 			res.addObject("paths", paths);
+			res.addObject("parade", parade);
 		} catch (final Exception e) {
 			res = new ModelAndView("redirect:/#");
 		}
@@ -214,7 +235,7 @@ public class BrotherhoodParadeController extends AbstractController {
 		else
 			try {
 				this.paradeService.save(parade);
-				res = new ModelAndView("redirect:/brotherhood/parade/list.do");
+				res = new ModelAndView("redirect:/brotherhood/parade/myList.do");
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(parade, "parade.commit.error");
 

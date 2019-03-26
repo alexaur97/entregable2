@@ -16,4 +16,7 @@ public interface FloatRepository extends JpaRepository<Float, Integer> {
 	@Query("select f from Float f where f.brotherhood.id=?1")
 	Collection<Float> findFloatsByBrotherhood(int id);
 
+	@Query("select p.floats from Parade p where p.brotherhood.id=?1 ")
+	Collection<Float> findFloatsInParade(int id);
+
 }

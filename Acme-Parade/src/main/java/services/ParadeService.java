@@ -247,6 +247,11 @@ public class ParadeService {
 
 	public Parade copyParade(final Parade parade) {
 
+		boolean finalStatus = true;
+		if (!(parade.getMode().equals("FINAL")))
+			finalStatus = false;
+		Assert.isTrue(finalStatus, "finalStatus");
+
 		final Parade res = new Parade();
 
 		final String pattern = "YYMMdd";
@@ -258,7 +263,6 @@ public class ParadeService {
 		final String ticker = fechaFormateada + "-" + cadena;
 		res.setTicker(ticker);
 
-		res.setId(0);
 		res.setStatus("CLEARED");
 		res.setTitle(parade.getTitle());
 		res.setExplanation(null);

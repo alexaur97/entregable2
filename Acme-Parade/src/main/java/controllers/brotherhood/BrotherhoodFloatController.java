@@ -137,13 +137,18 @@ public class BrotherhoodFloatController extends AbstractController {
 		ModelAndView result;
 
 		try {
-
 			this.floatService.delete(floaat);
 			result = new ModelAndView("redirect:/brotherhood/float/list.do");
 		} catch (final Throwable oops) {
+			result = new ModelAndView("float/edit");
+			result.addObject("floaat", floaat);
+			result.addObject("message", oops.getMessage());
 			final String msg = oops.getMessage();
-			result = this.createEditModelAndView(floaat, msg);
+			if (msg.equals("floatcannotDelete")) {
+				final Boolean floatcannotDelete = true;
+				result.addObject("floatcannotDelete", floatcannotDelete);
 
+			}
 		}
 
 		return result;

@@ -17,6 +17,7 @@ import security.Authority;
 import security.LoginService;
 import domain.Brotherhood;
 import domain.Float;
+import domain.Parade;
 
 @Service
 @Transactional
@@ -29,6 +30,9 @@ public class FloatService {
 	//Servicios
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
+	private ParadeService		paradeService;
 
 	@Autowired
 	private Validator			validator;
@@ -50,9 +54,14 @@ public class FloatService {
 
 	public void delete(final Float floatt) {
 		Assert.notNull(floatt);
-		final Authority auth = new Authority();
-		auth.setAuthority(Authority.BROTHERHOOD);
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
+
+		boolean canDelete = true;
+		for (final Parade p : this.paradeService.findAll())
+			if (p.getFloats().contains(floatt)) {
+				canDelete = false;
+				break;
+			}
+		Assert.isTrue(canDelete, "floatcannotDelete");
 		this.floatRepository.delete(floatt.getId());
 	}
 
@@ -80,6 +89,13 @@ public class FloatService {
 		Assert.notNull(id);
 		System.out.println(this.floatRepository);
 		final Collection<Float> res = this.floatRepository.findFloatsByBrotherhood(id);
+
+		return res;
+	}
+
+	public Collection<Float> findFloatsUsedInParades(final int id) {
+		Assert.notNull(id);
+		final Collection<Float> res = this.floatRepository.findFloatsInParade(id);
 
 		return res;
 	}
