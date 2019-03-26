@@ -24,10 +24,10 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:display code="linkRecord.title" value="${linkRecord.title}" />
-<acme:display code="linkRecord.description"
-	value="${linkRecord.description}" />
-<br />
+<spring:message code="linkRecord.title" /> : <jstl:out value="${linkRecord.title}" />
+<br/>
+<spring:message code="linkRecord.description" /> : <jstl:out value="${linkRecord.description}" />
+<br/>
 
 <spring:message code="linkRecord.brotherhood" />
 :

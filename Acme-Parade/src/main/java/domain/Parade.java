@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -52,6 +54,7 @@ public class Parade extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTitle() {
 		return this.title;
 	}
@@ -61,6 +64,7 @@ public class Parade extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getDescription() {
 		return this.description;
 	}
@@ -81,6 +85,7 @@ public class Parade extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTicker() {
 		return this.ticker;
 	}
@@ -93,6 +98,7 @@ public class Parade extends DomainEntity {
 
 	@NotBlank
 	@Pattern(regexp = "^DRAFT|FINAL$")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getMode() {
 		return this.mode;
 	}
@@ -112,7 +118,7 @@ public class Parade extends DomainEntity {
 
 	@NotBlank
 	@Pattern(regexp = "^SUBMITTED|ACCEPTED|REJECTED|CLEARED$")
-
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getStatus() {
 		return this.status;
 	}
@@ -130,6 +136,7 @@ public class Parade extends DomainEntity {
 		this.paths = paths;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getExplanation() {
 		return this.explanation;
 	}

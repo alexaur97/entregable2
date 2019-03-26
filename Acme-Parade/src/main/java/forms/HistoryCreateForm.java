@@ -7,6 +7,8 @@ import javax.persistence.ElementCollection;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 public class HistoryCreateForm {
 
@@ -16,6 +18,7 @@ public class HistoryCreateForm {
 
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getInceptionRecordTitle() {
 		return this.inceptionRecordTitle;
 	}
@@ -25,6 +28,7 @@ public class HistoryCreateForm {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getInceptionRecordDescription() {
 		return this.inceptionRecordDescription;
 	}

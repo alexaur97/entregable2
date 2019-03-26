@@ -24,9 +24,10 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:display code="brotherhood.title" value="${brotherhood.title}" />
-<acme:display code="brotherhood.establishmentDate"
-	value="${brotherhood.establishmentDate}" />
+<spring:message code="brotherhood.title" /> : <jstl:out value = "${brotherhood.title}" />
+</br>
+<spring:message code="brotherhood.establishmentDate" /> : <jstl:out value = "${brotherhood.establishmentDate}" />
+
 <br />
 <spring:message code="brotherhood.photo" />
 :
@@ -44,9 +45,6 @@
 	</jstl:forEach>
 </ul>
 <br>
-<acme:display code="brotherhood.establishmentDate"
-	value="${brotherhood.establishmentDate}" />
-
 <br>
 <br>
 

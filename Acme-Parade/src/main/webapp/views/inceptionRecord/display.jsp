@@ -23,12 +23,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-
-<acme:display code="inceptionRecord.title"
-	value="${inceptionRecord.title}" />
-<acme:display code="inceptionRecord.description"
-	value="${inceptionRecord.description}" />
-<br />
+<spring:message code="inceptionRecord.title" /> : <jstl:out value="${inceptionRecord.title}" />
+<br/>
+<spring:message code="inceptionRecord.description" /> : <jstl:out value="${inceptionRecord.description}" />
+<br/>
 <spring:message code="inceptionRecord.pictures" />
 :
 <ul>

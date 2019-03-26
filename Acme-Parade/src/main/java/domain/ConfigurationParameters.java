@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
@@ -19,11 +21,12 @@ public class ConfigurationParameters extends DomainEntity {
 	private String	sysMessage;
 	private String	sysMessageEs;
 	private String	countryCode;
-	private int	finderCachedHours;
-	private int	finderMaxResults;
+	private int		finderCachedHours;
+	private int		finderMaxResults;
 
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getName() {
 		return this.name;
 	}
@@ -34,6 +37,7 @@ public class ConfigurationParameters extends DomainEntity {
 
 	@NotBlank
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getBanner() {
 		return this.banner;
 	}
@@ -44,6 +48,7 @@ public class ConfigurationParameters extends DomainEntity {
 
 	@NotBlank
 	@Pattern(regexp = "^\\+\\d{1,3}$")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getCountryCode() {
 		return this.countryCode;
 	}
@@ -52,6 +57,7 @@ public class ConfigurationParameters extends DomainEntity {
 		this.countryCode = countryCode;
 	}
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSysMessage() {
 		return this.sysMessage;
 	}
@@ -61,6 +67,7 @@ public class ConfigurationParameters extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSysMessageEs() {
 		return this.sysMessageEs;
 	}
@@ -68,22 +75,22 @@ public class ConfigurationParameters extends DomainEntity {
 	public void setSysMessageEs(final String sysMessageEs) {
 		this.sysMessageEs = sysMessageEs;
 	}
-	
+
 	@NotNull
 	public int getFinderCachedHours() {
-		return finderCachedHours;
+		return this.finderCachedHours;
 	}
 
-	public void setFinderCachedHours(int finderCachedHours) {
+	public void setFinderCachedHours(final int finderCachedHours) {
 		this.finderCachedHours = finderCachedHours;
 	}
-	
+
 	@NotNull
 	public int getFinderMaxResults() {
-		return finderMaxResults;
+		return this.finderMaxResults;
 	}
 
-	public void setFinderMaxResults(int finderMaxResults) {
+	public void setFinderMaxResults(final int finderMaxResults) {
 		this.finderMaxResults = finderMaxResults;
 	}
 }

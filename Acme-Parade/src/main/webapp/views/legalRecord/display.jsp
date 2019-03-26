@@ -24,10 +24,14 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:display code="legalRecord.title" value="${legalRecord.title}"/>
-<acme:display code="legalRecord.description" value="${legalRecord.description}"/>
-<acme:display code="legalRecord.legalName" value="${legalRecord.legalName}"/>
-<acme:display code="legalRecord.vatNumber" value="${legalRecord.vatNumber}"/>
+<spring:message code="legalRecord.title" /> : <jstl:out value="${legalRecord.title}" />
+<br/>
+<spring:message code="legalRecord.description" /> : <jstl:out value="${legalRecord.description}" />
+<br/>
+<spring:message code="legalRecord.legalName" /> : <jstl:out value="${legalRecord.legalName}" />
+<br/>
+<spring:message code="legalRecord.vatNumber" /> : <jstl:out value="${legalRecord.vatNumber}" />
+<br/>
 
 <br />
 <spring:message code="legalRecord.laws" />

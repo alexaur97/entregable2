@@ -10,7 +10,7 @@
 	<strong><spring:message code="contact.title" /></strong> <br />
 	<spring:message code="contact.description" />
 	<br />
-	<a href="mailto:dav@alum.us.es">David </a>
+	<a href="mailto:davmorllu@alum.us.es">David </a>
 	<br/>
 	<a href="mailto:anddommon@alum.us.es">Andrea Domínguez Monreal</a>
 	<br/>

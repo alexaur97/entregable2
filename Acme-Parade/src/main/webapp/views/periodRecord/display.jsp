@@ -24,10 +24,15 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:display code="periodRecord.title" value="${periodRecord.title}"/>
-<acme:display code="periodRecord.description" value="${periodRecord.description}"/>
-<acme:display code="periodRecord.startYear" value="${periodRecord.startYear}"/>
-<acme:display code="periodRecord.endYear" value="${periodRecord.endYear}"/>
+<spring:message code="periodRecord.title" /> : <jstl:out value="${periodRecord.title}" />
+<br/>
+<spring:message code="periodRecord.description" /> : <jstl:out value="${periodRecord.description}" />
+<br/>
+<spring:message code="periodRecord.startYear" /> : <jstl:out value="${periodRecord.startYear}" />
+<br/>
+<spring:message code="periodRecord.endYear" /> : <jstl:out value="${periodRecord.endYear}" />
+<br/>
+
 
 <br />
 <spring:message code="periodRecord.pictures" />
