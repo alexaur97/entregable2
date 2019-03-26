@@ -48,6 +48,8 @@ public class ParadeService {
 
 	@Autowired
 	private Validator						validator;
+	@Autowired
+	private ActorService					actorService;
 
 
 	// Metodos CRUD FR 10.2
@@ -223,6 +225,8 @@ public class ParadeService {
 	public Parade rejectRecostruction(final Parade parade, final BindingResult binding) {
 		final Parade res = parade;
 		final Parade a = this.findOne(parade.getId());
+		Assert.isTrue(!parade.getExplanation().isEmpty());
+		Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
 		res.setStatus("REJECTED");
 		res.setBrotherhood(a.getBrotherhood());
 		res.setDescription(a.getDescription());
