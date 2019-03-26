@@ -42,7 +42,7 @@ public class ChapterParadeController extends AbstractController {
 		try {
 			final Chapter chapter = this.chapterService.findByPrincipal();
 			Collection<Parade> parades;
-			parades = this.paradeService.findParadesByArea(chapter.getArea().getId());
+			parades = this.paradeService.findFinalParadeByArea(chapter.getArea().getId());
 			final String s = "SUBMITTED";
 			result = new ModelAndView("parade/list");
 			result.addObject("requestURI", "parade/list.do");

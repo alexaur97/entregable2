@@ -121,7 +121,7 @@ public class ChapterService {
 		return result;
 
 	}
-	Integer countChapterWithArea() {
+	public Integer countChapterWithArea() {
 		return this.chapterRepository.findChapterWithArea();
 	}
 
@@ -137,5 +137,8 @@ public class ChapterService {
 		res.setAddress(actorEditForm.getAddress());
 		Assert.notNull(res);
 		return res;
+	}
+	public Collection<Chapter> chaptersWithArea() {
+		return this.chapterRepository.chaptersWithArea();
 	}
 }
