@@ -104,20 +104,6 @@
 	</display:column>
 	</security:authorize>
 </display:table>
+				
 
-<br>
-<br>
-<br>
 
-	<security:authorize access="hasRole('BROTHERHOOD')">
-	<jstl:if test="${parade.area == null}">
-		<spring:message code="parade.area" />
-		<acme:cancel url="/brotherhood/addArea.do" code="parade.addArea"/>
-	</jstl:if>
-	</security:authorize>				
-
-		<security:authorize access="hasRole('BROTHERHOOD')">
-		<jstl:if test="${parade.area != null}">
-		<acme:cancel url="/brotherhood/parade/create.do" code="parade.create"/>
-		</jstl:if>
-		</security:authorize>

@@ -56,13 +56,14 @@ public class BrotherhoodParadeController extends AbstractController {
 
 		ModelAndView result;
 		try {
-			final Integer currentActorId = this.actorService.findByPrincipal().getId();
+			final Brotherhood currentActor = this.brotherhoodService.findByPrincipal();
 			Collection<Parade> parades;
-			parades = this.paradeService.findParadesByBrotherhood(currentActorId);
+			parades = this.paradeService.findParadesByBrotherhood(currentActor.getId());
 
 			result = new ModelAndView("parade/list");
 			result.addObject("requestURI", "parade/list.do");
 			result.addObject("parades", parades);
+			result.addObject("currentActor", currentActor);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -75,19 +76,20 @@ public class BrotherhoodParadeController extends AbstractController {
 	public ModelAndView myList() {
 		ModelAndView result;
 		try {
-			final Integer currentActorId = this.actorService.findByPrincipal().getId();
+			final Brotherhood currentActor = this.brotherhoodService.findByPrincipal();
 			Collection<Parade> paradesSubmitted;
 			Collection<Parade> paradesAccepted;
 			Collection<Parade> paradesRejected;
-			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActorId);
-			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
-			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
+			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActor.getId());
+			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActor.getId());
+			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActor.getId());
 
 			result = new ModelAndView("parade/myList");
 			result.addObject("requestURI", "parade/myList.do");
 			result.addObject("paradesSubmitted", paradesSubmitted);
 			result.addObject("paradesAccepted", paradesAccepted);
 			result.addObject("paradesRejected", paradesRejected);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

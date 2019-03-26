@@ -77,19 +77,17 @@ public class ParadeService {
 		final List<Parade> result = new ArrayList<Parade>();
 		List<Parade> aux = new ArrayList<>();
 		final ConfigurationParameters config = this.configurationParametersService.find();
-		if (keyword == "" && dateFrom == null && dateTo == null && area == null){
+		if (keyword == "" && dateFrom == null && dateTo == null && area == null)
 			aux = (List<Parade>) this.findFinalParades();
-		}else if (area == null) {
-			if (dateTo == null){
+		else if (area == null) {
+			if (dateTo == null)
 				aux = (List<Parade>) this.paradeRepository.searchParadesWithoutEndDateOrArea(keyword, dateFrom);
-			}else{
+			else
 				aux = (List<Parade>) this.paradeRepository.searchParadesWithoutArea(keyword, dateFrom, dateTo);
-			}
-		} else if (dateTo == null){
+		} else if (dateTo == null)
 			aux = (List<Parade>) this.paradeRepository.searchParadesWithoutEndDate(keyword, dateFrom, area.getId());
-		}else{
+		else
 			aux = (List<Parade>) this.paradeRepository.searchParades(keyword, dateFrom, dateTo, area.getId());
-		}
 		for (final Parade parade : aux)
 			if (parade.getMode().equals("FINAL"))
 				result.add(parade);
@@ -180,7 +178,11 @@ public class ParadeService {
 
 	public Parade reconstruct(final Parade parade, final BindingResult binding) {
 		final Parade res = parade;
-		res.setStatus("SUBMITTED");
+		if (parade.getMode().equals("DRAFT"))
+			res.setStatus("DRAFT");
+		else
+			res.setStatus("SUBMITTED");
+
 		if (parade.getMoment() != null) {
 
 			final String pattern = "YYMMdd";
