@@ -53,6 +53,7 @@ public class FinderService {
 	public void createFinder(Member memberCreated) {
 		Finder finder = new Finder();
 		Collection<Parade> parades = new ArrayList<Parade>();
+		finder.setKeyword("");
 		finder.setMember(memberCreated);
 		finder.setLastSearch(new Date());
 		finder.setParades(parades);

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ConfigurationParametersService;
+import services.FinderService;
 import domain.ConfigurationParameters;
 
 @Controller
@@ -29,6 +30,9 @@ public class WelcomeController extends AbstractController {
 
 	@Autowired
 	private ConfigurationParametersService	configurationParametersService;
+
+	@Autowired
+	FinderService	finderService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -60,6 +64,7 @@ public class WelcomeController extends AbstractController {
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
+		this.finderService.cleanCacheIfNecessary();
 
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
