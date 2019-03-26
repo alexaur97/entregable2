@@ -46,6 +46,11 @@
 		<spring:message code="parade.show" />
 		</a>
 	</display:column>
+	<display:column titleKey="parade.paths">
+		<a href="path/listByParade.do?paradeId=${parade.id}">
+		<spring:message code="parade.paths" />
+		</a>
+	</display:column>
 		<display:column titleKey="parade.copy">
 		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
 		<spring:message code="parade.copy" />
@@ -76,6 +81,11 @@
 	<display:column titleKey="parade.show">
 		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
 		<spring:message code="parade.show" />
+		</a>
+	</display:column>
+	<display:column titleKey="parade.paths">
+		<a href="path/listByParade.do?paradeId=${parade.id}">
+		<spring:message code="parade.paths" />
 		</a>
 	</display:column>
 	<display:column titleKey="parade.copy">
@@ -145,6 +155,11 @@
 		<spring:message code="parade.show" />
 		</a>
 	</display:column>
+	<display:column titleKey="parade.paths">
+		<a href="path/listByParade.do?paradeId=${parade.id}">
+		<spring:message code="parade.paths" />
+		</a>
+	</display:column>
 	<display:column titleKey="parade.copy">
 		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
 		<spring:message code="parade.copy" />
@@ -152,7 +167,6 @@
 	</display:column>
 	</security:authorize>
 </display:table>
+				
 
-		<security:authorize access="hasRole('BROTHERHOOD')">
-		<acme:cancel url="/brotherhood/parade/create.do" code="parade.create"/>
-		</security:authorize>
+

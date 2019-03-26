@@ -17,10 +17,12 @@ import services.ActorService;
 import services.BrotherhoodService;
 import services.FloatService;
 import services.ParadeService;
+import services.PathService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Float;
 import domain.Parade;
+import domain.Path;
 
 @Controller
 @RequestMapping("/brotherhood/parade/")
@@ -40,6 +42,9 @@ public class BrotherhoodParadeController extends AbstractController {
 	@Autowired
 	private FloatService		floatService;
 
+	@Autowired
+	private PathService			pathService;
+
 
 	public BrotherhoodParadeController() {
 		super();
@@ -51,13 +56,14 @@ public class BrotherhoodParadeController extends AbstractController {
 
 		ModelAndView result;
 		try {
-			final Integer currentActorId = this.actorService.findByPrincipal().getId();
+			final Brotherhood currentActor = this.brotherhoodService.findByPrincipal();
 			Collection<Parade> parades;
-			parades = this.paradeService.findParadesByBrotherhood(currentActorId);
+			parades = this.paradeService.findParadesByBrotherhood(currentActor.getId());
 
 			result = new ModelAndView("parade/list");
 			result.addObject("requestURI", "parade/list.do");
 			result.addObject("parades", parades);
+			result.addObject("currentActor", currentActor);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -70,7 +76,7 @@ public class BrotherhoodParadeController extends AbstractController {
 	public ModelAndView myList() {
 		ModelAndView result;
 		try {
-			final Integer currentActorId = this.actorService.findByPrincipal().getId();
+			final Brotherhood currentActor = this.brotherhoodService.findByPrincipal();
 			Collection<Parade> paradesSubmitted;
 			Collection<Parade> paradesAccepted;
 			Collection<Parade> paradesRejected;
@@ -80,6 +86,9 @@ public class BrotherhoodParadeController extends AbstractController {
 			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
 			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
 			paradesCleared = this.paradeService.findParadesClearedByBrotherhood(currentActorId);
+			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActor.getId());
+			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActor.getId());
+			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActor.getId());
 
 			result = new ModelAndView("parade/myList");
 			result.addObject("requestURI", "parade/myList.do");
@@ -87,6 +96,7 @@ public class BrotherhoodParadeController extends AbstractController {
 			result.addObject("paradesAccepted", paradesAccepted);
 			result.addObject("paradesRejected", paradesRejected);
 			result.addObject("paradesCleared", paradesCleared);
+
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -188,8 +198,9 @@ public class BrotherhoodParadeController extends AbstractController {
 			Assert.isTrue(parade.getBrotherhood().equals(bh));
 
 			final Collection<Float> floats = this.floatService.findFloatsByBrotherhood(bh.getId());
-			res.addObject("parade", parade);
+			final Collection<Path> paths = this.pathService.findPathsByParade(paradeId);
 			res.addObject("floats", floats);
+			res.addObject("paths", paths);
 		} catch (final Exception e) {
 			res = new ModelAndView("redirect:/#");
 		}
@@ -223,7 +234,7 @@ public class BrotherhoodParadeController extends AbstractController {
 		try {
 
 			this.paradeService.delete(parade);
-			result = new ModelAndView("redirect:/brotherhood/parade/MyList.do");
+			result = new ModelAndView("redirect:/brotherhood/parade/myList.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(parade, "parade.commit.error");
 

@@ -87,9 +87,9 @@ public class ChapterParadeController extends AbstractController {
 
 		try {
 
-			Assert.notNull(paradeId);
 			final Parade parade = this.paradeService.findOne(paradeId);
 			final Area a = this.chapterService.findByPrincipal().getArea();
+			Assert.notNull(paradeId);
 			Assert.isTrue(parade.getBrotherhood().getArea().equals(a));
 			Assert.isTrue(parade.getStatus().equals("SUBMITTED"));
 			result = new ModelAndView("parade/edit");
@@ -109,10 +109,8 @@ public class ChapterParadeController extends AbstractController {
 		if (binding.hasErrors())
 			res = new ModelAndView("parade/edit");
 		try {
-			Assert.isTrue(!parade.getExplanation().isEmpty());
 			final String s = "SUBMITTED";
 			res = new ModelAndView("parade/list");
-			Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
 			this.paradeService.saveChapter(paradeFinal);
 			final Chapter chapter = this.chapterService.findByPrincipal();
 			parades = this.paradeService.findParadesByArea(chapter.getArea().getId());

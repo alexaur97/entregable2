@@ -70,8 +70,8 @@ public class Parade extends DomainEntity {
 	}
 
 	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -112,6 +112,7 @@ public class Parade extends DomainEntity {
 
 	@NotBlank
 	@Pattern(regexp = "^SUBMITTED|ACCEPTED|REJECTED|CLEARED$")
+
 	public String getStatus() {
 		return this.status;
 	}
