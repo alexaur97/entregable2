@@ -76,7 +76,7 @@ public class BrotherhoodParadeController extends AbstractController {
 	public ModelAndView myList() {
 		ModelAndView result;
 		try {
-			final Brotherhood currentActor = this.brotherhoodService.findByPrincipal();
+			final Integer currentActorId = this.brotherhoodService.findByPrincipal().getId();
 			Collection<Parade> paradesSubmitted;
 			Collection<Parade> paradesAccepted;
 			Collection<Parade> paradesRejected;
@@ -86,9 +86,6 @@ public class BrotherhoodParadeController extends AbstractController {
 			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
 			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
 			paradesCleared = this.paradeService.findParadesClearedByBrotherhood(currentActorId);
-			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActor.getId());
-			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActor.getId());
-			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActor.getId());
 
 			result = new ModelAndView("parade/myList");
 			result.addObject("requestURI", "parade/myList.do");
@@ -96,7 +93,6 @@ public class BrotherhoodParadeController extends AbstractController {
 			result.addObject("paradesAccepted", paradesAccepted);
 			result.addObject("paradesRejected", paradesRejected);
 			result.addObject("paradesCleared", paradesCleared);
-
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
