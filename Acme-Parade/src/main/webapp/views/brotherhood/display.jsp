@@ -24,22 +24,30 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form modelAttribute="periodRecord" action="periodRecord/brotherhood/edit.do">
-<form:hidden path="id"/>
-<form:hidden path="version"/>
-<acme:textbox code="periodRecord.title" path="title"/>
-<acme:textarea code="periodRecord.description" path="description"/>
-<acme:textarea code="periodRecord.startYear" path="startYear"/>
-<acme:textarea code="periodRecord.endYear" path="endYear"/>
-<acme:textarea code="periodRecord.pictures" path="pictures"/>
-<spring:message code = "periodRecord.photos"/>
+<acme:display code="brotherhood.title" value="${brotherhood.title}" />
+<acme:display code="brotherhood.establishmentDate"
+	value="${brotherhood.establishmentDate}" />
+<br />
+<spring:message code="brotherhood.photo" />
+:
+<ul>
+	<jstl:forEach items="${brotherhood.photos}" var="x">
+		<li><a href="${x}"><jstl:out value="${x}" /></a></li>
+	</jstl:forEach>
+</ul>
+<br />
+<spring:message code="brotherhood.members" />
+:
+<ul>
+	<jstl:forEach items="${brotherhood.members}" var="x">
+		<li><a href="${x}"><jstl:out value="${x}" /></a></li>
+	</jstl:forEach>
+</ul>
+<br>
+<acme:display code="brotherhood.establishmentDate"
+	value="${brotherhood.establishmentDate}" />
 
 <br>
 <br>
-<acme:submit name="save" code="periodRecord.save"/>
-<jstl:if test="${periodRecord.id ne 0}">
-		<acme:submit name="delete" code="periodRecord.delete" />
-	</jstl:if>
-<acme:cancel url="/history/brotherhood/myList.do"
-code="periodRecord.cancel" />
-</form:form>
+
+<acme:cancel url="/brotherhood/list.do" code="brotherhood.cancel" />

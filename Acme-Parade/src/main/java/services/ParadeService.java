@@ -179,7 +179,7 @@ public class ParadeService {
 	public Parade reconstruct(final Parade parade, final BindingResult binding) {
 		final Parade res = parade;
 		if (parade.getMode().equals("DRAFT"))
-			res.setStatus("DRAFT");
+			res.setStatus("CLEARED");
 		else
 			res.setStatus("SUBMITTED");
 
@@ -333,6 +333,9 @@ public class ParadeService {
 				result = p;
 		Assert.notNull(result);
 		return result;
+	}
+	public Collection<Parade> findFinalParadeByArea(final int id) {
+		return this.paradeRepository.findFinalParadeByArea(id);
 	}
 
 }

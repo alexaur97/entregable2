@@ -36,11 +36,7 @@
 	<display:column style="color:grey" titleKey="parade.ticker" property="ticker" />
 	<display:column style="color:grey" titleKey="parade.mode" property="mode" />
 	<security:authorize access="hasRole('BROTHERHOOD')">
-	<display:column titleKey="parade.edit">
-		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
-		<spring:message code="parade.edit" />
-		</a>
-		</display:column>	
+	
 	<display:column titleKey="parade.show">
 		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
 		<spring:message code="parade.show" />
@@ -72,11 +68,7 @@
 	<display:column style="color:green"  titleKey="parade.mode" property="mode" />	
 	<security:authorize access="hasRole('BROTHERHOOD')">	
 	
-	<display:column titleKey="parade.edit">
-		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
-		<spring:message code="parade.edit" />
-		</a>
-		</display:column>
+	
 			
 	<display:column titleKey="parade.show">
 		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
@@ -110,11 +102,7 @@
 		
 	<security:authorize access="hasRole('BROTHERHOOD')">	
 	
-	<display:column titleKey="parade.edit">
-		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
-		<spring:message code="parade.edit" />
-		</a>
-		</display:column>
+	
 			
 	<display:column titleKey="parade.show">
 		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
@@ -144,11 +132,7 @@
 		
 	<security:authorize access="hasRole('BROTHERHOOD')">	
 	
-	<display:column titleKey="parade.edit">
-		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
-		<spring:message code="parade.edit" />
-		</a>
-		</display:column>
+	
 			
 	<display:column titleKey="parade.show">
 		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">

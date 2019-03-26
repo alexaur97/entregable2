@@ -21,5 +21,8 @@
 		<put-attribute name="title" value="History" />
 		<put-attribute name="body" value="/views/history/myList.jsp" />
 	</definition>
-	
+	<definition name="history/create" extends="master.page">
+		<put-attribute name="title" value="Create history" />
+		<put-attribute name="body" value="/views/history/create.jsp" />
+	</definition>
 </tiles-definitions>

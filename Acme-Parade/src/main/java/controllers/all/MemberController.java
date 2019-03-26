@@ -2,10 +2,12 @@
 package controllers.all;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -27,7 +29,7 @@ public class MemberController extends AbstractController {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private MemberService	memberService;
-	
+
 	@Autowired
 	private FinderService	finderService;
 
@@ -78,7 +80,7 @@ public class MemberController extends AbstractController {
 		else
 			try {
 				final Member member = this.memberService.reconstruct(memberRegisterForm);
-				Member memberCreated = this.memberService.save(member);
+				final Member memberCreated = this.memberService.save(member);
 				this.finderService.createFinder(memberCreated);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (final Throwable oops) {
@@ -108,6 +110,9 @@ public class MemberController extends AbstractController {
 		result = new ModelAndView("member/edit");
 		result.addObject("memberRegisterForm", memberRegisterForm);
 		result.addObject("message", messageCode);
+		final Locale l = LocaleContextHolder.getLocale();
+		final String lang = l.getLanguage();
+		result.addObject("lang", lang);
 
 		return result;
 	}

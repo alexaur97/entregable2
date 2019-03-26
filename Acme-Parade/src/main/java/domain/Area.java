@@ -9,6 +9,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -18,8 +19,6 @@ public class Area extends DomainEntity {
 
 	private String				name;
 	private Collection<String>	photo;
-	
-
 
 
 	//Getters and Setters
@@ -33,6 +32,7 @@ public class Area extends DomainEntity {
 		this.name = name;
 	}
 
+	@NotEmpty
 	@ElementCollection
 	public Collection<String> getPhoto() {
 		return this.photo;
@@ -41,7 +41,5 @@ public class Area extends DomainEntity {
 	public void setPhoto(final Collection<String> photo) {
 		this.photo = photo;
 	}
-
-	
 
 }

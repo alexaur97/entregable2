@@ -66,7 +66,6 @@ public class ActorEditForm {
 		this.email = email;
 	}
 
-	@Pattern(regexp = "\\+\\d{2}([ ]{1}[(]{1}\\d{1,3}[)]{1})? \\d{4,}|\\+\\d{2} \\d{4,}|\\d{4,}|Null")
 	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}

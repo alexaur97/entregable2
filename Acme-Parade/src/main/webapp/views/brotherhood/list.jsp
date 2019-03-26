@@ -27,6 +27,8 @@
 	<display:column titleKey="brotherhood.title" property="title" />
 	<display:column titleKey="brotherhood.establishmentDate" property="establishmentDate" />
 	<display:column titleKey="brotherhood.address" property="address" />
+			<display:column titleKey="brotherhood.area" property="area.name" />
+	
 	<display:column titleKey="brotherhood.members">
 		<acme:cancel url="/member/listByBrotherhood.do?brotherhoodId=${brotherhood.id}" code="brotherhood.members" />
 	</display:column>
@@ -40,8 +42,12 @@
 		<acme:cancel url="/history/list.do?brotherhoodId=${brotherhood.id}" code="brotherhood.history" />
 	</display:column>
 	
+	<display:column titleKey="brotherhood.display">
+		<acme:cancel url="/brotherhood/display.do?brotherhoodId=${brotherhood.id}" code="brotherhood.display" />
+	</display:column>
+	
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<acme:cancel url="/brotherhood/parade/create.do" code="parade.create"/>
 		</security:authorize>
-
+	
 </display:table>

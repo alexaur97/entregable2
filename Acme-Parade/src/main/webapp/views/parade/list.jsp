@@ -35,11 +35,23 @@
 	
 	
 	<security:authorize access="hasRole('BROTHERHOOD')">
+	
 	<display:column titleKey="parade.edit">
+		<jstl:if test="${parade.mode=='DRAFT'}">
 		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
 		<spring:message code="parade.edit" />
 		</a>
+		</jstl:if>
+		
+		
 		</display:column>
+		
+		
+		<display:column titleKey="parade.show">
+		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
+		<spring:message code="parade.show" />
+		</a>
+	</display:column>
 		</security:authorize>
 		<security:authorize access="hasRole('CHAPTER')">
 			<display:column titleKey="parade.status" property="status" />
@@ -57,13 +69,7 @@
 		</display:column>
 		</security:authorize>
 		
-	<security:authorize access="hasRole('BROTHERHOOD')">		
-	<display:column titleKey="parade.show">
-		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
-		<spring:message code="parade.show" />
-		</a>
-	</display:column>
-	</security:authorize>
+	
 </display:table>
 
 <br>

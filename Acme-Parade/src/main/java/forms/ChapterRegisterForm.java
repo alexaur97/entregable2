@@ -3,7 +3,6 @@ package forms;
 
 import javax.persistence.Column;
 import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -64,7 +63,6 @@ public class ChapterRegisterForm {
 	}
 
 	@Column(unique = true)
-	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+\\>")
 	public String getEmail() {
 		return this.email;
 	}
@@ -73,7 +71,6 @@ public class ChapterRegisterForm {
 		this.email = email;
 	}
 
-	@Pattern(regexp = "\\+\\d{2}([ ]{1}[(]{1}\\d{1,3}[)]{1})? \\d{4,}|\\+\\d{2} \\d{4,}|\\d{4,}|Null")
 	public String getPhone() {
 		return this.phone;
 	}

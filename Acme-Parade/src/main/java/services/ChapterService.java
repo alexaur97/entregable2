@@ -26,13 +26,16 @@ import forms.ChapterRegisterForm;
 public class ChapterService {
 
 	@Autowired
-	private ChapterRepository	chapterRepository;
+	private ChapterRepository				chapterRepository;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService					actorService;
 
 	@Autowired
-	private Validator			validator;
+	private ConfigurationParametersService	configurationParametersService;
+
+	@Autowired
+	private Validator						validator;
 
 
 	public Collection<Chapter> findAll() {
@@ -74,6 +77,13 @@ public class ChapterService {
 
 	public Chapter save(final Chapter c) {
 		Assert.notNull(c);
+		final String phoneNumber = c.getPhoneNumber();
+		final Boolean b = this.actorService.validateCountryCode(phoneNumber);
+		final String countryCode = this.configurationParametersService.find().getCountryCode();
+		if (b)
+			c.setPhoneNumber(countryCode + " " + phoneNumber);
+		else
+			c.setPhoneNumber(phoneNumber);
 		return this.chapterRepository.save(c);
 	}
 
@@ -121,7 +131,7 @@ public class ChapterService {
 		return result;
 
 	}
-	Integer countChapterWithArea() {
+	public Integer countChapterWithArea() {
 		return this.chapterRepository.findChapterWithArea();
 	}
 
@@ -137,5 +147,8 @@ public class ChapterService {
 		res.setAddress(actorEditForm.getAddress());
 		Assert.notNull(res);
 		return res;
+	}
+	public Collection<Chapter> chaptersWithArea() {
+		return this.chapterRepository.chaptersWithArea();
 	}
 }

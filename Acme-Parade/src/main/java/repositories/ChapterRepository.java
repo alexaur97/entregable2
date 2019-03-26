@@ -18,6 +18,9 @@ public interface ChapterRepository extends JpaRepository<domain.Chapter, Integer
 	@Query("select c from Chapter c where c.area is NULL")
 	Collection<Chapter> findChaptersWithoutArea();
 
-	@Query("select sum(case when c.area is null then 0.0 else 1.0 end)from Chapter c")
+	@Query("select sum(case when c.area is empty then 0.0 else 1.0 end)from Chapter c")
 	Integer findChapterWithArea();
+	@Query("select c from Chapter c where c.area is not empty")
+	Collection<Chapter> chaptersWithArea();
+
 }
