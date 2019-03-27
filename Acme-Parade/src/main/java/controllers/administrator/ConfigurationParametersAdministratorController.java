@@ -40,14 +40,17 @@ public class ConfigurationParametersAdministratorController extends AbstractCont
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final ConfigurationParameters config, final BindingResult binding) {
 		ModelAndView result;
-		if (binding.hasErrors())
+		Boolean b;
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(config);
-		else
+			b = false;
+			result.addObject("b", b);
+		} else
 			try {
 				final ConfigurationParameters saved = this.configurationParametersService.save(config);
 
 				//Creamos el model and view de la página a la que nos lleva el form
-				result = new ModelAndView("welcome/index");
+				result = this.createEditModelAndView(saved);
 
 				//rellenamos los datos necesarios para que en la página de welcome aparezcan el banner, el mensaje del
 				//sistema, la hora, etc.
@@ -77,9 +80,13 @@ public class ConfigurationParametersAdministratorController extends AbstractCont
 
 				final String banner = saved.getBanner();
 				result.addObject("banner", banner);
+				b = true;
+				result.addObject("b", b);
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(config, "configurationParameters.commit.error");
+				b = false;
+				result.addObject("b", b);
 			}
 
 		Assert.notNull(config);
