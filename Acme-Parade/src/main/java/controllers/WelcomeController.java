@@ -47,9 +47,6 @@ public class WelcomeController extends AbstractController {
 	@Autowired
 	ChapterService							chapterService;
 
-	@Autowired
-	ChapterService							chapterService;
-
 
 	// Constructors -----------------------------------------------------------
 
