@@ -75,7 +75,7 @@ public class Parade extends DomainEntity {
 
 	@NotNull
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	public Date getMoment() {
 		return this.moment;
 	}

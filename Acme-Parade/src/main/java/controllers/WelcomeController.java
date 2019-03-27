@@ -91,12 +91,6 @@ public class WelcomeController extends AbstractController {
 		try {
 			final Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
 			result.addObject("brotherhood", brotherhood);
-		} catch (final Exception e) {
-
-		}
-		try {
-			final Chapter chapter = this.chapterService.findByPrincipal();
-			result.addObject("chapter", chapter);
 
 		} catch (final Exception e) {
 

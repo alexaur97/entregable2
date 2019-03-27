@@ -53,9 +53,9 @@ public class BrotherhoodService {
 
 	public Brotherhood save(final Brotherhood brotherhood) {
 		final String phoneNumber = brotherhood.getPhoneNumber();
-		final Boolean b = this.actorService.validateCountryCode(phoneNumber);
+		//final Boolean b = this.actorService.validateCountryCode(phoneNumber);
 		final String countryCode = this.configurationParametersService.find().getCountryCode();
-		if (b)
+		if (!phoneNumber.startsWith("+"))
 			brotherhood.setPhoneNumber(countryCode + " " + phoneNumber);
 		else
 			brotherhood.setPhoneNumber(phoneNumber);

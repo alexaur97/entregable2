@@ -78,9 +78,9 @@ public class ChapterService {
 	public Chapter save(final Chapter c) {
 		Assert.notNull(c);
 		final String phoneNumber = c.getPhoneNumber();
-		final Boolean b = this.actorService.validateCountryCode(phoneNumber);
+		//		final Boolean b = this.actorService.validateCountryCode(phoneNumber);
 		final String countryCode = this.configurationParametersService.find().getCountryCode();
-		if (b)
+		if (!phoneNumber.startsWith("+"))
 			c.setPhoneNumber(countryCode + " " + phoneNumber);
 		else
 			c.setPhoneNumber(phoneNumber);
