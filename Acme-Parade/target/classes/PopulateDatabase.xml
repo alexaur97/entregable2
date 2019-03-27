@@ -68,6 +68,32 @@
 			</list>
 		</property>
 	</bean>
+	
+		<bean id="userAccount14" class="security.UserAccount">
+		<property name="username" value="chapter2" />
+		<property name="password" value="07a29f2348d728fad16c5260823f93ef" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHAPTER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+			<bean id="userAccount15" class="security.UserAccount">
+		<property name="username" value="chapter3" />
+		<property name="password" value="4cf7b4e4bb6d429f0f08bc498e397d81" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHAPTER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
 
 	<bean id="actor1" class="domain.Administrator">
 		<property name="name" value="Admin" />
@@ -79,7 +105,7 @@
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
 
-	<bean id="actor2" class="domain.Member">
+	<bean id="member1" class="domain.Member">
 		<property name="name" value="Member1" />
 		<property name="surname" value="Number One" />
 		<property name="photo"
@@ -89,7 +115,7 @@
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
 
-	<bean id="actor3" class="domain.Member">
+	<bean id="member2" class="domain.Member">
 		<property name="name" value="Member" />
 		<property name="surname" value="Number Two" />
 		<property name="photo"
@@ -99,7 +125,7 @@
 		<property name="userAccount" ref="userAccount3" />
 	</bean>
 
-	<bean id="actor4" class="domain.Member">
+	<bean id="member3" class="domain.Member">
 		<property name="name" value="Member3" />
 		<property name="surname" value="Number Three" />
 		<property name="photo"
@@ -109,7 +135,7 @@
 		<property name="userAccount" ref="userAccount4" />
 	</bean>
 
-	<bean id="actor5" class="domain.Member">
+	<bean id="member4" class="domain.Member">
 		<property name="name" value="Member" />
 		<property name="surname" value="Number four" />
 		<property name="photo"
@@ -137,7 +163,34 @@
 		<property name="address" value="Reina Mercedes" />
 
 	</bean>
+	
+	<bean id="chapter2" class="domain.Chapter">
+		<property name="title" value="Chapter2" />
+		<property name="userAccount" ref="userAccount14" />
+		<property name="name" value="Chapter2" />
+		<property name="surname" value="Number two" />
+		<property name="photo"
+			value="https://pngimage.net/wp-content/uploads/2018/06/logo-admin-png-4.png" />
+		<property name="email" value="chapter2@gmail.com" />
+		<property name="phoneNumber" value="+34 693465432" />
+		<property name="address" value="Reina Mercedes" />
+		<property name="area" ref="area3" />
 
+	</bean>
+	
+		<bean id="chapter3" class="domain.Chapter">
+		<property name="title" value="Chapter3" />
+		<property name="userAccount" ref="userAccount15" />
+		<property name="name" value="Chapter3" />
+		<property name="surname" value="Number three" />
+		<property name="photo"
+			value="https://pngimage.net/wp-content/uploads/2018/06/logo-admin-png-4.png" />
+		<property name="email" value="chapter3@gmail.com" />
+		<property name="phoneNumber" value="+34 693265432" />
+		<property name="address" value="Reina Mercedes" />
+		<property name="area" ref="area4" />
+
+	</bean>
 
 	<bean id="configurationParameters" class="domain.ConfigurationParameters">
 		<property name="name" value="Acme Parade" />
@@ -171,9 +224,9 @@
 		<property name="phoneNumber" value="698765432" />
 		<property name="members">
 			<list>
-				<ref bean="actor2" />
-				<ref bean="actor3" />
-				<ref bean="actor4" />
+				<ref bean="member1" />
+				<ref bean="member2" />
+				<ref bean="member3" />
 			</list>
 		</property>
 		<property name="area" ref="area1" />
@@ -197,8 +250,8 @@
 		<property name="phoneNumber" value="+34 698765432" />
 		<property name="members">
 			<list>
-				<ref bean="actor3" />
-				<ref bean="actor4" />
+				<ref bean="member2" />
+				<ref bean="member3" />
 			</list>
 		</property>
 		<property name="area" ref="area2" />
@@ -224,11 +277,11 @@
 		<property name="phoneNumber" value="+34 (1) 698765432" />
 		<property name="members">
 			<list>
-				<ref bean="actor3" />
-				<ref bean="actor4" />
+				<ref bean="member2" />
+				<ref bean="member3" />
 			</list>
 		</property>
-		<property name="area" ref="area1" />
+		<property name="area" ref="area3" />
 	</bean>
 
 	<bean id="float1" class="domain.Float">
@@ -288,7 +341,7 @@
 		<property name="originTime" value="11/02/2018 10:00" />
 		<property name="destinationTime" value="15/09/2018 15:00" />
 		<property name="sequence" value="2" />
-		
+
 	</bean>
 
 	<bean id="segment3" class="domain.Segment">
@@ -299,7 +352,7 @@
 		<property name="originTime" value="11/02/2018 10:00" />
 		<property name="destinationTime" value="15/09/2018 15:00" />
 		<property name="sequence" value="3" />
-		
+
 	</bean>
 
 	<bean id="segment4" class="domain.Segment">
@@ -351,15 +404,15 @@
 
 
 	</bean>
-	
+
 	<bean id="path1" class="domain.Path">
-	<property name="segments">
+		<property name="segments">
 			<list>
 				<ref bean="segment1" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="path5" class="domain.Path">
 	</bean>
 
@@ -384,9 +437,9 @@
 		</property>
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
-	
+
 	<bean id="path2" class="domain.Path">
-	<property name="segments">
+		<property name="segments">
 			<list>
 				<ref bean="segment2" />
 			</list>
@@ -413,9 +466,9 @@
 		</property>
 		<property name="brotherhood" ref="brotherhood3" />
 	</bean>
-	
+
 	<bean id="path3" class="domain.Path">
-	<property name="segments">
+		<property name="segments">
 			<list>
 				<ref bean="segment5" />
 			</list>
@@ -444,7 +497,7 @@
 		<property name="moment" value="02/04/1998" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="position" ref="position1" />
-		<property name="member" ref="actor2" />
+		<property name="member" ref="member1" />
 
 	</bean>
 
@@ -453,7 +506,7 @@
 		<property name="row" value="1" />
 		<property name="column" value="1" />
 		<property name="parade" ref="parade1" />
-		<property name="member" ref="actor2" />
+		<property name="member" ref="member1" />
 
 	</bean>
 
@@ -466,7 +519,7 @@
 		<property name="moment" value="02/04/2010" />
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="position" ref="position2" />
-		<property name="member" ref="actor2" />
+		<property name="member" ref="member1" />
 
 	</bean>
 
@@ -493,7 +546,7 @@
 		<property name="moment" value="02/04/1990" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="position" ref="position3" />
-		<property name="member" ref="actor3" />
+		<property name="member" ref="member2" />
 
 	</bean>
 	<bean id="position6" class="domain.Position">
@@ -505,13 +558,13 @@
 		<property name="moment" value="02/04/1987" />
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="position" ref="position6" />
-		<property name="member" ref="actor3" />
+		<property name="member" ref="member3" />
 
 	</bean>
 	<bean id="dropout1" class="domain.DropOut">
 		<property name="moment" value="02/04/1978" />
 		<property name="brotherhood" ref="brotherhood3" />
-		<property name="member" ref="actor3" />
+		<property name="member" ref="member2" />
 
 	</bean>
 	<bean id="request2" class="domain.Request">
@@ -519,7 +572,7 @@
 		<property name="row" value="2" />
 		<property name="column" value="2" />
 		<property name="parade" ref="parade1" />
-		<property name="member" ref="actor3" />
+		<property name="member" ref="member2" />
 
 	</bean>
 
@@ -545,7 +598,7 @@
 		<property name="moment" value="02/04/1950" />
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="position" ref="position4" />
-		<property name="member" ref="actor4" />
+		<property name="member" ref="member3" />
 
 	</bean>
 	<bean id="position5" class="domain.Position">
@@ -557,7 +610,7 @@
 		<property name="moment" value="02/04/1963" />
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="position" ref="position5" />
-		<property name="member" ref="actor4" />
+		<property name="member" ref="member3" />
 
 	</bean>
 	<bean id="position7" class="domain.Position">
@@ -569,13 +622,13 @@
 		<property name="moment" value="02/04/2000" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="position" ref="position7" />
-		<property name="member" ref="actor4" />
+		<property name="member" ref="member3" />
 
 	</bean>
 	<bean id="dropout2" class="domain.DropOut">
 		<property name="moment" value="02/04/19" />
 		<property name="brotherhood" ref="brotherhood1" />
-		<property name="member" ref="actor4" />
+		<property name="member" ref="member3" />
 
 	</bean>
 	<bean id="request3" class="domain.Request">
@@ -583,7 +636,7 @@
 		<property name="row" value="5" />
 		<property name="column" value="5" />
 		<property name="parade" ref="parade2" />
-		<property name="member" ref="actor4" />
+		<property name="member" ref="member3" />
 
 	</bean>
 	<bean id="request4" class="domain.Request">
@@ -591,7 +644,7 @@
 		<property name="row" value="7" />
 		<property name="column" value="5" />
 		<property name="parade" ref="parade3" />
-		<property name="member" ref="actor4" />
+		<property name="member" ref="member3" />
 
 	</bean>
 
@@ -617,14 +670,16 @@
 		<property name="phoneNumber" value="+34 (999) 698765432" />
 		<property name="members">
 			<list>
-				<ref bean="actor5" />
+				<ref bean="member4" />
 			</list>
 		</property>
+		<property name="area" ref="area4" />
+		
 	</bean>
 
 	<bean id="userAccount8" class="security.UserAccount">
 		<property name="username" value="Brotherhood4" />
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="password" value="fed3258622d60ea6a97d261e84e9b7fb" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -666,6 +721,37 @@
 			</list>
 		</property>
 	</bean>
+	
+		<bean id="area3" class="domain.Area">
+		<property name="name" value="Izquierda" />
+		<property name="photo">
+			<list>
+				<value>http://hermandaddelcalvario.org/wp-content/uploads/2011/09/faldon-portada-Febrero-2013.jpg
+				</value>
+			</list>
+		</property>
+	</bean>
+	
+		
+		<bean id="area4" class="domain.Area">
+		<property name="name" value="Centro izquierda" />
+		<property name="photo">
+			<list>
+				<value>http://hermandaddelcalvario.org/wp-content/uploads/2011/09/faldon-portada-Febrero-2013.jpg
+				</value>
+			</list>
+		</property>
+	</bean>
+	
+			<bean id="area5" class="domain.Area">
+		<property name="name" value="Centro derecha" />
+		<property name="photo">
+			<list>
+				<value>http://hermandaddelcalvario.org/wp-content/uploads/2011/09/faldon-portada-Febrero-2013.jpg
+				</value>
+			</list>
+		</property>
+	</bean>
 
 
 	<bean id="finder1" class="domain.Finder">
@@ -673,7 +759,7 @@
 		<property name="minDate" value="16/03/2019" />
 		<property name="maxDate" value="22/03/2019" />
 		<property name="lastSearch" value="03/03/2019 20:20" />
-		<property name="member" ref="actor2" />
+		<property name="member" ref="member1" />
 		<property name="area" ref="area1" />
 		<property name="parades">
 			<list></list>
@@ -685,8 +771,20 @@
 		<property name="minDate" value="15/03/2019" />
 		<property name="maxDate" value="27/03/2019" />
 		<property name="lastSearch" value="03/03/2019 20:20" />
-		<property name="member" ref="actor3" />
+		<property name="member" ref="member2" />
 		<property name="area" ref="area2" />
+		<property name="parades">
+			<list></list>
+		</property>
+	</bean>
+	
+		<bean id="finder3" class="domain.Finder">
+		<property name="keyword" value="centro" />
+		<property name="minDate" value="15/03/2019" />
+		<property name="maxDate" value="27/03/2019" />
+		<property name="lastSearch" value="03/03/2019 20:20" />
+		<property name="member" ref="member3" />
+		<property name="area" ref="area3" />
 		<property name="parades">
 			<list></list>
 		</property>
@@ -715,9 +813,9 @@
 
 
 	</bean>
-	
+
 	<bean id="path4" class="domain.Path">
-	<property name="segments">
+		<property name="segments">
 			<list>
 				<ref bean="segment3" />
 				<ref bean="segment4" />
@@ -747,13 +845,13 @@
 		<property name="moment" value="02/04/2000" />
 		<property name="brotherhood" ref="brotherhood4" />
 		<property name="position" ref="position8" />
-		<property name="member" ref="actor5" />
+		<property name="member" ref="member4" />
 	</bean>
 
 	<bean id="dropout3" class="domain.DropOut">
 		<property name="moment" value="02/04/2019" />
 		<property name="brotherhood" ref="brotherhood4" />
-		<property name="member" ref="actor5" />
+		<property name="member" ref="member4" />
 
 	</bean>
 
@@ -762,7 +860,7 @@
 		<property name="row" value="7" />
 		<property name="column" value="5" />
 		<property name="parade" ref="parade4" />
-		<property name="member" ref="actor5" />
+		<property name="member" ref="member4" />
 	</bean>
 
 	<bean id="inceptionRecord1" class="domain.InceptionRecord">
