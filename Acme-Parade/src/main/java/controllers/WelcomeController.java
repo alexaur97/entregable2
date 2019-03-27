@@ -22,9 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.BrotherhoodService;
+import services.ChapterService;
 import services.ConfigurationParametersService;
 import services.FinderService;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.ConfigurationParameters;
 
 @Controller
@@ -42,6 +44,8 @@ public class WelcomeController extends AbstractController {
 
 	@Autowired
 	BrotherhoodService						brotherhoodService;
+	@Autowired
+	ChapterService							chapterService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -84,6 +88,15 @@ public class WelcomeController extends AbstractController {
 		try {
 			final Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
 			result.addObject("brotherhood", brotherhood);
+			final Chapter chapter = this.chapterService.findByPrincipal();
+			result.addObject("chapter", chapter);
+
+		} catch (final Exception e) {
+
+		}
+		try {
+			final Chapter chapter = this.chapterService.findByPrincipal();
+			result.addObject("chapter", chapter);
 
 		} catch (final Exception e) {
 

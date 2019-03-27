@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +15,6 @@ import services.ActorService;
 import services.ChapterService;
 import services.ParadeService;
 import controllers.AbstractController;
-import domain.Area;
 import domain.Chapter;
 import domain.Parade;
 
@@ -37,11 +35,10 @@ public class ChapterParadeController extends AbstractController {
 	// List -----------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-
+		Collection<Parade> parades;
 		ModelAndView result;
 		try {
 			final Chapter chapter = this.chapterService.findByPrincipal();
-			Collection<Parade> parades;
 			parades = this.paradeService.findFinalParadeByArea(chapter.getArea().getId());
 			final String s = "SUBMITTED";
 			result = new ModelAndView("parade/list");
@@ -49,29 +46,28 @@ public class ChapterParadeController extends AbstractController {
 			result.addObject("parades", parades);
 			result.addObject("s", s);
 		} catch (final Exception e) {
-			result = new ModelAndView("redirect:/#");
+			final Chapter chapter = this.chapterService.findByPrincipal();
+			if (chapter.getArea() == null) {
+				result = new ModelAndView("parade/list");
+				result.addObject("requestURI", "parade/list.do");
+				result.addObject("chapter", chapter);
+			} else
+
+				result = new ModelAndView("redirect:/#");
 		}
 
 		return result;
 	}
-
 	@RequestMapping(value = "/accept", method = RequestMethod.GET)
 	public ModelAndView accept(@RequestParam final int paradeId) {
 		ModelAndView result;
 		final Collection<Parade> parades;
-
+		final String s = "SUBMITTED";
 		try {
-
-			Assert.notNull(paradeId);
-			final String s = "SUBMITTED";
-			final Parade parade = this.paradeService.findOne(paradeId);
-			final Area a = this.chapterService.findByPrincipal().getArea();
-			Assert.isTrue(parade.getBrotherhood().getArea().equals(a));
-			Assert.isTrue(parade.getStatus().equals("SUBMITTED"));
-			parade.setStatus("ACCEPTED");
+			final Parade parade = this.paradeService.acceptParadeChanges(paradeId);
 			this.paradeService.saveChapter(parade);
 			final Chapter chapter = this.chapterService.findByPrincipal();
-			parades = this.paradeService.findParadesByArea(chapter.getArea().getId());
+			parades = this.paradeService.findFinalParadeByArea(chapter.getArea().getId());
 			result = new ModelAndView("parade/list");
 			result.addObject("requestURI", "parade/accept.do");
 			result.addObject("parades", parades);
@@ -88,10 +84,7 @@ public class ChapterParadeController extends AbstractController {
 		try {
 
 			final Parade parade = this.paradeService.findOne(paradeId);
-			final Area a = this.chapterService.findByPrincipal().getArea();
-			Assert.notNull(paradeId);
-			Assert.isTrue(parade.getBrotherhood().getArea().equals(a));
-			Assert.isTrue(parade.getStatus().equals("SUBMITTED"));
+			this.paradeService.restriccionesRejectGet(paradeId);
 			result = new ModelAndView("parade/edit");
 			result.addObject("requestURI", "parade/reject.do");
 			result.addObject("parade", parade);
@@ -113,7 +106,7 @@ public class ChapterParadeController extends AbstractController {
 			res = new ModelAndView("parade/list");
 			this.paradeService.saveChapter(paradeFinal);
 			final Chapter chapter = this.chapterService.findByPrincipal();
-			parades = this.paradeService.findParadesByArea(chapter.getArea().getId());
+			parades = this.paradeService.findFinalParadeByArea(chapter.getArea().getId());
 			res.addObject("parades", parades);
 			res.addObject("requestURI", "parade/list.do");
 			res.addObject("s", s);
