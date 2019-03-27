@@ -100,6 +100,7 @@ public class ChapterAreaController extends AbstractController {
 
 		} else
 			try {
+				Assert.notNull(chapter.getArea());
 				Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
 				final Chapter chapterFinal = this.chapterService.reconstructAssign(chapter, binding);
 				this.chapterService.save(chapterFinal);
@@ -108,6 +109,7 @@ public class ChapterAreaController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = new ModelAndView("chapter/assign");
 				final Collection<Area> areas = this.areaService.areasSinAsignar();
+				result.addObject("message", "chapter.area.error");
 				result.addObject("areas", areas);
 				result.addObject("chapter", chapter);
 
