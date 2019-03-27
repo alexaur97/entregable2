@@ -45,6 +45,8 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 			final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 			brotherhoods.remove(principal);
 			result.addObject("brotherhoods", brotherhoods);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -58,6 +60,8 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 			linkRecord = this.linkRecordService.findOne(linkRecordId);
 			result = new ModelAndView("linkRecord/edit");
 			result.addObject("linkRecord", linkRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -71,6 +75,8 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 			linkRecord = this.linkRecordService.findOne(linkRecordId);
 			result = new ModelAndView("linkRecord/display");
 			result.addObject("linkRecord", linkRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -87,6 +93,8 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 			final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 			brotherhoods.remove(principal);
 			result.addObject("brotherhoods", brotherhoods);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} else
 			result = new ModelAndView("linkRecord/edit");
 		if (binding.hasErrors())
@@ -101,6 +109,8 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 				else
 					result.addObject("message", "linkRecord.commit.error");
 			}
+		result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		return result;
 	}
 
@@ -113,6 +123,8 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		} catch (final Throwable oops) {
 			result = new ModelAndView("linkRecord/edit");
 			result.addObject("message", "linkRecord.commit.error");
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		}
 		return result;
 	}

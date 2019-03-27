@@ -20,6 +20,7 @@ import security.Authority;
 import security.LoginService;
 import domain.Area;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.ConfigurationParameters;
 import domain.Member;
 import domain.Parade;
@@ -352,13 +353,15 @@ public class ParadeService {
 		Assert.isTrue(parade.getBrotherhood().getArea().equals(a));
 		Assert.isTrue(parade.getStatus().equals("SUBMITTED"));
 	}
-	public Parade acceptParadeChanges(final Integer paradeId) {
+	public Parade acceptParadeChanges(final int paradeId) {
 		Assert.notNull(paradeId);
+		final Chapter chapter = this.chapterService.findByPrincipal();
+		Assert.notNull(chapter.getArea());
 		final Parade parade = this.paradeRepository.findOne(paradeId);
+		Assert.isTrue(chapter.getArea().equals(parade.getBrotherhood().getArea()));
 		Assert.isTrue(parade.getStatus().equals("SUBMITTED"));
 		parade.setStatus("ACCEPTED");
 		return parade;
 
 	}
-
 }

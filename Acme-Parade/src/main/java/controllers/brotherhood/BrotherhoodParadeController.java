@@ -64,6 +64,8 @@ public class BrotherhoodParadeController extends AbstractController {
 			result.addObject("requestURI", "parade/list.do");
 			result.addObject("parades", parades);
 			result.addObject("currentActor", currentActor);
+			result.addObject("brotherhood", currentActor);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -93,6 +95,7 @@ public class BrotherhoodParadeController extends AbstractController {
 			result.addObject("paradesAccepted", paradesAccepted);
 			result.addObject("paradesRejected", paradesRejected);
 			result.addObject("paradesCleared", paradesCleared);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -119,6 +122,8 @@ public class BrotherhoodParadeController extends AbstractController {
 			result = new ModelAndView("parade/edit");
 			result.addObject("parade", parade);
 			result.addObject("floats", floats);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Throwable oops) {
 			if (this.brotherhoodService.findByPrincipal().getArea() == null) {
 				result = new ModelAndView("parade/myList");
@@ -140,8 +145,11 @@ public class BrotherhoodParadeController extends AbstractController {
 
 				result.addObject("requestURI", "parade/list.do");
 				result.addObject("message", "parade.area.error");
+				result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			} else
 				result = this.createEditModelAndView(parade, "parade.commit.error");
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		}
 
@@ -173,6 +181,7 @@ public class BrotherhoodParadeController extends AbstractController {
 			result.addObject("paradesAccepted", paradesAccepted);
 			result.addObject("paradesRejected", paradesRejected);
 			result.addObject("paradesCleared", paradesCleared);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		} catch (final Throwable oops) {
 			final Integer currentActorId = this.actorService.findByPrincipal().getId();
@@ -191,6 +200,8 @@ public class BrotherhoodParadeController extends AbstractController {
 			result.addObject("paradesRejected", paradesRejected);
 			result.addObject("paradesCleared", paradesCleared);
 			result.addObject("message", oops.getMessage());
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			final String msg = oops.getMessage();
 			if (msg.equals("finalStatus")) {
 				final Boolean finalStatus = true;
@@ -218,6 +229,8 @@ public class BrotherhoodParadeController extends AbstractController {
 			res.addObject("floats", floats);
 			res.addObject("paths", paths);
 			res.addObject("parade", parade);
+			res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			res = new ModelAndView("redirect:/#");
 		}
@@ -230,20 +243,21 @@ public class BrotherhoodParadeController extends AbstractController {
 
 		parade = this.paradeService.reconstruct(parade, binding);
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			res = this.createEditModelAndView(parade);
-		else
+			res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+		} else
 			try {
 				this.paradeService.save(parade);
 				res = new ModelAndView("redirect:/brotherhood/parade/myList.do");
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(parade, "parade.commit.error");
+				res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 			}
 
 		return res;
 	}
-
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Parade parade, final BindingResult binding) {
 		ModelAndView result;
@@ -254,6 +268,7 @@ public class BrotherhoodParadeController extends AbstractController {
 			result = new ModelAndView("redirect:/brotherhood/parade/myList.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(parade, "parade.commit.error");
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		}
 
@@ -278,6 +293,7 @@ public class BrotherhoodParadeController extends AbstractController {
 
 			result.addObject("parade", parade);
 			result.addObject("floats", floats);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");

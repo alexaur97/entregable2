@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BrotherhoodService;
 import services.HistoryService;
 import services.MiscellaneousRecordService;
 import controllers.AbstractController;
@@ -25,6 +26,8 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 
 	@Autowired
 	private HistoryService				historyService;
+	@Autowired
+	private BrotherhoodService			brotherhoodService;
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -35,6 +38,8 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 			miscellaneousRecord = this.miscellaneousRecordService.create();
 			result = new ModelAndView("miscellaneousRecord/create");
 			result.addObject("miscellaneousRecord", miscellaneousRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -48,6 +53,8 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 			miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
 			result = new ModelAndView("miscellaneousRecord/edit");
 			result.addObject("miscellaneousRecord", miscellaneousRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -61,6 +68,8 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 			miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
 			result = new ModelAndView("miscellaneousRecord/display");
 			result.addObject("miscellaneousRecord", miscellaneousRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -80,8 +89,11 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 			try {
 				this.miscellaneousRecordService.save(miscellaneousRecord);
 				result = new ModelAndView("redirect:/miscellaneousRecord/brotherhood/display.do?miscellaneousRecordId=" + miscellaneousRecord.getId());
+
 			} catch (final Throwable oops) {
 				result.addObject("message", "miscellaneousRecord.commit.error");
+				result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			}
 		return result;
 	}
@@ -95,6 +107,8 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 		} catch (final Throwable oops) {
 			result = new ModelAndView("miscellaneousRecord/edit");
 			result.addObject("message", "miscellaneousRecord.commit.error");
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		}
 		return result;
 	}

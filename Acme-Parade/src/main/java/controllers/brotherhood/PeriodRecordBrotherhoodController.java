@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BrotherhoodService;
 import services.HistoryService;
 import services.PeriodRecordService;
 import controllers.AbstractController;
@@ -26,6 +27,9 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	@Autowired
 	private HistoryService		historyService;
 
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
+
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
@@ -35,6 +39,8 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 			periodRecord = this.periodRecordService.create();
 			result = new ModelAndView("periodRecord/create");
 			result.addObject("periodRecord", periodRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -49,6 +55,8 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 			periodRecord = this.periodRecordService.findOne(periodRecordId);
 			result = new ModelAndView("periodRecord/edit");
 			result.addObject("periodRecord", periodRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -63,6 +71,8 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 			periodRecord = this.periodRecordService.findOne(periodRecordId);
 			result = new ModelAndView("periodRecord/display");
 			result.addObject("periodRecord", periodRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -75,6 +85,8 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 		if (binding.hasErrors()) {
 			result = new ModelAndView("periodRecord/edit");
 			result.addObject("periodRecord", periodRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} else
 			try {
 				final Boolean b = this.periodRecordService.validatePictures(periodRecord.getPictures());
@@ -85,14 +97,19 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 					this.periodRecordService.save(periodRecord);
 					result = new ModelAndView("redirect:/periodRecord/brotherhood/display.do?periodRecordId=" + periodRecord.getId());
 				}
+				result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			} catch (final Throwable oops) {
 				if (periodRecord.getStartYear() > periodRecord.getEndYear()) {
 					result = new ModelAndView("periodRecord/edit");
 					result.addObject("message", "periodRecord.years.error");
+
 				} else {
 					result = new ModelAndView("periodRecord/edit");
 					result.addObject("message", "periodRecord.commit.error");
 				}
+				result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			}
 		return result;
 	}
@@ -106,6 +123,8 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 		} catch (final Throwable oops) {
 			result = new ModelAndView("periodRecord/edit");
 			result.addObject("message", "periodRecord.commit.error");
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		}
 		return result;
 	}

@@ -57,6 +57,8 @@ public class RequestBrotherhoodController extends AbstractController {
 			result.addObject("acceptedRequests", acceptedRequests);
 			result.addObject("rejectedRequests", rejectedRequests);
 			result.addObject("resquestURI", "/request/brotherhood/list.do");
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -76,6 +78,8 @@ public class RequestBrotherhoodController extends AbstractController {
 			Assert.notNull(request);
 			Assert.isTrue(request.getParade().getBrotherhood().getId() == this.brotherhoodService.findByPrincipal().getId());
 			res.addObject("request", request);
+			res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
 
@@ -106,11 +110,15 @@ public class RequestBrotherhoodController extends AbstractController {
 			res.addObject("acceptedRequests", acceptedRequests);
 			res.addObject("rejectedRequests", rejectedRequests);
 			res.addObject("requestURI", "/request/brotherhood/list.do");
+			res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Throwable oops) {
 			if (request.getExplanation() == null || request.getExplanation().isEmpty()) {
 				res = new ModelAndView("request/reject");
 				res.addObject("request", request);
 				res.addObject("message", "request.explanation.error");
+				res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			} else
 				res = new ModelAndView("redirect:/#");
 		}
@@ -130,6 +138,8 @@ public class RequestBrotherhoodController extends AbstractController {
 			final String pos = this.requestService.findPos(request.getParade().getId());
 			res.addObject("pos", pos);
 			res.addObject("request", request);
+			res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
 
@@ -158,6 +168,7 @@ public class RequestBrotherhoodController extends AbstractController {
 			res.addObject("acceptedRequests", acceptedRequests);
 			res.addObject("rejectedRequests", rejectedRequests);
 			res.addObject("requestURI", "/request/brotherhood/list.do");
+			res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		} catch (final Throwable oops) {
 			if (!this.requestService.posDisp(request.getParade().getId(), request.getColumn(), request.getRow())) {
@@ -166,6 +177,8 @@ public class RequestBrotherhoodController extends AbstractController {
 				res.addObject("pos", pos);
 				res.addObject("request", request);
 				res.addObject("message", "request.pos.error");
+				res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			} else
 				res = new ModelAndView("redirect:/#");
 		}
