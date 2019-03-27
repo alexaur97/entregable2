@@ -96,7 +96,9 @@
 		
 		<security:authorize access="hasRole('CHAPTER')">
 			<li><a href="chapter/parade/list.do"><spring:message code="master.page.parades" /></a></li>
+			<jstl:if test="${chapter.area eq null}">
 			<li><a href="chapter/assign.do"><spring:message code="master.page.assign" /></a></li>
+			</jstl:if>
 		</security:authorize>
 			<li>
 				<a class="fNiv">

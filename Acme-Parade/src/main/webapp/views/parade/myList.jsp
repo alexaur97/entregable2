@@ -122,6 +122,11 @@
 		<spring:message code="parade.show" />
 		</a>
 	</display:column>
+	<display:column titleKey="parade.paths">
+		<a href="path/listByParade.do?paradeId=${parade.id}">
+		<spring:message code="parade.paths" />
+		</a>
+	</display:column>
 	<display:column titleKey="parade.copy">
 		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
 		<spring:message code="parade.copy" />
