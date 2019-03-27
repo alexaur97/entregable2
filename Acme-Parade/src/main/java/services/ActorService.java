@@ -106,12 +106,12 @@ public class ActorService {
 	}
 
 	public boolean validateCountryCode(final String phoneNumber) {
-		final String regex = "^\\+\\d{2}";
+		final String regex = "[0-9]+";
 		final Pattern patt = Pattern.compile(regex);
-		Boolean b = false;
+		Boolean b = true;
 		final Matcher matcher = patt.matcher(phoneNumber);
 		if (!matcher.matches())
-			b = true;
+			b = false;
 		return b;
 	}
 }
