@@ -55,6 +55,7 @@ public class BrotherhoodFloatController extends AbstractController {
 			result = new ModelAndView("float/list");
 			result.addObject("requestURI", "float/list.do");
 			result.addObject("floats", floats);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -77,6 +78,7 @@ public class BrotherhoodFloatController extends AbstractController {
 
 			result = new ModelAndView("float/list");
 			result.addObject("floaat", floaat);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 			result = this.createEditModelAndView(floaat);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
@@ -98,6 +100,8 @@ public class BrotherhoodFloatController extends AbstractController {
 			final Collection<Float> floats = this.floatService.findFloatsByBrotherhood(idB);
 			Assert.isTrue(floats.contains(floaat));
 			res.addObject("floaat", floaat);
+			res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
 		}
@@ -118,16 +122,21 @@ public class BrotherhoodFloatController extends AbstractController {
 				if (!b) {
 					res = this.createEditModelAndView(floaat, "float.picture.error");
 					res.addObject("message", "float.picture.error");
+					res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 				} else {
 					this.floatService.save(floaat);
 					res = new ModelAndView("redirect:/brotherhood/float/list.do");
+					res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 				}
 			} catch (final Throwable oops) {
 				final Boolean b = this.floatService.validatePictures(floaat.getPictures());
 				if (!b)
 					res = this.createEditModelAndView(floaat, "float.picture.error");
 				res = this.createEditModelAndView(floaat, "float.commit.error");
+				res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			}
 
 		return res;
@@ -139,6 +148,7 @@ public class BrotherhoodFloatController extends AbstractController {
 		try {
 			this.floatService.delete(floaat);
 			result = new ModelAndView("redirect:/brotherhood/float/list.do");
+
 		} catch (final Throwable oops) {
 			result = new ModelAndView("float/edit");
 			result.addObject("floaat", floaat);
@@ -147,6 +157,7 @@ public class BrotherhoodFloatController extends AbstractController {
 			if (msg.equals("floatcannotDelete")) {
 				final Boolean floatcannotDelete = true;
 				result.addObject("floatcannotDelete", floatcannotDelete);
+				result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 			}
 		}
@@ -169,6 +180,7 @@ public class BrotherhoodFloatController extends AbstractController {
 			result = new ModelAndView("float/show");
 			result.addObject("floaat", floaat);
 			result.addObject("pictures", floaat.getPictures());
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		} catch (final Throwable oops) {
 

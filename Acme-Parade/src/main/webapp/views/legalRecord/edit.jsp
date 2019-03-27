@@ -30,8 +30,8 @@
 	<form:hidden path="version" />
 	<acme:textbox code="legalRecord.title" path="title" />
 	<acme:textarea code="legalRecord.description" path="description" />
-	<acme:textarea code="legalRecord.legalName" path="legalName" />
-	<acme:textarea code="legalRecord.vatNumber" path="vatNumber" />
+	<acme:textbox code="legalRecord.legalName" path="legalName" />
+	<acme:textbox code="legalRecord.vatNumber" path="vatNumber" />
 	<acme:textarea code="legalRecord.laws" path="laws" />
 	<acme:submit name="save" code="legalRecord.save" />
 

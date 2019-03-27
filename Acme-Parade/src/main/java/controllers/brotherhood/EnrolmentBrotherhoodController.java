@@ -53,12 +53,16 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 			result.addObject("enrolment", enrolment);
 			result.addObject("members", members);
 			result.addObject("positions", positions);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			if (this.brotherhoodService.findByPrincipal().getArea() == null) {
 				final Collection<Member> members = this.memberService.findMembersByBrotherhoodPrincipal();
 				result = new ModelAndView("member/list");
 				result.addObject("members", members);
 				result.addObject("message", "enrolment.area.error");
+				result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			} else
 				result = new ModelAndView("redirect:/#");
 		}
@@ -72,17 +76,23 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 		if (binding.hasErrors()) {
 			res = new ModelAndView("enrolment/create");
 			res.addObject("enrolment", enrolment);
+			res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} else
 			try {
 				enrolment = this.enrolmentService.reconstruct(enrolment);
 				this.enrolmentService.save(enrolment);
 				res = new ModelAndView("redirect:/member/brotherhood/list.do");
+				res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			} catch (final Throwable oops) {
 				res = new ModelAndView("member/list");
 				final Collection<Member> members = this.brotherhoodService.findByPrincipal().getMembers();
 				res.addObject("members", members);
 				res.addObject("requestURI", "enrolment/brotherhood/edit.do");
 				res.addObject("message", "enrolment.commit.error");
+				res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			}
 
 		return res;

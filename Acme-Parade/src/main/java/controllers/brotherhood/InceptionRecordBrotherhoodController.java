@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BrotherhoodService;
 import services.InceptionRecordService;
 import controllers.AbstractController;
 import domain.InceptionRecord;
@@ -21,6 +22,8 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 
 	@Autowired
 	private InceptionRecordService	inceptionRecordService;
+	@Autowired
+	private BrotherhoodService		brotherhoodService;
 
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -31,6 +34,8 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 			inceptionRecord = this.inceptionRecordService.findOne(inceptionRecordId);
 			result = new ModelAndView("inceptionRecord/edit");
 			result.addObject("inceptionRecord", inceptionRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -45,6 +50,8 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 			inceptionRecord = this.inceptionRecordService.findOne(inceptionRecordId);
 			result = new ModelAndView("inceptionRecord/display");
 			result.addObject("inceptionRecord", inceptionRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -63,6 +70,8 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 				if (!b) {
 					result = new ModelAndView("inceptionRecord/edit");
 					result.addObject("message", "inceptionRecord.photo.error");
+					result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 				} else {
 					inceptionRecord = this.inceptionRecordService.save(inceptionRecord);
 					result = new ModelAndView("redirect:/inceptionRecord/brotherhood/display.do?inceptionRecordId=" + inceptionRecord.getId());
@@ -70,6 +79,8 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = new ModelAndView("inceptionRecord/edit");
 				result.addObject("message", "inceptionRecord.commit.error");
+				result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			}
 		return result;
 	}

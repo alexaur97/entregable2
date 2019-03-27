@@ -45,6 +45,8 @@ public class ChapterParadeController extends AbstractController {
 			result.addObject("requestURI", "parade/list.do");
 			result.addObject("parades", parades);
 			result.addObject("s", s);
+			result.addObject("chapter", this.chapterService.findByPrincipal());
+
 		} catch (final Exception e) {
 			final Chapter chapter = this.chapterService.findByPrincipal();
 			if (chapter.getArea() == null) {
@@ -72,6 +74,8 @@ public class ChapterParadeController extends AbstractController {
 			result.addObject("requestURI", "parade/accept.do");
 			result.addObject("parades", parades);
 			result.addObject("s", s);
+			result.addObject("chapter", this.chapterService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -88,6 +92,8 @@ public class ChapterParadeController extends AbstractController {
 			result = new ModelAndView("parade/edit");
 			result.addObject("requestURI", "parade/reject.do");
 			result.addObject("parade", parade);
+			result.addObject("chapter", this.chapterService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -110,12 +116,15 @@ public class ChapterParadeController extends AbstractController {
 			res.addObject("parades", parades);
 			res.addObject("requestURI", "parade/list.do");
 			res.addObject("s", s);
+			res.addObject("chapter", this.chapterService.findByPrincipal());
 
 		} catch (final Throwable oops) {
 			if (parade.getExplanation().isEmpty()) {
 				res = new ModelAndView("parade/edit");
 				res.addObject("parade", parade);
 				res.addObject("message", "request.explanation.error");
+				res.addObject("chapter", this.chapterService.findByPrincipal());
+
 			} else
 				res = new ModelAndView("redirect:/#");
 		}

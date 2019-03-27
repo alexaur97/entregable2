@@ -80,6 +80,7 @@ public class HistoryBrotherhoodController extends AbstractController {
 			} else
 				result = new ModelAndView("redirect:/history/brotherhood/create.do");
 
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -100,6 +101,7 @@ public class HistoryBrotherhoodController extends AbstractController {
 			Assert.isNull(h);
 			final HistoryCreateForm historyCreateForm = new HistoryCreateForm();
 			result = this.createEditModelAndView(historyCreateForm);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
@@ -133,6 +135,8 @@ public class HistoryBrotherhoodController extends AbstractController {
 			res.addObject(ir);
 			res.addObject(mr);
 			res.addObject(pr);
+			res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
 		}
@@ -152,6 +156,7 @@ public class HistoryBrotherhoodController extends AbstractController {
 			result.addObject("linkRecords", history.getLinkRecord());
 			result.addObject("miscellaneousRecords", history.getMiscellaneousRecord());
 			result.addObject("periodRecords", history.getPeriodRecord());
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -178,6 +183,8 @@ public class HistoryBrotherhoodController extends AbstractController {
 
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(historyCreateForm, "history.commit.error");
+				res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			}
 		return res;
 	}

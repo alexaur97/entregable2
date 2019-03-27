@@ -38,11 +38,13 @@ public class MemberBrotherhoodController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		try {
-			Collection<Member> members = this.brotherhoodService.findByPrincipal().getMembers();
+			final Collection<Member> members = this.brotherhoodService.findByPrincipal().getMembers();
 			result = new ModelAndView("member/list");
 			result.addObject("members", members);
 			result.addObject("requestURI", "member/brotherhood/list.do");
-		} catch (Exception e) {
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
+		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
@@ -58,14 +60,16 @@ public class MemberBrotherhoodController extends AbstractController {
 			me = this.brotherhoodService.findByPrincipal();
 			member = this.memberService.findMembersById(memberId);
 			Assert.isTrue(me.getMembers().contains(member));
-			Collection<Enrolment> enrolments = this.enrolmentService.enrolmentByMember(memberId);
-			Collection<DropOut> dropOuts = this.dropOutService.dropOutByMember(memberId);
+			final Collection<Enrolment> enrolments = this.enrolmentService.enrolmentByMember(memberId);
+			final Collection<DropOut> dropOuts = this.dropOutService.dropOutByMember(memberId);
 			result = new ModelAndView("member/profile");
 			result.addObject("requestURI", "member/profile.do?=" + memberId);
 			result.addObject("member", member);
 			result.addObject("dropOuts", dropOuts);
 			result.addObject("enrolments", enrolments);
-		} catch (Exception e) {
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
+		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
 

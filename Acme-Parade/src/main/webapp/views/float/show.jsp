@@ -23,10 +23,22 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-<br/><spring:message code="float.title"/>: <jstl:out value="${floaat.title}"></jstl:out>
-<br/><spring:message code="float.description"/>: <jstl:out value="${floaat.description}"></jstl:out>
-<h3> <spring:message code="float.pictures" /></h3>
-<display:table pagesize="5" name="pictures" id="picture">
-	<display:column titleKey="float.pictures" > <img src="${picture}" alt="floatLogo" height="200" width="350"/></display:column>
-</display:table>
+<br />
+<spring:message code="float.title" />
+:
+<jstl:out value="${floaat.title}"></jstl:out>
+<br />
+<spring:message code="float.description" />
+:
+<jstl:out value="${floaat.description}"></jstl:out>
+<h3>
+	<spring:message code="float.pictures" />
+</h3>
+<ul>
+	<jstl:forEach items="${pictures}" var="x">
+		<li><a href="${x}"><jstl:out value="${x}" /></a></li>
+	</jstl:forEach>
+
+</ul>
+
 

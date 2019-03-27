@@ -29,8 +29,8 @@
 <form:hidden path="version"/>
 <acme:textbox code="periodRecord.title" path="title"/>
 <acme:textarea code="periodRecord.description" path="description"/>
-<acme:textarea code="periodRecord.startYear" path="startYear"/>
-<acme:textarea code="periodRecord.endYear" path="endYear"/>
+<acme:textbox code="periodRecord.startYear" path="startYear"/>
+<acme:textbox code="periodRecord.endYear" path="endYear"/>
 <acme:textarea code="periodRecord.pictures" path="pictures"/>
 <spring:message code = "periodRecord.photos"/>
 

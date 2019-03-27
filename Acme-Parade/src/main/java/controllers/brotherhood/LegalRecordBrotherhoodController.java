@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BrotherhoodService;
 import services.HistoryService;
 import services.LegalRecordService;
 import controllers.AbstractController;
@@ -26,6 +27,9 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 	@Autowired
 	private HistoryService		historyService;
 
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
+
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
@@ -35,6 +39,8 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 			legalRecord = this.legalRecordService.create();
 			result = new ModelAndView("legalRecord/create");
 			result.addObject("legalRecord", legalRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -49,6 +55,8 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 			legalRecord = this.legalRecordService.findOne(legalRecordId);
 			result = new ModelAndView("legalRecord/edit");
 			result.addObject("legalRecord", legalRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -63,6 +71,8 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 			legalRecord = this.legalRecordService.findOne(legalRecordId);
 			result = new ModelAndView("legalRecord/display");
 			result.addObject("legalRecord", legalRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -75,6 +85,8 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 		if (binding.hasErrors()) {
 			result = new ModelAndView("legalRecord/edit");
 			result.addObject("legalRecord", legalRecord);
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} else
 			try {
 
@@ -84,6 +96,8 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = new ModelAndView("legalRecord/edit");
 				result.addObject("message", "legalRecord.commit.error");
+				result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 			}
 		return result;
 	}
@@ -94,9 +108,13 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 		try {
 			this.legalRecordService.delete(legalRecord.getId());
 			result = new ModelAndView("redirect:/history/brotherhood/myList.do");
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		} catch (final Throwable oops) {
 			result = new ModelAndView("legalRecord/edit");
 			result.addObject("message", "legalRecord.commit.error");
+			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 		}
 		return result;
 	}

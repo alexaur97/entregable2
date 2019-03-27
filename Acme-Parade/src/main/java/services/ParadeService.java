@@ -20,6 +20,7 @@ import security.Authority;
 import security.LoginService;
 import domain.Area;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.ConfigurationParameters;
 import domain.Float;
 import domain.Member;
@@ -218,12 +219,14 @@ public class ParadeService {
 	}
 
 	public String creaString() {
+		String cadena = null;
+
 		final char[] elementos = {
 			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 		};
 
 		final char[] conjunto = new char[5];
-		String cadena;
+
 		for (int i = 0; i < 5; i++) {
 
 			final int el = (int) (Math.random() * 27);
@@ -231,6 +234,7 @@ public class ParadeService {
 			conjunto[i] = elementos[el];
 		}
 		cadena = new String(conjunto);
+
 		return cadena;
 	}
 	public Collection<Parade> findParadesByArea(final int id) {
@@ -355,13 +359,15 @@ public class ParadeService {
 		Assert.isTrue(parade.getBrotherhood().getArea().equals(a));
 		Assert.isTrue(parade.getStatus().equals("SUBMITTED"));
 	}
-	public Parade acceptParadeChanges(final Integer paradeId) {
+	public Parade acceptParadeChanges(final int paradeId) {
 		Assert.notNull(paradeId);
+		final Chapter chapter = this.chapterService.findByPrincipal();
+		Assert.notNull(chapter.getArea());
 		final Parade parade = this.paradeRepository.findOne(paradeId);
+		Assert.isTrue(chapter.getArea().equals(parade.getBrotherhood().getArea()));
 		Assert.isTrue(parade.getStatus().equals("SUBMITTED"));
 		parade.setStatus("ACCEPTED");
 		return parade;
 
 	}
-
 }
