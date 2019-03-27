@@ -47,6 +47,9 @@ public class WelcomeController extends AbstractController {
 	@Autowired
 	ChapterService							chapterService;
 
+	@Autowired
+	ChapterService							chapterService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -101,6 +104,14 @@ public class WelcomeController extends AbstractController {
 		} catch (final Exception e) {
 
 		}
+
+		try {
+			final Chapter chapter = this.chapterService.findByPrincipal();
+			result.addObject("chapter", chapter);
+
+		} catch (final Exception e) {
+		}
+
 		return result;
 	}
 }
