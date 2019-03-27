@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,6 @@ import security.LoginService;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
-import domain.ConfigurationParameters;
 import domain.Float;
 import domain.Member;
 import domain.Parade;
@@ -80,29 +78,37 @@ public class ParadeService {
 	}
 
 	public Collection<Parade> searchParades(final String keyword, final Date dateFrom, final Date dateTo, final Area area) {
-		final List<Parade> result = new ArrayList<Parade>();
-		List<Parade> aux = new ArrayList<>();
-		final ConfigurationParameters config = this.configurationParametersService.find();
-		if (keyword == "" && dateFrom == null && dateTo == null && area == null)
-			aux = (List<Parade>) this.findFinalParades();
-		else if (area == null) {
-			if (dateTo == null)
-				aux = (List<Parade>) this.paradeRepository.searchParadesWithoutEndDateOrArea(keyword, dateFrom);
-			else
-				aux = (List<Parade>) this.paradeRepository.searchParadesWithoutArea(keyword, dateFrom, dateTo);
-		} else if (dateTo == null)
-			aux = (List<Parade>) this.paradeRepository.searchParadesWithoutEndDate(keyword, dateFrom, area.getId());
+		Collection<Parade> chaptersByKeyWord = new ArrayList<>();
+		Collection<Parade> chaptersByDateFrom = new ArrayList<>();
+		Collection<Parade> chaptersByDateTo = new ArrayList<>();
+		Collection<Parade> chaptersByArea = new ArrayList<>();
+		Collection<Parade> result = new ArrayList<>();
+		if (keyword.isEmpty())
+			chaptersByKeyWord = this.paradeRepository.findAll();
 		else
-			aux = (List<Parade>) this.paradeRepository.searchParades(keyword, dateFrom, dateTo, area.getId());
-		for (final Parade parade : aux)
-			if (parade.getMode().equals("FINAL"))
-				result.add(parade);
-		if (result.size() > config.getFinderMaxResults())
-			return result.subList(0, config.getFinderMaxResults());
+			chaptersByKeyWord = this.paradeRepository.searchParadesKeyWord(keyword);
+		if (dateFrom == null)
+			chaptersByDateFrom = this.paradeRepository.findAll();
 		else
-			return result;
-	}
+			chaptersByDateFrom = this.paradeRepository.searchParadesDateFrom(dateFrom);
 
+		if (dateTo == null)
+			chaptersByDateTo = this.paradeRepository.findAll();
+		else
+			chaptersByDateTo = this.paradeRepository.searchParadesDateTo(dateTo);
+
+		if (area == null)
+			chaptersByArea = this.paradeRepository.findAll();
+		else
+			chaptersByArea = this.paradeRepository.searchParadesArea(area.getId());
+
+		chaptersByKeyWord.retainAll(chaptersByDateFrom);
+		chaptersByKeyWord.retainAll(chaptersByDateTo);
+		chaptersByKeyWord.retainAll(chaptersByArea);
+		result = chaptersByKeyWord;
+		return result;
+
+	}
 	public Parade findOne(final int paradeId) {
 		final Parade res = this.paradeRepository.findOne(paradeId);
 		// Assert.notNull(res);

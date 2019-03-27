@@ -93,6 +93,8 @@ public class AreaService {
 		return res;
 	}
 	public Double ratioAreaWithoutChapter() {
+		this.administratorService.findByPrincipal();
+
 		final Double a = (double) this.chapterService.countChapterWithArea();
 		final Double b = (double) this.areaRepository.count();
 		final Double result = 1 - (a / b);
@@ -102,6 +104,7 @@ public class AreaService {
 		Double acum = 0.0;
 		Double media = 0.0;
 		final List<Chapter> result = new ArrayList<>();
+		this.administratorService.findByPrincipal();
 
 		final Collection<Chapter> chapters = this.chapterService.findAll();
 		final List<Double> comparar = new ArrayList<>();
@@ -136,6 +139,7 @@ public class AreaService {
 	}
 	//ORDEN DE LA LISTA MEDIA, MIN, MAX, DESV
 	public List<Double> statsParadesChapters() {
+		this.administratorService.findByPrincipal();
 		Double min = -1.0;
 		Double max = 0.0;
 		Double acum = 0.0;
