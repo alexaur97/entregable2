@@ -52,7 +52,7 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	Collection<Double> modeStats();
 	@Query("select sum(case when p.status='SUBMITTED' then 1.0 else 0.0 end),sum(case when p.status='ACCEPTED' then 1.0 else 0.0 end),sum(case when p.status='REJECTED' then 1.0 else 0.0 end)from Parade p")
 	Collection<Double> statusStats();
-	@Query("select p from Parade p where p.mode='FINAL' and p.brotherhood.area.id=?1")
+	@Query("select p from Parade p where p.mode='FINAL' and p.brotherhood.area.id=?1 order by status")
 	Collection<Parade> findFinalParadeByArea(int id);
 
 }

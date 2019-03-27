@@ -89,14 +89,26 @@
 			<li><a href="request/brotherhood/list.do"><spring:message code="master.page.requests" /></a></li>
 			<li><a href="brotherhood/float/list.do"><spring:message code="master.page.floats" /></a></li>
 			
-			<jstl:if test="${brotherhood.area eq null}">
+			<jstl:choose>
+			<jstl:when test="${brotherhood.area eq null}">
 			<li><a href="brotherhood/addArea.do"><spring:message code="masterpage.addarea" /></a></li>
-			</jstl:if>
+	</jstl:when>
+		<jstl:otherwise>
+	<li style="color: white; font-size: 12px;" >AREA: ${brotherhood.area.name}</li>
+		</jstl:otherwise>
+		</jstl:choose>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CHAPTER')">
 			<li><a href="chapter/parade/list.do"><spring:message code="master.page.parades" /></a></li>
-			<li><a href="chapter/assign.do"><spring:message code="master.page.assign" /></a></li>
+			<jstl:choose>
+			<jstl:when test="${chapter.area eq NULL}">
+					<li><a href="chapter/assign.do"><spring:message code="master.page.assign" /></a></li>
+	</jstl:when>
+		<jstl:otherwise>
+	<li style="color: white; font-size: 12px;" >AREA: ${chapter.area.name}</li>
+		</jstl:otherwise>
+		</jstl:choose>
 		</security:authorize>
 			<li>
 				<a class="fNiv">

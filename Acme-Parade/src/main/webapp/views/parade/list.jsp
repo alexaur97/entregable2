@@ -54,7 +54,6 @@
 	</display:column>
 		</security:authorize>
 		<security:authorize access="hasRole('CHAPTER')">
-			<display:column titleKey="parade.status" property="status" />
 	<display:column titleKey="parade.accept">
 	<jstl:if test="${parade.status==s}">
 			<acme:cancel url="/chapter/parade/accept.do?paradeId=${parade.id}" code="parade.accept" />
@@ -87,4 +86,9 @@
 		</jstl:otherwise>
 		</jstl:choose>
 	</security:authorize>
-
+	<security:authorize access="hasRole('CHAPTER')">
+	<jstl:if test="${empty chapter.area}">
+		<spring:message code="parade.chapter.addArea" />
+		<acme:button url="/chapter/assign.do" code="parade.addArea"/>
+		</jstl:if>
+</security:authorize>

@@ -49,8 +49,12 @@ public class ParadeService {
 
 	@Autowired
 	private Validator						validator;
+
 	@Autowired
 	private ActorService					actorService;
+
+	@Autowired
+	private ChapterService					chapterService;
 
 
 	// Metodos CRUD FR 10.2
@@ -123,7 +127,13 @@ public class ParadeService {
 	public Parade saveChapter(final Parade parade) {
 		final Parade result;
 		Assert.notNull(parade);
-		result = this.paradeRepository.saveAndFlush(parade);
+		if (parade.getStatus() == "REJECTED")
+			Assert.isTrue(!parade.getExplanation().isEmpty());
+
+		final Area a = this.chapterService.findByPrincipal().getArea();
+		Assert.isTrue(parade.getBrotherhood().getArea().equals(a));
+		Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
+		result = this.paradeRepository.save(parade);
 		return result;
 
 	}
@@ -231,8 +241,6 @@ public class ParadeService {
 	public Parade rejectRecostruction(final Parade parade, final BindingResult binding) {
 		final Parade res = parade;
 		final Parade a = this.findOne(parade.getId());
-		Assert.isTrue(!parade.getExplanation().isEmpty());
-		Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
 		res.setStatus("REJECTED");
 		res.setBrotherhood(a.getBrotherhood());
 		res.setDescription(a.getDescription());
@@ -336,6 +344,21 @@ public class ParadeService {
 	}
 	public Collection<Parade> findFinalParadeByArea(final int id) {
 		return this.paradeRepository.findFinalParadeByArea(id);
+	}
+	public void restriccionesRejectGet(final Integer paradeId) {
+		final Parade parade = this.paradeRepository.findOne(paradeId);
+		Assert.notNull(paradeId);
+		final Area a = this.chapterService.findByPrincipal().getArea();
+		Assert.isTrue(parade.getBrotherhood().getArea().equals(a));
+		Assert.isTrue(parade.getStatus().equals("SUBMITTED"));
+	}
+	public Parade acceptParadeChanges(final Integer paradeId) {
+		Assert.notNull(paradeId);
+		final Parade parade = this.paradeRepository.findOne(paradeId);
+		Assert.isTrue(parade.getStatus().equals("SUBMITTED"));
+		parade.setStatus("ACCEPTED");
+		return parade;
+
 	}
 
 }
