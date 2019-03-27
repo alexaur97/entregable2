@@ -100,8 +100,8 @@ public class ChapterAreaController extends AbstractController {
 
 		} else
 			try {
-				Assert.notNull(chapter.getArea());
-				Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
+				//				Assert.notNull(chapter.getArea());
+				//				Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
 				final Chapter chapterFinal = this.chapterService.reconstructAssign(chapter, binding);
 				this.chapterService.save(chapterFinal);
 				result = new ModelAndView("redirect:/#");

@@ -31,12 +31,15 @@ public class PathServiceTest extends AbstractTest {
 	private ParadeService	paradeService;
 
 
-	// Valid Case FR 3.3 ACME PARADE CREATE
+	// Valid Case FR 3.3 ACME PARADE / CREATE PATH
 	@Test
 	public void testPathCreate() {
 		super.authenticate("brotherhood1");
-		final Path path = this.pathService.create();
+
+		// Parade ID
 		final int id = 117;
+
+		final Path path = this.pathService.create();
 		final Parade parade = this.paradeService.findOne(id);
 		final Path pa = this.pathService.save(path);
 		final Parade par = this.paradeService.addPath(parade, pa);
@@ -49,12 +52,15 @@ public class PathServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	// Invalid Case FR 3.3 ACME PARADE CREATE - Not logged as brotherhood
+	// Invalid Case FR 3.3 ACME PARADE / CREATE PATH - Not logged as brotherhood
 	@Test(expected = IllegalArgumentException.class)
 	public void testPathCreateNegative() {
 		super.authenticate(null);
-		final Path path = this.pathService.create();
+
+		// Parade ID
 		final int id = 117;
+
+		final Path path = this.pathService.create();
 		final Parade parade = this.paradeService.findOne(id);
 		final Path pa = this.pathService.save(path);
 		final Parade par = this.paradeService.addPath(parade, pa);
@@ -67,20 +73,41 @@ public class PathServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	// Valid Case FR 3.3 ACME PARADE DELETE
+	// Valid Case FR 3.3 ACME PARADE / DELETE PATH
 	@Test
 	public void testPathDelete() {
 		super.authenticate("brotherhood1");
+
+		// PATH ID
 		final int id = 118;
-		final Path path = this.pathService.findOne(id);
+
+		// PARADE ID
 		final int pid = 117;
+
+		final Path path = this.pathService.findOne(id);
+		Assert.isTrue(this.pathService.checkBrotherhoodPath(path));
 		this.pathService.delete(path);
 		final Collection<Path> result = this.pathService.findPathsByParade(pid);
-		Boolean bol = false;
-		for (final Path p : result)
-			if (p.getId() == id)
-				bol = true;
-		Assert.isTrue(bol);
+		Assert.isTrue(!result.contains(path));
+		super.unauthenticate();
+	}
+
+	// Invalid Case FR 3.3 ACME PARADE / DELETE PATH - Path from a Parade from other Brotherhood
+	@Test(expected = IllegalArgumentException.class)
+	public void testPathDeleteNegative() {
+		super.authenticate("brotherhood2");
+
+		// PATH ID
+		final int id = 118;
+
+		// PARADE ID
+		final int pid = 117;
+
+		final Path path = this.pathService.findOne(id);
+		Assert.isTrue(this.pathService.checkBrotherhoodPath(path));
+		this.pathService.delete(path);
+		final Collection<Path> result = this.pathService.findPathsByParade(pid);
+		Assert.isTrue(!result.contains(path));
 		super.unauthenticate();
 	}
 }

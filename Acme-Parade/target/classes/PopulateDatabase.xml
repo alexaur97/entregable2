@@ -451,7 +451,7 @@
 		<property name="description" value="This is a description3" />
 		<property name="moment" value="05/04/2019" />
 		<property name="ticker" value="190405-OIRTG" />
-		<property name="mode" value="DRAFT" />
+		<property name="mode" value="FINAL" />
 		<property name="status" value="SUBMITTED" />
 		<property name="floats">
 			<list>
@@ -797,7 +797,7 @@
 		<property name="description" value="This is a description" />
 		<property name="moment" value="01/03/2019" />
 		<property name="ticker" value="190101-J2R2G" />
-		<property name="mode" value="DRAFT" />
+		<property name="mode" value="FINAL" />
 		<property name="status" value="SUBMITTED" />
 		<property name="floats">
 			<list>
