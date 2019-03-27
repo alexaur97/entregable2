@@ -154,7 +154,10 @@ public class BrotherhoodParadeController extends AbstractController {
 	public ModelAndView copy(final int paradeId) {
 		ModelAndView result;
 		try {
+
+			final Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
 			final Parade parade = this.paradeService.findOne(paradeId);
+			Assert.isTrue(parade.getBrotherhood().equals(brotherhood), "notYourParade");
 			Assert.notNull(parade);
 			final Parade paradeFinal = this.paradeService.copyParade(parade);
 			Assert.notNull(paradeFinal);
@@ -195,7 +198,12 @@ public class BrotherhoodParadeController extends AbstractController {
 			if (msg.equals("finalStatus")) {
 				final Boolean finalStatus = true;
 				result.addObject("finalStatus", finalStatus);
-			}
+			} else if (msg.equals("notYourParade")) {
+				final Boolean notYourParade = true;
+				result.addObject("notYourParade", notYourParade);
+
+			} else
+				result = new ModelAndView("redirect:/#");
 		}
 		return result;
 

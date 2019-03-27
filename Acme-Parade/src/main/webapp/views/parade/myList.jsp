@@ -47,11 +47,13 @@
 		<spring:message code="parade.paths" />
 		</a>
 	</display:column>
-		<display:column titleKey="parade.copy">
+	<jstl:if test="${parade.mode=='FINAL'}">
+	<display:column titleKey="parade.copy">
 		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
 		<spring:message code="parade.copy" />
 		</a>
 	</display:column>
+			</jstl:if>
 	
 	<display:column titleKey="parade.edit">
 		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
@@ -86,11 +88,14 @@
 		<spring:message code="parade.paths" />
 		</a>
 	</display:column>
+			<jstl:if test="${parade.mode=='FINAL'}">
 	<display:column titleKey="parade.copy">
 		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
 		<spring:message code="parade.copy" />
 		</a>
 	</display:column>
+			</jstl:if>
+	
 	
 		<display:column titleKey="parade.edit">
 		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
@@ -122,11 +127,13 @@
 		<spring:message code="parade.show" />
 		</a>
 	</display:column>
+	<jstl:if test="${parade.mode=='FINAL'}">
 	<display:column titleKey="parade.copy">
 		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
 		<spring:message code="parade.copy" />
 		</a>
 	</display:column>
+			</jstl:if>
 	
 		<display:column titleKey="parade.edit">
 		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
@@ -165,11 +172,15 @@
 	</display:column>
 	
 
+	<jstl:if test="${parade.mode=='FINAL'}">
 	<display:column titleKey="parade.copy">
 		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
 		<spring:message code="parade.copy" />
 		</a>
 	</display:column>
+			</jstl:if>
+	
+	
 	
 		<display:column titleKey="parade.edit">
 		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
