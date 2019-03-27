@@ -333,8 +333,8 @@
 		<property name="description" value="This is a description2" />
 		<property name="moment" value="01/03/2019" />
 		<property name="ticker" value="190301-JURTG" />
-		<property name="mode" value="DRAFT" />
-		<property name="status" value="ACCEPTED" />
+		<property name="mode" value="FINAL" />
+		<property name="status" value="SUBMITTED" />
 		<property name="floats">
 			<list>
 				<ref bean="float1" />

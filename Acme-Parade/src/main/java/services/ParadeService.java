@@ -21,6 +21,7 @@ import security.LoginService;
 import domain.Area;
 import domain.Brotherhood;
 import domain.ConfigurationParameters;
+import domain.Float;
 import domain.Member;
 import domain.Parade;
 import domain.Path;
@@ -271,13 +272,15 @@ public class ParadeService {
 		final String ticker = fechaFormateada + "-" + cadena;
 		res.setTicker(ticker);
 
+		final Collection<Float> floats = new ArrayList<>(parade.getFloats());
+		final Collection<Path> paths = new ArrayList<>(parade.getPaths());
 		res.setStatus("CLEARED");
 		res.setTitle(parade.getTitle());
 		res.setExplanation(null);
 		res.setMode("DRAFT");
 		res.setDescription(parade.getDescription());
-		res.setFloats(parade.getFloats());
-		res.setPaths(parade.getPaths());
+		res.setFloats(floats);
+		res.setPaths(paths);
 		res.setVersion(parade.getVersion());
 		res.setBrotherhood(parade.getBrotherhood());
 		res.setMoment(parade.getMoment());
