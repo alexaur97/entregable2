@@ -53,11 +53,7 @@
 		</a>
 	</display:column>
 	
-	<display:column titleKey="parade.edit">
-		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
-		<spring:message code="parade.edit" />
-		</a>
-	</display:column>
+	
 	</security:authorize>
 </display:table>
 
@@ -92,11 +88,7 @@
 		</a>
 	</display:column>
 	
-		<display:column titleKey="parade.edit">
-		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
-		<spring:message code="parade.edit" />
-		</a>
-	</display:column>
+
 	
 	</security:authorize>
 </display:table>
@@ -128,11 +120,7 @@
 		</a>
 	</display:column>
 	
-		<display:column titleKey="parade.edit">
-		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
-		<spring:message code="parade.edit" />
-		</a>
-	</display:column>
+	
 	</security:authorize>
 </display:table>
 
@@ -171,16 +159,12 @@
 		</a>
 	</display:column>
 	
-		<display:column titleKey="parade.edit">
-		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
-		<spring:message code="parade.edit" />
-		</a>
-	</display:column>
+	
 			
 	
 	</security:authorize>
 </display:table>
 				
-<acme:button url="/brotherhood/parade/create.do" code="parade.create"/>
+
 
 
