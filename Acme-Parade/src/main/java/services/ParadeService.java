@@ -129,9 +129,12 @@ public class ParadeService {
 	public Parade saveChapter(final Parade parade) {
 		final Parade result;
 		Assert.notNull(parade);
-		if (parade.getStatus() == "REJECTED")
-			Assert.isTrue(!parade.getExplanation().isEmpty());
+		if (parade.getStatus() == "REJECTED") {
 
+			Assert.isTrue(!(parade.getExplanation() == null));
+			if (!(parade.getExplanation() == null))
+				Assert.isTrue(!(parade.getExplanation().isEmpty()));
+		}
 		final Area a = this.chapterService.findByPrincipal().getArea();
 		Assert.isTrue(parade.getBrotherhood().getArea().equals(a));
 		Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
@@ -139,7 +142,6 @@ public class ParadeService {
 		return result;
 
 	}
-
 	public Parade create() {
 		// Assert.isTrue(this.brotherhoodService.findByPrincipal().equals(Authority.BROTHERHOOD));
 		return new Parade();
