@@ -3,7 +3,6 @@ package service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,32 +67,14 @@ public class ParadeServiceTest extends AbstractTest {
 		super.authenticate("admin");
 		final Collection<Double> modeVs = this.paradeService.modeStat();
 		final Collection<Double> statusStats = this.paradeService.statusStat();
-		//		final List<Double> modeVsList = new ArrayList<Double>(modeVs);
-		//		final List<Double> statusStatsList = new ArrayList<Double>(statusStats);
-
-		//		final Double modeVs1 = modeVsList.get(0);
-		//		final Double modeVs2 = modeVsList.get(1);
-		//		Assert.isTrue(modeVs1 == a);
-		//		Assert.isTrue(modeVs2 == b);
-
+		final ArrayList<Double> list = new ArrayList<>(modeVs);
+		final Double a = (Double) statusStats.toArray()[0];
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void testStatsParadesError() {
 		super.authenticate(null);
-		final Collection<Double> modeVs = this.paradeService.modeStat();
-		final Collection<Double> statusStats = this.paradeService.statusStat();
-		final List<Double> modeVsList = new ArrayList<>(modeVs);
-		final List<Double> statusStatsList = new ArrayList<>(statusStats);
-
-		final Double modeVs1 = modeVsList.get(0);
-		final Double modeVs2 = modeVsList.get(1);
-
-		final Double status1 = statusStatsList.get(0);
-		final Double status2 = statusStatsList.get(1);
-		final Double status3 = statusStatsList.get(2);
-
-		//		Assert.isTrue(modeVs1 == a);
-		//		Assert.isTrue(modeVs2 == b);
+		this.paradeService.modeStat();
+		this.paradeService.statusStat();
 
 	}
 }
