@@ -53,6 +53,11 @@
 	<acme:textbox type="number" min="0" max="100" path="finderMaxResults" code="configurationParameters.finderMaxResults"/>
 	<form:errors cssClass="error" path="finderMaxResults"/>
 	<br/>
+	
+	<jstl:if test="${b eq true}">
+	<p style="color:green"><spring:message code="configurationParameters.success"/></p>
+	</jstl:if>
+	
 	<input type="submit" name="save" value="<spring:message code="configurationParameters.save"/>"/>
 	<input type="button" name="cancel" value="<spring:message code="configurationParameters.cancel"/>" onclick="javascript: relativeRedir('#')"/>
 	
