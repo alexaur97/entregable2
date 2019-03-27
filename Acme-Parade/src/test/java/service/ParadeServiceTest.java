@@ -1,6 +1,8 @@
 
 package service;
 
+import java.util.Collection;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +60,27 @@ public class ParadeServiceTest extends AbstractTest {
 		final Parade parade = this.paradeService.findOne(paradeId);
 		final Parade paradeFinal = this.paradeService.rejectRecostruction(parade, null);
 		this.paradeService.saveChapter(paradeFinal);
+	}
+	@Test
+	public void testStatsParadesGood() {
+		super.authenticate("admin");
+		final Collection<Double> modeVs = this.paradeService.modeStat();
+		final Collection<Double> statusStats = this.paradeService.statusStat();
+		final Double modeVs1 = (double) modeVs.toArray()[0];
+		final Double modeVs2 = (double) modeVs.toArray()[1];
+		//		Assert.isTrue(modeVs1 == a);
+		//		Assert.isTrue(modeVs2 == b);
+
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testStatsParadesError() {
+		super.authenticate(null);
+		final Collection<Double> modeVs = this.paradeService.modeStat();
+		final Collection<Double> statusStats = this.paradeService.statusStat();
+		final Double modeVs1 = (Double) modeVs.toArray()[0];
+		final Double modeVs2 = (Double) modeVs.toArray()[1];
+		//		Assert.isTrue(modeVs1 == a);
+		//		Assert.isTrue(modeVs2 == b);
+
 	}
 }

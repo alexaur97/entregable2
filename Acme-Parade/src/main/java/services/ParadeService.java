@@ -319,10 +319,12 @@ public class ParadeService {
 		return result;
 	}
 	public Collection<Double> modeStat() {
+		this.administratorService.findByPrincipal();
 		final Collection<Double> result = this.paradeRepository.modeStats();
 		return result;
 	}
 	public Collection<Double> statusStat() {
+		this.administratorService.findByPrincipal();
 		final Collection<Double> result = this.paradeRepository.statusStats();
 		return result;
 	}
