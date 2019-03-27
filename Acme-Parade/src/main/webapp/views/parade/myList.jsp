@@ -47,11 +47,13 @@
 		<spring:message code="parade.paths" />
 		</a>
 	</display:column>
-		<display:column titleKey="parade.copy">
+	<jstl:if test="${parade.mode=='FINAL'}">
+	<display:column titleKey="parade.copy">
 		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
 		<spring:message code="parade.copy" />
 		</a>
 	</display:column>
+			</jstl:if>
 	
 	
 	</security:authorize>
@@ -82,11 +84,14 @@
 		<spring:message code="parade.paths" />
 		</a>
 	</display:column>
+			<jstl:if test="${parade.mode=='FINAL'}">
 	<display:column titleKey="parade.copy">
 		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
 		<spring:message code="parade.copy" />
 		</a>
 	</display:column>
+			</jstl:if>
+	
 	
 
 	
@@ -114,57 +119,20 @@
 		<spring:message code="parade.show" />
 		</a>
 	</display:column>
-	<display:column titleKey="parade.copy">
-		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
-		<spring:message code="parade.copy" />
-		</a>
-	</display:column>
-	
-	
-	</security:authorize>
-</display:table>
-
-
-<h3>
-	<spring:message code="parade.clearedParades" />
-</h3>
-
-<display:table pagesize="5" name="paradesCleared" id="parade"
-	requestURI="${requestURI}">
-	<display:column style="color:blue" titleKey="parade.title"  property="title" />
-	<display:column style="color:blue" titleKey="parade.description" property="description" />
-	<display:column style="color:blue" titleKey="parade.moment" property="moment" />
-	<display:column style="color:blue" titleKey="parade.ticker" property="ticker" />
-	<display:column style="color:blue" titleKey="parade.mode" property="mode" />
-		
-	<security:authorize access="hasRole('BROTHERHOOD')">	
-	
-	
-			
-	<display:column titleKey="parade.show">
-		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
-		<spring:message code="parade.show" />
-		</a>
-	</display:column>
+	<jstl:if test="${parade.mode=='FINAL'}">
 	<display:column titleKey="parade.paths">
 		<a href="path/listByParade.do?paradeId=${parade.id}">
 		<spring:message code="parade.paths" />
 		</a>
 	</display:column>
-	
-
 	<display:column titleKey="parade.copy">
 		<a href="brotherhood/parade/copy.do?paradeId=${parade.id}">
 		<spring:message code="parade.copy" />
 		</a>
 	</display:column>
+			</jstl:if>
 	
-	
-			
 	
 	</security:authorize>
 </display:table>
-				
-
-
 

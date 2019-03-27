@@ -87,10 +87,11 @@ public class PathController extends AbstractController {
 	public ModelAndView delete(@RequestParam final int pathId) {
 		ModelAndView result;
 		Path path;
-		path = this.pathService.findOne(pathId);
-		final Parade parade = this.paradeService.findParadeByPath(path);
-		Collection<Path> paths;
 		try {
+			path = this.pathService.findOne(pathId);
+			Assert.isTrue(this.pathService.checkBrotherhoodPath(path));
+			final Parade parade = this.paradeService.findParadeByPath(path);
+			Collection<Path> paths;
 			this.pathService.delete(path);
 			paths = this.pathService.findPathsByParade(parade.getId());
 			result = new ModelAndView("path/listByParade");
@@ -107,11 +108,13 @@ public class PathController extends AbstractController {
 	public ModelAndView deleteSegment(@RequestParam final int segmentId) {
 		ModelAndView result;
 		Segment segment;
-		segment = this.segmentService.findOne(segmentId);
-		Assert.notNull(segment);
-		final Parade parade = this.paradeService.findParadeByPath(this.pathService.findPathBySegment(segment));
-		final Collection<Path> paths;
 		try {
+			segment = this.segmentService.findOne(segmentId);
+			Assert.notNull(segment);
+			final Path path = this.pathService.findPathBySegment(segment);
+			Assert.isTrue(this.pathService.checkBrotherhoodPath(path));
+			final Parade parade = this.paradeService.findParadeByPath(path);
+			final Collection<Path> paths;
 			Assert.notNull(segment);
 			this.segmentService.delete(segment);
 			paths = this.pathService.findPathsByParade(parade.getId());
@@ -132,7 +135,9 @@ public class PathController extends AbstractController {
 		try {
 			final Segment segment = this.segmentService.findOne(segmentId);
 			Assert.notNull(segment);
-			final Parade parade = this.paradeService.findParadeByPath(this.pathService.findPathBySegment(segment));
+			final Path path = this.pathService.findPathBySegment(segment);
+			Assert.isTrue(this.pathService.checkBrotherhoodPath(path));
+			final Parade parade = this.paradeService.findParadeByPath(path);
 			Assert.isTrue(parade.getBrotherhood().equals(this.brotherhoodService.findByPrincipal()));
 			result.addObject("segment", segment);
 		} catch (final Throwable oops) {
@@ -140,36 +145,38 @@ public class PathController extends AbstractController {
 		}
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@ModelAttribute("segment") Segment segment, final BindingResult binding) {
 		ModelAndView result;
 		Path path;
+		try {
+			path = this.pathService.findPathBySegment(segment);
 
-		path = this.pathService.findPathBySegment(segment);
+			segment = this.segmentService.reconstruct(segment, binding);
+			final Parade parade = this.paradeService.findParadeByPath(path);
 
-		segment = this.segmentService.reconstruct(segment, binding);
-		final Parade parade = this.paradeService.findParadeByPath(path);
-
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(segment);
-		else
-			try {
-				final Boolean b = this.segmentService.validateOrigin(segment, path);
-				if (!b)
-					result = this.createEditModelAndViewSegment(segment, "segment.origin.error");
-				else if (segment.getDestinationTime().before(segment.getOriginTime()))
-					result = this.createEditModelAndViewSegment(segment, "segment.date.error");
-				else {
-					this.segmentService.save(segment);
-					result = new ModelAndView("path/listByParade");
-					result.addObject("requestURI", "path/listByParade.do?paradeId=" + parade.getId());
-					result.addObject("paths", this.pathService.findPathsByParade(parade.getId()));
-					result.addObject("paradeId", parade.getId());
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(segment);
+			else
+				try {
+					final Boolean b = this.segmentService.validateOrigin(segment, path);
+					if (!b)
+						result = this.createEditModelAndViewSegment(segment, "segment.origin.error");
+					else if (segment.getDestinationTime().before(segment.getOriginTime()))
+						result = this.createEditModelAndViewSegment(segment, "segment.date.error");
+					else {
+						this.segmentService.save(segment);
+						result = new ModelAndView("path/listByParade");
+						result.addObject("requestURI", "path/listByParade.do?paradeId=" + parade.getId());
+						result.addObject("paths", this.pathService.findPathsByParade(parade.getId()));
+						result.addObject("paradeId", parade.getId());
+					}
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(segment, "segment.commit.error");
 				}
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(segment, "segment.commit.error");
-			}
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+		}
 		return result;
 	}
 	protected ModelAndView createEditModelAndView(final Segment segment) {
@@ -208,34 +215,37 @@ public class PathController extends AbstractController {
 	public ModelAndView saveSegment(@ModelAttribute("segment") Segment segment, final BindingResult binding) {
 		ModelAndView result;
 		Path path;
+		try {
+			path = this.pathService.findOne(segment.getSequence());
+			segment = this.segmentService.reconstruct(segment, binding);
+			final Parade parade = this.paradeService.findParadeByPath(path);
 
-		path = this.pathService.findOne(segment.getSequence());
-		segment = this.segmentService.reconstruct(segment, binding);
-		final Parade parade = this.paradeService.findParadeByPath(path);
-
-		if (binding.hasErrors())
-			result = this.createEditModelAndViewSegment(segment);
-		else
-			try {
-				segment.setSequence(path.getSegments().size() + 1);
-				final Boolean b = this.segmentService.validateOrigin(segment, path);
-				if (!b) {
-					segment.setSequence(path.getId());
-					result = this.createEditModelAndViewSegment(segment, "segment.origin.error");
-				} else if (segment.getDestinationTime().before(segment.getOriginTime())) {
-					segment.setSequence(path.getId());
-					result = this.createEditModelAndViewSegment(segment, "segment.date.error");
-				} else {
-					this.segmentService.save(segment);
-					this.pathService.addSegment(path, segment);
-					result = new ModelAndView("path/listByParade");
-					result.addObject("requestURI", "path/listByParade.do?paradeId=" + parade.getId());
-					result.addObject("paths", this.pathService.findPathsByParade(parade.getId()));
-					result.addObject("paradeId", parade.getId());
+			if (binding.hasErrors())
+				result = this.createEditModelAndViewSegment(segment);
+			else
+				try {
+					segment.setSequence(path.getSegments().size() + 1);
+					final Boolean b = this.segmentService.validateOrigin(segment, path);
+					if (!b) {
+						segment.setSequence(path.getId());
+						result = this.createEditModelAndViewSegment(segment, "segment.origin.error");
+					} else if (segment.getDestinationTime().before(segment.getOriginTime())) {
+						segment.setSequence(path.getId());
+						result = this.createEditModelAndViewSegment(segment, "segment.date.error");
+					} else {
+						this.segmentService.save(segment);
+						this.pathService.addSegment(path, segment);
+						result = new ModelAndView("path/listByParade");
+						result.addObject("requestURI", "path/listByParade.do?paradeId=" + parade.getId());
+						result.addObject("paths", this.pathService.findPathsByParade(parade.getId()));
+						result.addObject("paradeId", parade.getId());
+					}
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndViewSegment(segment, "segment.commit.error");
 				}
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndViewSegment(segment, "segment.commit.error");
-			}
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+		}
 		return result;
 	}
 	protected ModelAndView createEditModelAndViewSegment(final Segment segment) {

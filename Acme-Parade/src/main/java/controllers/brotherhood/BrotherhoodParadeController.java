@@ -19,6 +19,7 @@ import services.FloatService;
 import services.ParadeService;
 import services.PathService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Brotherhood;
 import domain.Float;
 import domain.Parade;
@@ -162,26 +163,24 @@ public class BrotherhoodParadeController extends AbstractController {
 	public ModelAndView copy(final int paradeId) {
 		ModelAndView result;
 		try {
+
+			final Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
+			Assert.notNull(paradeId);
 			final Parade parade = this.paradeService.findOne(paradeId);
 			Assert.notNull(parade);
+			Assert.isTrue(parade.getBrotherhood().equals(brotherhood), "notYourParade");
 			final Parade paradeFinal = this.paradeService.copyParade(parade);
 			Assert.notNull(paradeFinal);
 			this.paradeService.save(paradeFinal);
-			final Integer currentActorId = this.actorService.findByPrincipal().getId();
-			Collection<Parade> paradesSubmitted;
-			Collection<Parade> paradesAccepted;
-			Collection<Parade> paradesRejected;
-			Collection<Parade> paradesCleared;
-			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActorId);
-			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
-			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
-			paradesCleared = this.paradeService.findParadesClearedByBrotherhood(currentActorId);
-			result = new ModelAndView("parade/myList");
-			result.addObject("paradesSubmitted", paradesSubmitted);
-			result.addObject("paradesAccepted", paradesAccepted);
-			result.addObject("paradesRejected", paradesRejected);
-			result.addObject("paradesCleared", paradesCleared);
+			final Actor currentActor = this.actorService.findByPrincipal();
+			Collection<Parade> parades;
+			parades = this.paradeService.findParadesByBrotherhood(currentActor.getId());
+
+			result = new ModelAndView("parade/list");
+			result.addObject("parades", parades);
+			result.addObject("currentActor", currentActor);
 			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
 
 		} catch (final Throwable oops) {
 			final Integer currentActorId = this.actorService.findByPrincipal().getId();
@@ -206,7 +205,12 @@ public class BrotherhoodParadeController extends AbstractController {
 			if (msg.equals("finalStatus")) {
 				final Boolean finalStatus = true;
 				result.addObject("finalStatus", finalStatus);
-			}
+			} else if (msg.equals("notYourParade")) {
+				final Boolean notYourParade = true;
+				result.addObject("notYourParade", notYourParade);
+
+			} else
+				result = new ModelAndView("redirect:/#");
 		}
 		return result;
 
