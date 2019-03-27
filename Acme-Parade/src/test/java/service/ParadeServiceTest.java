@@ -59,4 +59,5 @@ public class ParadeServiceTest extends AbstractTest {
 		final Parade paradeFinal = this.paradeService.rejectRecostruction(parade, null);
 		this.paradeService.saveChapter(paradeFinal);
 	}
+
 }

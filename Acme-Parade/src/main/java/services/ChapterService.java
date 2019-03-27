@@ -77,6 +77,7 @@ public class ChapterService {
 
 	public Chapter save(final Chapter c) {
 		Assert.notNull(c);
+		Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
 		final String phoneNumber = c.getPhoneNumber();
 		//		final Boolean b = this.actorService.validateCountryCode(phoneNumber);
 		final String countryCode = this.configurationParametersService.find().getCountryCode();
@@ -114,6 +115,10 @@ public class ChapterService {
 	}
 
 	public Chapter reconstructAssign(final Chapter chapter, final BindingResult binding) {
+
+		Assert.notNull(chapter.getArea());
+		Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
+
 		final Chapter result = chapter;
 		final Chapter res = this.chapterRepository.findOne(this.findByPrincipal().getId());
 		result.setAddress(res.getAddress());
@@ -150,5 +155,13 @@ public class ChapterService {
 	}
 	public Collection<Chapter> chaptersWithArea() {
 		return this.chapterRepository.chaptersWithArea();
+	}
+
+	public void restriccionesAssignArea(final Integer chapterId) {
+		final Chapter chapter = this.chapterRepository.findOne(chapterId);
+		Assert.notNull(chapterId);
+		Assert.notNull(chapter.getArea());
+		Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
+
 	}
 }
