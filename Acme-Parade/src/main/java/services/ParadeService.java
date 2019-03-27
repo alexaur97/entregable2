@@ -219,12 +219,14 @@ public class ParadeService {
 	}
 
 	public String creaString() {
+		String cadena = null;
+
 		final char[] elementos = {
 			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 		};
 
 		final char[] conjunto = new char[5];
-		String cadena;
+
 		for (int i = 0; i < 5; i++) {
 
 			final int el = (int) (Math.random() * 27);
@@ -232,6 +234,7 @@ public class ParadeService {
 			conjunto[i] = elementos[el];
 		}
 		cadena = new String(conjunto);
+
 		return cadena;
 	}
 	public Collection<Parade> findParadesByArea(final int id) {

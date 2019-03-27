@@ -101,6 +101,22 @@ public class MemberController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView profile(final int memberId) {
+		ModelAndView result;
+		Member member;
+
+		try {
+			Assert.notNull(memberId);
+			member = this.memberService.findOne(memberId);
+			result = new ModelAndView("member/profile");
+			result.addObject("member", member);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final MemberRegisterForm memberRegisterForm) {
 		return this.createEditModelAndView(memberRegisterForm, null);
 	}
