@@ -62,12 +62,10 @@ public class HistoryServiceTest extends AbstractTest {
 		//		}
 		//		deviation = deviation / histories.size();
 		//		deviation = Math.sqrt(deviation);
-
 		Assert.isTrue(largestReal.equals(largest.getBrotherhood()));
-
 		super.unauthenticate();
 	}
-	
+
 	// FR 4.1.1 ACME PARADE - Not logged as Administrator
 	@Test(expected = IllegalArgumentException.class)
 	public void testStatsHistoriesNegative() {
