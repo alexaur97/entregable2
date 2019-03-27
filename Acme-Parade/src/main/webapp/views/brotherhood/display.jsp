@@ -41,7 +41,7 @@
 :
 <ul>
 	<jstl:forEach items="${brotherhood.members}" var="x">
-		<li><a href="${x}"><jstl:out value="${x}" /></a></li>
+		<li><a href="member/display.do?memberId=${x.id}"><jstl:out value="${x.name} ${x.surname}" /></a></li>
 	</jstl:forEach>
 </ul>
 <br>

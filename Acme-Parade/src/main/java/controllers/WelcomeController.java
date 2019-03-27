@@ -86,7 +86,7 @@ public class WelcomeController extends AbstractController {
 			result.addObject("brotherhood", brotherhood);
 
 		} catch (final Exception e) {
-
+			System.out.println(e);
 		}
 		return result;
 	}
