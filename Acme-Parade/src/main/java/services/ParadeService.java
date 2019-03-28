@@ -25,6 +25,7 @@ import domain.Float;
 import domain.Member;
 import domain.Parade;
 import domain.Path;
+import domain.Segment;
 
 @Service
 @Transactional
@@ -57,6 +58,12 @@ public class ParadeService {
 	@Autowired
 	private ChapterService					chapterService;
 
+	@Autowired
+	private SegmentService					segmentService;
+
+	@Autowired
+	private PathService						pathService;
+
 
 	// Metodos CRUD FR 10.2
 
@@ -88,17 +95,17 @@ public class ParadeService {
 			chaptersByKeyWord = this.paradeRepository.findAll();
 		else
 			chaptersByKeyWord = this.paradeRepository.searchParadesKeyWord(keyword);
-		if (Objects.equals(null,dateFrom))
+		if (Objects.equals(null, dateFrom))
 			chaptersByDateFrom = this.paradeRepository.findAll();
 		else
 			chaptersByDateFrom = this.paradeRepository.searchParadesDateFrom(dateFrom);
 
-		if (Objects.equals(null,dateTo))
+		if (Objects.equals(null, dateTo))
 			chaptersByDateTo = this.paradeRepository.findAll();
 		else
 			chaptersByDateTo = this.paradeRepository.searchParadesDateTo(dateTo);
 
-		if (Objects.equals(null,area))
+		if (Objects.equals(null, area))
 			chaptersByArea = this.paradeRepository.findAll();
 		else
 			chaptersByArea = this.paradeRepository.searchParadesArea(area.getId());
@@ -111,6 +118,7 @@ public class ParadeService {
 
 	}
 	public Parade findOne(final int paradeId) {
+		Assert.notNull(paradeId);
 		final Parade res = this.paradeRepository.findOne(paradeId);
 		// Assert.notNull(res);
 		return res;
@@ -220,6 +228,7 @@ public class ParadeService {
 
 			final Parade p2 = this.paradeRepository.findOne(res.getId());
 			res.setBrotherhood(p2.getBrotherhood());
+			res.setPaths(p2.getPaths());
 
 		}
 		this.validator.validate(res, binding);
@@ -238,7 +247,7 @@ public class ParadeService {
 
 		for (int i = 0; i < 5; i++) {
 
-			final int el = (int) (Math.random() * 27);
+			final int el = (int) (Math.random() * 25);
 
 			conjunto[i] = elementos[el];
 		}
@@ -269,6 +278,11 @@ public class ParadeService {
 
 	public Parade copyParade(final Parade parade) {
 
+		final Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
+
+		// nos aseguramos de que el brotherhood que tiene la parade es el mismo brotherhood que esta logueado
+		Assert.isTrue(parade.getBrotherhood().equals(brotherhood));
+
 		boolean finalStatus = true;
 		if (!(parade.getMode().equals("FINAL")))
 			finalStatus = false;
@@ -293,11 +307,56 @@ public class ParadeService {
 		res.setMode("DRAFT");
 		res.setDescription(parade.getDescription());
 		res.setFloats(floats);
-		res.setPaths(paths);
 		res.setVersion(parade.getVersion());
 		res.setBrotherhood(parade.getBrotherhood());
 		res.setMoment(parade.getMoment());
+
+		for (final Path p : paths) {
+			final Collection<Path> copiados = new ArrayList<>();
+			final Path copiado = this.copyPath(p);
+			copiados.add(copiado);
+			res.setPaths(copiados);
+		}
+
 		return res;
+	}
+
+	public Segment copySegment(final Segment segment) {
+
+		final Segment res = new Segment();
+
+		res.setOriginX(segment.getOriginX());
+		res.setOriginY(segment.getOriginY());
+		res.setDestinationX(segment.getDestinationX());
+		res.setDestinationY(segment.getDestinationY());
+		res.setOriginTime(segment.getOriginTime());
+		res.setDestinationTime(segment.getDestinationTime());
+		res.setSequence(segment.getSequence());
+		res.setVersion(segment.getVersion());
+
+		this.segmentService.save(res);
+
+		return res;
+	}
+	public Path copyPath(final Path path) {
+
+		final Path res = new Path();
+
+		res.setVersion(path.getVersion());
+
+		final Collection<Segment> segments = new ArrayList<>(path.getSegments());
+
+		for (final Segment s : segments) {
+			final Collection<Segment> copiados = new ArrayList<>();
+			final Segment copiado = this.copySegment(s);
+			copiados.add(copiado);
+			res.setSegments(copiados);
+
+		}
+
+		this.pathService.save(path);
+		return res;
+
 	}
 
 	public Collection<Parade> findParadesAcceptedByBrotherhood(final int idBrotherhood) {

@@ -143,11 +143,11 @@ public class BrotherhoodParadeController extends AbstractController {
 		ModelAndView result;
 		try {
 
-			final Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
-			Assert.notNull(paradeId);
+			//			final Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
+			//			Assert.notNull(paradeId);
 			final Parade parade = this.paradeService.findOne(paradeId);
 			Assert.notNull(parade);
-			Assert.isTrue(parade.getBrotherhood().equals(brotherhood));
+			//			Assert.isTrue(parade.getBrotherhood().equals(brotherhood));
 			final Parade paradeFinal = this.paradeService.copyParade(parade);
 			Assert.notNull(paradeFinal);
 			this.paradeService.save(paradeFinal);

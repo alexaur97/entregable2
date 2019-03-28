@@ -105,8 +105,14 @@ public class AreaAdministratorController extends AbstractController {
 			res = this.createEditModelAndView(area);
 		else
 			try {
-				this.areaService.save(area);
-				res = new ModelAndView("redirect:/area/administrator/list.do");
+
+				final Boolean b = this.areaService.validatePictures(area.getPhoto());
+				if (!b)
+					res = this.createEditModelAndView(area, "area.photo.error");
+				else {
+					this.areaService.save(area);
+					res = new ModelAndView("redirect:/area/administrator/list.do");
+				}
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(area, "area.commit.error");
 

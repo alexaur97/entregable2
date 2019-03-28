@@ -1,6 +1,8 @@
 
 package service;
 
+import java.util.Collection;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,38 @@ public class ParadeServiceTest extends AbstractTest {
 		this.paradeService.saveChapter(paradeFinal);
 	}
 
+	@Test
+	public void testCopyParadeGood() {
+		super.authenticate("brotherhood1");
+		final int paradeId = super.getEntityId("parade1");
+		final Parade parade = this.paradeService.findOne(paradeId);
+		this.paradeService.copyParade(parade);
+		this.paradeService.save(parade);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCopyParadeError() {
+		super.authenticate("brotherhood1");
+		final int paradeId = super.getEntityId("parade2");
+		final Parade parade = this.paradeService.findOne(paradeId);
+		this.paradeService.copyParade(parade);
+		this.paradeService.save(parade);
+	}
+
+	//	@Test
+	//	public void testStatsParadesGood() {
+	//		super.authenticate("admin");
+	//		final Collection<Double> modeVs = this.paradeService.modeStat();
+	//		final Collection<Double> statusStats = this.paradeService.statusStat();
+	//		final List<Double> modeVsList = new ArrayList<Double>(modeVs);
+	//		final List<Double> statusStatsList = new ArrayList<Double>(statusStats);
+
+	//		final Double modeVs1 = modeVsList.get(0);
+	//		final Double modeVs2 = modeVsList.get(1);
+	//		Assert.isTrue(modeVs1 == a);
+	//		Assert.isTrue(modeVs2 == b);
+
+	//}
 	//	@Test
 	//	public void testStatsParadesGood() {
 	//		super.authenticate("admin");
