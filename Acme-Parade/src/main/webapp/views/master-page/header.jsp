@@ -73,8 +73,6 @@
 		</security:authorize>
 
 		<security:authorize access="hasRole('BROTHERHOOD')">
-			<li><a href="brotherhood/parade/list.do"><spring:message code="master.page.parades" /></a></li>
-
 			<li><a href="brotherhood/parade/myList.do"><spring:message code="master.page.myparades" /></a></li>
 
 		</security:authorize>

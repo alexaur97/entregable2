@@ -154,7 +154,7 @@ public class BrotherhoodController extends AbstractController {
 		ModelAndView result;
 		if (binding.hasErrors()) {
 			result = new ModelAndView("brotherhood/addArea");
-			final Collection<Area> areas = this.areaService.findAll();
+			final Collection<Area> areas = this.areaService.findAreasLibres();
 			result.addObject("brotherhood", brotherhood);
 			result.addObject("areas", areas);
 		} else
@@ -167,7 +167,7 @@ public class BrotherhoodController extends AbstractController {
 
 			} catch (final Throwable oops) {
 				result = new ModelAndView("brotherhood/addArea");
-				final Collection<Area> areas = this.areaService.findAll();
+				final Collection<Area> areas = this.areaService.findAreasLibres();
 				result.addObject("message", "brotherhood.area.error");
 				result.addObject("brotherhood", brotherhood);
 				result.addObject("areas", areas);

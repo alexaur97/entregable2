@@ -36,5 +36,14 @@
 		<acme:cancel url="/dropOut/brotherhood/create.do?memberId=${member.id}" code="member.remove" />
 	</display:column>
 </display:table>
-		<acme:cancel url="/enrolment/brotherhood/create.do" code="member.enrol" />
-
+<security:authorize access="hasRole('BROTHERHOOD')">
+	<jstl:choose>
+	 <jstl:when test="${empty brotherhood.area}">
+		<spring:message code="member.addArea" />
+		<acme:button url="/brotherhood/addArea.do" code="parade.addArea"/>
+		</jstl:when>
+	<jstl:otherwise>
+		<acme:button url="/enrolment/brotherhood/create.do" code="member.enrol"/>
+	</jstl:otherwise>
+		</jstl:choose>
+	</security:authorize>
