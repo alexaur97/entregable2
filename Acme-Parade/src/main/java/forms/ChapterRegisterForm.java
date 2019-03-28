@@ -79,7 +79,6 @@ public class ChapterRegisterForm {
 	public void setEmail(final String email) {
 		this.email = email;
 	}
-
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhone() {
 		return this.phone;
