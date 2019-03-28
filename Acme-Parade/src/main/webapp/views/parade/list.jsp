@@ -34,25 +34,6 @@
 	<display:column titleKey="parade.status" property="status" />
 	
 	
-	<security:authorize access="hasRole('BROTHERHOOD')">
-	
-	<display:column titleKey="parade.edit">
-		<jstl:if test="${parade.mode=='DRAFT'}">
-		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
-		<spring:message code="parade.edit" />
-		</a>
-		</jstl:if>
-		
-		
-		</display:column>
-		
-		
-		<display:column titleKey="parade.show">
-		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
-		<spring:message code="parade.show" />
-		</a>
-	</display:column>
-		</security:authorize>
 		<security:authorize access="hasRole('CHAPTER')">
 	<display:column titleKey="parade.accept">
 	<jstl:if test="${parade.status==s}">
@@ -75,17 +56,6 @@
 <br>
 <br>
 
-	<security:authorize access="hasRole('BROTHERHOOD')">
-	<jstl:choose>
-	 <jstl:when test="${empty currentActor.area}">
-		<spring:message code="parade.area" />
-		<acme:button url="/brotherhood/addArea.do" code="parade.addArea"/>
-		</jstl:when>
-		<jstl:otherwise>
-		<acme:button url="/brotherhood/parade/create.do" code="parade.create"/>
-		</jstl:otherwise>
-		</jstl:choose>
-	</security:authorize>
 	<security:authorize access="hasRole('CHAPTER')">
 	<jstl:if test="${empty chapter.area}">
 		<spring:message code="parade.chapter.addArea" />

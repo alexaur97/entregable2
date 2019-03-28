@@ -1,3 +1,4 @@
+
 package controllers.member;
 
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ import controllers.AbstractController;
 import domain.Area;
 import domain.Finder;
 import domain.Parade;
-import domain.Request;
 
 @Controller
 @RequestMapping("finder/member")
@@ -29,42 +29,45 @@ public class FinderMemberController extends AbstractController {
 
 	@Autowired
 	ParadeService	paradeService;
-	
+
 	@Autowired
 	FinderService	finderService;
-	
+
 	@Autowired
-	AreaService	areaService;
-	
+	AreaService		areaService;
+
+
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public ModelAndView search() {
 		ModelAndView result = new ModelAndView("finder/view");
 
 		try {
-			Finder finder = this.finderService.getFinderFromMember(memberService.findByPrincipal().getId());
-			Collection<Parade> parades = finder.getParades();
-			Collection<Area> areas = areaService.findAll();
+			final Finder finder = this.finderService.getFinderFromMember(this.memberService.findByPrincipal().getId());
+			final Collection<Parade> parades = finder.getParades();
+			final Collection<Area> areas = this.areaService.findAll();
 
 			result.addObject("parades", parades);
 			result.addObject("areas", areas);
 			result.addObject("finder", finder);
-			//result.addObject("resquestURI", "/finder/member/view.do");
+			result.addObject("resquestURI", "/finder/member/view.do");
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/view", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(Finder finder, final BindingResult binding) {
 		ModelAndView res = new ModelAndView("finder/view");
-		Collection<Parade> parades = finder.getParades();
-		Collection<Area> areas = areaService.findAll();
+		final Collection<Parade> parades = finder.getParades();
+		final Collection<Area> areas = this.areaService.findAll();
 
 		if (binding.hasErrors()) {
 			res.addObject("parades", parades);
 			res.addObject("areas", areas);
 			res.addObject("finder", finder);
+			res.addObject("resquestURI", "/finder/member/view.do");
+
 		} else
 			try {
 				finder = this.finderService.reconstruct(finder);
@@ -79,12 +82,12 @@ public class FinderMemberController extends AbstractController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = "/view", method = RequestMethod.POST, params = "clean")
 	public ModelAndView clean(Finder finder, final BindingResult binding) {
 		ModelAndView res = new ModelAndView("finder/view");
-		Collection<Parade> parades = new ArrayList<Parade>();
-		Collection<Area> areas = areaService.findAll();
+		final Collection<Parade> parades = new ArrayList<Parade>();
+		final Collection<Area> areas = this.areaService.findAll();
 
 		if (binding.hasErrors()) {
 			res.addObject("parades", parades);
@@ -105,7 +108,4 @@ public class FinderMemberController extends AbstractController {
 		return res;
 	}
 
-	
 }
-
-

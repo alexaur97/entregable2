@@ -29,8 +29,8 @@
 	
 	<form:hidden path="id"/>
 	<acme:select items="${parades}" itemLabel="title" code="request.parade" path="parade"/>
-<%--	<acme:textbox type="number" min="0" code="request.row" path="row"/>
-	<acme:textbox type="number" min="0" code="request.column" path="column"/> --%>
+	<acme:textbox type="number" min="0" code="request.row" path="row"/>
+	<acme:textbox type="number" min="0" code="request.column" path="column"/>
 	<acme:submit name="save" code="request.save"/>
 	<acme:cancel url="/request/member/list.do" code="position.cancel"/>
 

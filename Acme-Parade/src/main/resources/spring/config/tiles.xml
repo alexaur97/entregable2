@@ -36,6 +36,7 @@
 		<value>/views/member/tiles.xml</value>
 		<value>/views/stats/tiles.xml</value>
 		<value>/views/request/tiles.xml</value>
+		
 		<value>/views/enrolment/tiles.xml</value>
 		<value>/views/history/tiles.xml</value>
 		

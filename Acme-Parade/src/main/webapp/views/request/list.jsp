@@ -21,7 +21,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <security:authorize access="hasRole('MEMBER')">
-	<acme:cancel url="/request/member/create.do" code="request.create"/>
+			<acme:button url="/request/member/create.do" code="request.create"/>
+	
 </security:authorize>	
 
 <h3>
