@@ -19,7 +19,6 @@ import services.FloatService;
 import services.ParadeService;
 import services.PathService;
 import controllers.AbstractController;
-import domain.Actor;
 import domain.Brotherhood;
 import domain.Float;
 import domain.Parade;
@@ -151,13 +150,23 @@ public class BrotherhoodParadeController extends AbstractController {
 			final Parade paradeFinal = this.paradeService.copyParade(parade);
 			Assert.notNull(paradeFinal);
 			this.paradeService.save(paradeFinal);
-			final Actor currentActor = this.actorService.findByPrincipal();
-			Collection<Parade> parades;
-			parades = this.paradeService.findParadesByBrotherhood(currentActor.getId());
+			final Integer currentActorId = this.actorService.findByPrincipal().getId();
+			final Collection<Parade> parades;
+			Collection<Parade> paradesSubmitted;
+			Collection<Parade> paradesAccepted;
+			Collection<Parade> paradesRejected;
+			Collection<Parade> paradesCleared;
+			paradesAccepted = this.paradeService.findParadesAcceptedByBrotherhood(currentActorId);
+			paradesRejected = this.paradeService.findParadesRejectedByBrotherhood(currentActorId);
+			paradesSubmitted = this.paradeService.findParadesSubmittedByBrotherhood(currentActorId);
+			paradesCleared = this.paradeService.findParadesClearedByBrotherhood(currentActorId);
+			result = new ModelAndView("parade/myList");
+			result.addObject("requestURI", "parade/myList.do");
+			result.addObject("paradesSubmitted", paradesSubmitted);
+			result.addObject("paradesAccepted", paradesAccepted);
+			result.addObject("paradesRejected", paradesRejected);
+			result.addObject("paradesCleared", paradesCleared);
 
-			result = new ModelAndView("parade/list");
-			result.addObject("parades", parades);
-			result.addObject("currentActor", currentActor);
 			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
 		} catch (final Throwable oops) {
