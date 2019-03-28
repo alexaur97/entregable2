@@ -25,7 +25,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <display:table pagesize="5" name="floats" id="floaat"
-	requestURI="${requestURI }">
+	requestURI="${requestURI }" class="displaytag table">
 	<display:column titleKey="float.title" property="title" />
 	<display:column titleKey="float.edit">
 		<a href="brotherhood/float/edit.do?floatId=${floaat.id}">

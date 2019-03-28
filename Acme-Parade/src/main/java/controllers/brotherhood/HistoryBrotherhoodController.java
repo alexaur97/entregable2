@@ -3,11 +3,12 @@ package controllers.brotherhood;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -164,7 +165,7 @@ public class HistoryBrotherhoodController extends AbstractController {
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("history") final HistoryCreateForm historyCreateForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final HistoryCreateForm historyCreateForm, final BindingResult binding) {
 		ModelAndView res;
 
 		if (binding.hasErrors())
@@ -211,7 +212,7 @@ public class HistoryBrotherhoodController extends AbstractController {
 		final ModelAndView res;
 		res = new ModelAndView("history/create");
 		res.addObject("historyCreateForm", historyCreateForm);
-
+		res.addObject("message", messageCode);
 		return res;
 	}
 

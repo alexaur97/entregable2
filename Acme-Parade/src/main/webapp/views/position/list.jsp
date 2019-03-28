@@ -28,7 +28,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="table-responsive">	
 
-<display:table pagesize="5" name="positions" id="row" class="table" requestURI="${resquestURI}">
+<display:table pagesize="5" name="positions" id="row" class="table" requestURI="${resquestURI}" class="displaytag table">
 	<display:column titleKey="position.name" property="name"/>	
 	<display:column titleKey="position.nameEs" property="nameEs"/>	
 	<display:column titleKey="position.edit">

@@ -33,7 +33,7 @@
 
 <br/><spring:message code="member.enrolment"/>:
 <display:table pagesize="5" name="enrolments" id="enrolment"
-	requestURI="${requestURI }">
+	requestURI="${requestURI }" class="displaytag table">
 	<display:column titleKey="member.brotherhood" property="brotherhood.name" />
 	<display:column titleKey="member.moment" property="moment" />
 	
@@ -41,7 +41,7 @@
 
 <br/><spring:message code="member.dropOut"/>:
 <display:table pagesize="5" name="dropOuts" id="dropOut"
-	requestURI="${requestURI }">
+	requestURI="${requestURI }" class="displaytag table">
 	<display:column titleKey="member.brotherhood" property="brotherhood.name" />
 	<display:column titleKey="member.moment" property="moment" />
 	

@@ -31,7 +31,7 @@
 
 <br/><spring:message code="parade.floats"/>
 :<display:table pagesize="5" name="floats" id="float"
-	requestURI="${requestURI }">
+	requestURI="${requestURI }" class="displaytag table">
 	<display:column titleKey="parade.title" property="title" />
 
 	

@@ -29,7 +29,7 @@
 </h3>
 
 <display:table name="inceptionRecords" id="inceptionRecord"
-	requestURI="${requestURI}">
+	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="inceptionRecord.pictures" > <img src="${inceptionRecord.pictures}" alt="floatLogo" height="200" width="350"/></display:column>
 	<display:column titleKey="inceptionRecord.title" property="title" />
 	<display:column titleKey="inceptionRecord.description" property="description" />

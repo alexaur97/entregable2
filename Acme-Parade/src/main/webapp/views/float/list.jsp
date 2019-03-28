@@ -25,7 +25,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <display:table pagesize="5" name="floats" id="float"
-	requestURI="${requestURI }">
+	requestURI="${requestURI }" class="displaytag table">
 	<display:column titleKey="float.picture" > <img src="${brotherhood.picture}" alt="floatLogo" height="200" width="350"/></display:column>
 	<display:column titleKey="float.title" property="title" />
 	<display:column titleKey="float.description" property="description" />

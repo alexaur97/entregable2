@@ -20,16 +20,19 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-<security:authorize access="hasRole('MEMBER')">
+
+	<jstl:if test="${!empty brotherhoods}">
+	<security:authorize access="hasRole('MEMBER')">
 			<acme:button url="/request/member/create.do" code="request.create"/>
+	</security:authorize>
+	</jstl:if>
 	
-</security:authorize>	
 
 <h3>
 	<spring:message code="request.acceptedRequests" />
 </h3>
 <display:table pagesize="5" name="acceptedRequests" id="acceptedRequest"
-	requestURI="${requestURI }">
+	requestURI="${requestURI }" class="displaytag table">
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<display:column style="color:green" titleKey="request.member"
 		property="member.name" />

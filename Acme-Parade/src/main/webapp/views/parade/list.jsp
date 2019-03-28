@@ -25,7 +25,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <display:table pagesize="5" name="parades" id="parade"
-	requestURI="${requestURI}">
+	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="parade.title"  property="title" />
 	<display:column titleKey="parade.description" property="description" />
 	<display:column titleKey="parade.moment" property="moment" />

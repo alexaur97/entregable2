@@ -25,7 +25,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <spring:message code="brotherhood.title" /> : <jstl:out value = "${brotherhood.title}" />
-</br>
+<br>
 <spring:message code="brotherhood.establishmentDate" /> : <jstl:out value = "${brotherhood.establishmentDate}" />
 
 <br />
