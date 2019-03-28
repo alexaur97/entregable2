@@ -3,6 +3,8 @@ package controllers.member;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -74,7 +76,7 @@ public class RequestMemberController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Request request, final BindingResult binding) {
+	public ModelAndView save(@Valid Request request, final BindingResult binding) {
 		ModelAndView res = new ModelAndView("request/create");
 		final Collection<Parade> parades = this.paradeService.findParadesAvailableForMember();
 

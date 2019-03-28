@@ -24,7 +24,7 @@
 <h2><spring:message	code="brotherhood.exbrotherhoods"/></h2>
 
 <display:table pagesize="5" name="brotherhoodsPast" id="brotherhood"
-	requestURI="${requestURI }">
+	requestURI="${requestURI }" class="displaytag table">
 	<display:column titleKey="brotherhood.photo" > <img src="${brotherhood.photo}" alt="BrotherhoodLogo" height="200" width="350"/></display:column>
 	<display:column titleKey="brotherhood.title" property="title" />
 	<display:column titleKey="brotherhood.establishmentDate" property="establishmentDate" />

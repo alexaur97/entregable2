@@ -29,7 +29,7 @@
 	<spring:message code="request.acceptedRequests" />
 </h3>
 <display:table pagesize="5" name="acceptedRequests" id="acceptedRequest"
-	requestURI="${requestURI }">
+	requestURI="${requestURI }" class="displaytag table">
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<display:column style="color:green" titleKey="request.member"
 		property="member.name" />
