@@ -131,8 +131,39 @@
 		</a>
 	</display:column>
 			</jstl:if>
+	</security:authorize>
 	
+</display:table>
+<h3>
+	<spring:message code="parade.clearedParades" />
+</h3>
+
+<display:table pagesize="5" name="paradesCleared" id="parade"
+	requestURI="${requestURI}">
+	<display:column  titleKey="parade.title"  property="title" />
+	<display:column titleKey="parade.description" property="description" />
+	<display:column titleKey="parade.moment" property="moment" />
+	<display:column titleKey="parade.ticker" property="ticker" />
+	<display:column titleKey="parade.mode" property="mode" />
+		
+	<security:authorize access="hasRole('BROTHERHOOD')">	
+			
+	<display:column titleKey="parade.show">
+		<a href="brotherhood/parade/show.do?paradeId=${parade.id}">
+		<spring:message code="parade.show" />
+		</a>
+	</display:column>
+	<display:column titleKey="parade.edit">
+		<jstl:if test="${parade.mode=='DRAFT'}">
+		<a href="brotherhood/parade/edit.do?paradeId=${parade.id}">
+		<spring:message code="parade.edit" />
+		</a>
+		</jstl:if>
+		
+		
+		</display:column>
 	
 	</security:authorize>
+	
 </display:table>
 

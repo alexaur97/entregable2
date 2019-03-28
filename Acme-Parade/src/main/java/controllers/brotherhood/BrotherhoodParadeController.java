@@ -59,7 +59,7 @@ public class BrotherhoodParadeController extends AbstractController {
 		try {
 			final Brotherhood currentActor = this.brotherhoodService.findByPrincipal();
 			Collection<Parade> parades;
-			parades = this.paradeService.findParadesByBrotherhood(currentActor.getId());
+			parades = this.paradeService.findFinalParadesByBrotherhood(currentActor.getId());
 
 			result = new ModelAndView("parade/list");
 			result.addObject("requestURI", "parade/list.do");
@@ -180,7 +180,6 @@ public class BrotherhoodParadeController extends AbstractController {
 			result.addObject("parades", parades);
 			result.addObject("currentActor", currentActor);
 			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
-
 
 		} catch (final Throwable oops) {
 			final Integer currentActorId = this.actorService.findByPrincipal().getId();
