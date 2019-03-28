@@ -65,6 +65,24 @@ public class ParadeServiceTest extends AbstractTest {
 	}
 
 	@Test
+	public void testCopyParadeGood() {
+		super.authenticate("brotherhood1");
+		final int paradeId = super.getEntityId("parade1");
+		final Parade parade = this.paradeService.findOne(paradeId);
+		this.paradeService.copyParade(parade);
+		this.paradeService.save(parade);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCopyParadeError() {
+		super.authenticate("brotherhood1");
+		final int paradeId = super.getEntityId("parade2");
+		final Parade parade = this.paradeService.findOne(paradeId);
+		this.paradeService.copyParade(parade);
+		this.paradeService.save(parade);
+	}
+
+	@Test
 	public void testStatsParadesGood() {
 		super.authenticate("admin");
 		final Collection<Double> modeVs = this.paradeService.modeStat();

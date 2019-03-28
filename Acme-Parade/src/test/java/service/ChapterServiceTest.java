@@ -75,6 +75,8 @@ public class ChapterServiceTest extends AbstractTest {
 	//		super.unauthenticate();
 	//	}
 
+	// Test para el requisito funcional 2.1
+
 	@Test
 	public void testAssignAreaGood() {
 		super.authenticate("chapter1");
@@ -88,13 +90,18 @@ public class ChapterServiceTest extends AbstractTest {
 
 	}
 
+	// Este test es para el requisito funcional 2.1 donde un chapter se auto asigna un area para coordinar. 
+	// En este caso rompemos la regla de negocio forzando a que no sea el chapter el que intente
+	// asignarse un area, violando la seguridad. 
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testAssignAreaError() {
-		super.authenticate("chapter1");
+		super.authenticate("brotherhood1");
 		final int chapterId = super.getEntityId("chapter1");
 		this.chapterService.restriccionesAssignArea(chapterId);
 		final Chapter chapter = this.chapterService.findOne(chapterId);
-		chapter.setArea(null);
+		final Area area = chapter.getArea();
+		chapter.setArea(area);
 		final Chapter chapterFinal = this.chapterService.reconstructAssign(chapter, null);
 		this.chapterService.save(chapterFinal);
 
