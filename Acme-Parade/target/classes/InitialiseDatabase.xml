@@ -38,6 +38,8 @@
 		<property name="sysMessageEs"
 			value="¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles" />
 		<property name="countryCode" value="+34" />
+		<property name="finderCachedHours" value="1" />
+		<property name="finderMaxResults" value="10" />
 	</bean>
 	
 	<!-- Other domain beans come here -->	
@@ -79,8 +81,6 @@
 		<property name="email" value="admin1@gmail.com" />
 		<property name="phoneNumber" value="698765432" />
 		<property name="userAccount" ref="userAccount1" />
-		<property name="finderCachedHours" value="1" />
-		<property name="finderMaxResults" value="10" />
 	</bean>
 	
 </beans>
