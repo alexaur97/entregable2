@@ -77,7 +77,6 @@ public class ChapterService {
 
 	public Chapter save(final Chapter c) {
 		Assert.notNull(c);
-		Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "CHAPTER"));
 		final String phoneNumber = c.getPhoneNumber();
 		//		final Boolean b = this.actorService.validateCountryCode(phoneNumber);
 		final String countryCode = this.configurationParametersService.find().getCountryCode();
