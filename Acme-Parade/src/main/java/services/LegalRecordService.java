@@ -54,6 +54,7 @@ public class LegalRecordService {
 		final History h = this.historyService.findByBrotherhood(b.getId());
 		final LegalRecord legalRecord = this.legalRecordRepository.findOne(id);
 		final Collection<LegalRecord> records = h.getLegalRecord();
+		Assert.isTrue(records.contains(legalRecord));
 		records.remove(legalRecord);
 		h.setLegalRecord(records);
 		this.historyService.save(h);
@@ -62,9 +63,10 @@ public class LegalRecordService {
 	public LegalRecord save(final LegalRecord legalRecord) {
 		final Brotherhood b = this.brotherhoodService.findByPrincipal();
 		final History h = this.historyService.findByBrotherhood(b.getId());
-		if (legalRecord.getId() != 0)
+		if (legalRecord.getId() != 0) {
 			Assert.isTrue(h.getBrotherhood().getId() == b.getId());
-		else {
+			Assert.isTrue(h.getLegalRecord().contains(legalRecord));
+		} else {
 			final Collection<LegalRecord> records = h.getLegalRecord();
 			records.add(legalRecord);
 			h.setLegalRecord(records);
@@ -75,5 +77,4 @@ public class LegalRecordService {
 
 		return result;
 	}
-
 }
