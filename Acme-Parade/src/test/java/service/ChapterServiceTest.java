@@ -79,8 +79,8 @@ public class ChapterServiceTest extends AbstractTest {
 
 	@Test
 	public void testAssignAreaGood() {
-		super.authenticate("chapter1");
-		final int chapterId = super.getEntityId("chapter1");
+		super.authenticate("chapter2");
+		final int chapterId = super.getEntityId("chapter2");
 		this.chapterService.restriccionesAssignArea(chapterId);
 		final Chapter chapter = this.chapterService.findOne(chapterId);
 		final Area area = chapter.getArea();
@@ -90,9 +90,15 @@ public class ChapterServiceTest extends AbstractTest {
 
 	}
 
-	// Este test es para el requisito funcional 2.1 donde un chapter se auto asigna un area para coordinar. 
-	// En este caso rompemos la regla de negocio forzando a que no sea el chapter el que intente
-	// asignarse un area, violando la seguridad. 
+	// Este test testea el requisito funcional 2.1 del Acme-Parade B
+	// Para el caso negativo estamos intentando que un chapter se autoasigne un area
+	// sin estar bien logueado, esto debe provocar un fallo de seguridad en el sistema
+	// Análisis del sentence coverage: 
+	// Estamos logueados como brotherhood y mediante id intentamos asignar un area
+	// al chapter1. 
+	// Análisis del data coverage:
+	// verificamos nuestro modelo de datos pues nos hemos asegurado de que ningun otro
+	// actor puede asignarle un area a un chapter
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testAssignAreaError() {

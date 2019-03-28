@@ -1023,28 +1023,28 @@
 	<bean id="linkRecord1" class="domain.LinkRecord">
 		<property name="title" value="linkRecord1" />
 		<property name="description" value="link record description" />
-		<property name="brotherhood" ref="brotherhood1" />
+		<property name="brotherhood" ref="brotherhood2" />
 
 	</bean>
 
 	<bean id="linkRecord2" class="domain.LinkRecord">
 		<property name="title" value="linkRecord2" />
 		<property name="description" value="link record description" />
-		<property name="brotherhood" ref="brotherhood2" />
+		<property name="brotherhood" ref="brotherhood1" />
 
 	</bean>
 
 	<bean id="linkRecord3" class="domain.LinkRecord">
 		<property name="title" value="linkRecord3" />
 		<property name="description" value="link record description" />
-		<property name="brotherhood" ref="brotherhood3" />
+		<property name="brotherhood" ref="brotherhood4" />
 
 	</bean>
 
 	<bean id="linkRecord4" class="domain.LinkRecord">
 		<property name="title" value="linkRecord4" />
 		<property name="description" value="link record description" />
-		<property name="brotherhood" ref="brotherhood4" />
+		<property name="brotherhood" ref="brotherhood3" />
 
 	</bean>
 

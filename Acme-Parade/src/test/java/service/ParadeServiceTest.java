@@ -71,6 +71,17 @@ public class ParadeServiceTest extends AbstractTest {
 		this.paradeService.save(parade);
 	}
 
+	// Este test testea el requisito 3.2 del Acme-Parade B   X.X 
+	// Para el caso negativo estamos intentando que un brotherhood copie una parada
+	// que no es suya, esto debe provocar un fallo en el sistema porque solo puedes copiar 
+	// una parada de tu hermandad.
+	// Análisis del sentence coverage : 
+	// Nos logueamos como brotherhood 1 y a traves de la id intentamos copiar una parade
+	// con una id que no es nuestra.
+	// Análisis del data coverage :
+	// Hemos verificado la seguridad a la hora de copiar una parade, ya que a menos
+	// que la parade pertenezca a tu hermandad no puedes copiarla.
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testCopyParadeError() {
 		super.authenticate("brotherhood1");
