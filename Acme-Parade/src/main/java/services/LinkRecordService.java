@@ -54,13 +54,14 @@ public class LinkRecordService {
 	}
 
 	public LinkRecord save(final LinkRecord linkRecord) {
-		final Brotherhood b = this.brotherhoodService.findByPrincipal();
-		final History history = this.historyService.findByBrotherhood(b.getId());
+		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
+		final History history = this.historyService.findByBrotherhood(principal.getId());
 		Assert.notNull(linkRecord.getBrotherhood());
 		if (linkRecord.getId() != 0) {
 			final History h = this.historyService.findByLinkRecord(linkRecord.getId());
-			Assert.isTrue(h.getBrotherhood().getId() == b.getId());
+			Assert.isTrue(h.getBrotherhood().getId() == principal.getId());
 		} else {
+			Assert.isTrue(!linkRecord.getBrotherhood().equals(principal));
 			final Collection<LinkRecord> records = history.getLinkRecord();
 			records.add(linkRecord);
 			history.setLinkRecord(records);

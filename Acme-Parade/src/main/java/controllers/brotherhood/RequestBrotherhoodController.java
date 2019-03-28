@@ -96,32 +96,33 @@ public class RequestBrotherhoodController extends AbstractController {
 		Collection<Request> rejectedRequests;
 		if (binding.hasErrors())
 			res = new ModelAndView("request/reject");
-		try {
-			Assert.notNull(request.getExplanation());
-			Assert.isTrue(!request.getExplanation().isEmpty());
-			Assert.isTrue(this.brotherhoodService.findByPrincipal().getId() == request.getParade().getBrotherhood().getId());
-			res = new ModelAndView("request/list");
-			Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "BROTHERHOOD"));
-			this.requestService.save(requestFinal);
-			pendingRequests = this.requestService.findRequestByStatusAndBrotherhood("PENDING");
-			acceptedRequests = this.requestService.findRequestByStatusAndBrotherhood("APPROVED");
-			rejectedRequests = this.requestService.findRequestByStatusAndBrotherhood("REJECTED");
-			res.addObject("pendingRequests", pendingRequests);
-			res.addObject("acceptedRequests", acceptedRequests);
-			res.addObject("rejectedRequests", rejectedRequests);
-			res.addObject("requestURI", "/request/brotherhood/list.do");
-			res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
-
-		} catch (final Throwable oops) {
-			if (request.getExplanation() == null || request.getExplanation().isEmpty()) {
-				res = new ModelAndView("request/reject");
-				res.addObject("request", request);
-				res.addObject("message", "request.explanation.error");
+		else
+			try {
+				Assert.notNull(request.getExplanation());
+				Assert.isTrue(!request.getExplanation().isEmpty());
+				Assert.isTrue(this.brotherhoodService.findByPrincipal().getId() == request.getParade().getBrotherhood().getId());
+				res = new ModelAndView("request/list");
+				Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "BROTHERHOOD"));
+				this.requestService.save(requestFinal);
+				pendingRequests = this.requestService.findRequestByStatusAndBrotherhood("PENDING");
+				acceptedRequests = this.requestService.findRequestByStatusAndBrotherhood("APPROVED");
+				rejectedRequests = this.requestService.findRequestByStatusAndBrotherhood("REJECTED");
+				res.addObject("pendingRequests", pendingRequests);
+				res.addObject("acceptedRequests", acceptedRequests);
+				res.addObject("rejectedRequests", rejectedRequests);
+				res.addObject("requestURI", "/request/brotherhood/list.do");
 				res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
-			} else
-				res = new ModelAndView("redirect:/#");
-		}
+			} catch (final Throwable oops) {
+				if (request.getExplanation() == null || request.getExplanation().isEmpty()) {
+					res = new ModelAndView("request/reject");
+					res.addObject("request", request);
+					res.addObject("message", "request.explanation.error");
+					res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
+				} else
+					res = new ModelAndView("redirect:/#");
+			}
 
 		return res;
 	}
@@ -156,32 +157,34 @@ public class RequestBrotherhoodController extends AbstractController {
 		Collection<Request> rejectedRequests;
 		if (binding.hasErrors())
 			res = new ModelAndView("request/accept");
-		try {
-			res = new ModelAndView("request/list");
-			Assert.isTrue(this.requestService.posDisp(request.getParade().getId(), request.getColumn(), request.getRow()));
-			Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "BROTHERHOOD"));
-			this.requestService.save(requestFinal);
-			pendingRequests = this.requestService.findRequestByStatusAndBrotherhood("PENDING");
-			acceptedRequests = this.requestService.findRequestByStatusAndBrotherhood("APPROVED");
-			rejectedRequests = this.requestService.findRequestByStatusAndBrotherhood("REJECTED");
-			res.addObject("pendingRequests", pendingRequests);
-			res.addObject("acceptedRequests", acceptedRequests);
-			res.addObject("rejectedRequests", rejectedRequests);
-			res.addObject("requestURI", "/request/brotherhood/list.do");
-			res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
-		} catch (final Throwable oops) {
-			if (!this.requestService.posDisp(request.getParade().getId(), request.getColumn(), request.getRow())) {
-				res = new ModelAndView("request/accept");
-				final String pos = this.requestService.findPos(request.getParade().getId());
-				res.addObject("pos", pos);
-				res.addObject("request", request);
-				res.addObject("message", "request.pos.error");
+		else
+			try {
+				res = new ModelAndView("request/list");
+				Assert.isTrue(this.requestService.posDisp(request.getParade().getId(), request.getColumn(), request.getRow()));
+				Assert.isTrue(this.actorService.authEdit(this.actorService.findByPrincipal(), "BROTHERHOOD"));
+				this.requestService.save(requestFinal);
+				pendingRequests = this.requestService.findRequestByStatusAndBrotherhood("PENDING");
+				acceptedRequests = this.requestService.findRequestByStatusAndBrotherhood("APPROVED");
+				rejectedRequests = this.requestService.findRequestByStatusAndBrotherhood("REJECTED");
+				res.addObject("pendingRequests", pendingRequests);
+				res.addObject("acceptedRequests", acceptedRequests);
+				res.addObject("rejectedRequests", rejectedRequests);
+				res.addObject("requestURI", "/request/brotherhood/list.do");
 				res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
 
-			} else
-				res = new ModelAndView("redirect:/#");
-		}
+			} catch (final Throwable oops) {
+				if (!this.requestService.posDisp(request.getParade().getId(), request.getColumn(), request.getRow())) {
+					res = new ModelAndView("request/accept");
+					final String pos = this.requestService.findPos(request.getParade().getId());
+					res.addObject("pos", pos);
+					res.addObject("request", request);
+					res.addObject("message", "request.pos.error");
+					res.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+
+				} else
+					res = new ModelAndView("redirect:/#");
+			}
 
 		return res;
 	}

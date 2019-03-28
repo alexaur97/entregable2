@@ -36,16 +36,16 @@
 						<acme:textarea code="parade.description" path="description" />
 						<acme:textbox placeholder="dd-MM-yyyy" code="parade.moment" path="moment" />
 						
-						
+						<spring:message code ="parade.mode"/>	
 						<form:select code="parade.mode" path="mode" >
 							<form:option value="FINAL"></form:option>
 							<form:option value="DRAFT"></form:option>
 						</form:select>
 						
-
-	
 						
 						<br>
+						<br>
+						<spring:message code = "parade.floats"/>
 						<br>
 						<form:select id="floats" code="parade.floats" path="floats">
 							<form:options items="${floats}" itemLabel="title" itemValue="id" />
