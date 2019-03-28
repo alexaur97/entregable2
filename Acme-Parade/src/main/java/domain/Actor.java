@@ -112,6 +112,7 @@ public abstract class Actor extends DomainEntity {
 	//d{4,} indica que hay 4 o más dígitos
 	// El | es un or
 
+	@Pattern(regexp = "^([+-]\\d+\\s+)?(\\([0-9]+\\)\\s+)?([\\d\\w\\s-]+)$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhoneNumber() {
 		return this.phoneNumber;

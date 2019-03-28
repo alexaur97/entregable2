@@ -79,7 +79,7 @@ public class ChapterRegisterForm {
 	public void setEmail(final String email) {
 		this.email = email;
 	}
-
+	@Pattern(regexp = "^([+-]\\d+\\s+)?(\\([0-9]+\\)\\s+)?([\\d\\w\\s-]+)$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhone() {
 		return this.phone;
