@@ -74,6 +74,7 @@ public class PeriodRecordService {
 		final History h = this.historyService.findByBrotherhood(b.getId());
 		final PeriodRecord periodRecord = this.periodRecordRepository.findOne(id);
 		final Collection<PeriodRecord> records = h.getPeriodRecord();
+		Assert.isTrue(records.contains(periodRecord));
 		records.remove(periodRecord);
 		h.setPeriodRecord(records);
 		this.historyService.save(h);

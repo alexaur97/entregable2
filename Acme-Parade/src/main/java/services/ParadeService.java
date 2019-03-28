@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,17 +88,17 @@ public class ParadeService {
 			chaptersByKeyWord = this.paradeRepository.findAll();
 		else
 			chaptersByKeyWord = this.paradeRepository.searchParadesKeyWord(keyword);
-		if (dateFrom.equals(null))
+		if (Objects.equals(null,dateFrom))
 			chaptersByDateFrom = this.paradeRepository.findAll();
 		else
 			chaptersByDateFrom = this.paradeRepository.searchParadesDateFrom(dateFrom);
 
-		if (dateTo.equals(null))
+		if (Objects.equals(null,dateTo))
 			chaptersByDateTo = this.paradeRepository.findAll();
 		else
 			chaptersByDateTo = this.paradeRepository.searchParadesDateTo(dateTo);
 
-		if (area.equals(null))
+		if (Objects.equals(null,area))
 			chaptersByArea = this.paradeRepository.findAll();
 		else
 			chaptersByArea = this.paradeRepository.searchParadesArea(area.getId());

@@ -64,7 +64,7 @@ public class FinderService {
 		Assert.notNull(finder);
 		finder.setLastSearch(new Date());
 		finder.setMember(this.memberService.findByPrincipal());
-		finder.setParades(this.paradeService.searchParades(finder.keyword, finder.getMinDate(), finder.getMaxDate(), finder.getArea()));
+		finder.setParades(this.paradeService.searchParades(finder.getKeyword(), finder.getMinDate(), finder.getMaxDate(), finder.getArea()));
 		this.finderRepository.save(finder);
 	}
 
