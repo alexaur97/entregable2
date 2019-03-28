@@ -9,6 +9,7 @@ import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -56,6 +57,7 @@ public class Request extends DomainEntity {
 		this.status = status;
 	}
 
+	@NotNull
 	@Min(0)
 	@Column(name = "`row`")
 	public Integer getRow() {
@@ -66,6 +68,7 @@ public class Request extends DomainEntity {
 		this.row = row;
 	}
 
+	@NotNull
 	@Min(0)
 	@Column(name = "`column`")
 	public Integer getColumn() {
