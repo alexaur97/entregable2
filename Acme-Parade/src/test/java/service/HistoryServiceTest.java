@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import services.BrotherhoodService;
 import services.HistoryService;
+import services.InceptionRecordService;
 import services.LegalRecordService;
 import services.LinkRecordService;
 import services.MiscellaneousRecordService;
@@ -25,6 +26,7 @@ import domain.LegalRecord;
 import domain.LinkRecord;
 import domain.MiscellaneousRecord;
 import domain.PeriodRecord;
+import forms.HistoryCreateForm;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -50,6 +52,9 @@ public class HistoryServiceTest extends AbstractTest {
 
 	@Autowired
 	private LinkRecordService			linkRecordService;
+
+	@Autowired
+	private InceptionRecordService		inceptionRecordService;
 
 
 	// FR 4.1.1 ACME PARADE
@@ -139,10 +144,13 @@ public class HistoryServiceTest extends AbstractTest {
 	//--------------------------------------------------------------------
 
 	//En este test se testea el requisito 3.1
+	//Compueba que una Hermandad puede editar un Registro Misceláneo de su Historia
+
 	@Test
-	public void testCreateGoodMiscellaneousRecord() {
+	public void testEditGoodMiscellaneousRecord() {
 		super.authenticate("brotherhood1");
-		final MiscellaneousRecord miscellaneousRecord = this.miscellaneousRecordService.create();
+		final int MiscellaneousRecordId = this.getEntityId("miscellaneousRecord1");
+		final MiscellaneousRecord miscellaneousRecord = this.miscellaneousRecordService.findOne(MiscellaneousRecordId);
 		miscellaneousRecord.setTitle("PruebaTestGood");
 		miscellaneousRecord.setDescription("Accept Test");
 
@@ -155,9 +163,10 @@ public class HistoryServiceTest extends AbstractTest {
 	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "create" comprueba
 	// que el actor actual del sistema sea una Hermandad.
 	@Test(expected = IllegalArgumentException.class)
-	public void testCreateErrorMiscellaneousRecord() {
+	public void testEditErrorMiscellaneousRecord() {
 		super.authenticate("member3");
-		final MiscellaneousRecord miscellaneousRecord = this.miscellaneousRecordService.create();
+		final int MiscellaneousRecordId = this.getEntityId("miscellaneousRecord2");
+		final MiscellaneousRecord miscellaneousRecord = this.miscellaneousRecordService.findOne(MiscellaneousRecordId);
 		miscellaneousRecord.setTitle("PruebaErrorTest");
 		miscellaneousRecord.setDescription("Error Test");
 
@@ -165,6 +174,8 @@ public class HistoryServiceTest extends AbstractTest {
 	}
 
 	//En este test se testea el requisito 3.1
+	//Compueba que una Hermandad puede eliminar un Registro Misceláneo de su Historia
+
 	@Test
 	public void testDeleteGoodMiscellaneousRecord() {
 		super.authenticate("brotherhood2");
@@ -188,6 +199,8 @@ public class HistoryServiceTest extends AbstractTest {
 	}
 
 	//En este test se testea el requisito 3.1
+	//Compueba que una Hermandad puede crear un Registro Periódico de su Historia
+
 	@Test
 	public void testCreateGoodPeriodRecord() {
 		super.authenticate("brotherhood1");
@@ -228,6 +241,7 @@ public class HistoryServiceTest extends AbstractTest {
 	}
 
 	//En este test se testea el requisito 3.1
+	//Compueba que una Hermandad puede eliminar un Registro Periódico de su Historia
 	@Test
 	public void testDeleteGoodPeriodRecord() {
 		super.authenticate("brotherhood2");
@@ -249,6 +263,8 @@ public class HistoryServiceTest extends AbstractTest {
 	}
 
 	// Este test testea el requisito 3.1
+	//Compueba que un actor autentificado como Brotherhood puede editar un Registro Legal de su Historia
+
 	@Test
 	public void testEditLegalRecord() {
 		super.authenticate("brotherhood1");
@@ -316,6 +332,7 @@ public class HistoryServiceTest extends AbstractTest {
 	}
 
 	// Este test testea el requisito 3.1
+	//Compueba que un actor autentificado como Brotherhood puede eliminar un Registro Legal de su Historia
 	@Test
 	public void testDeleteLegalRecord() {
 		super.authenticate("brotherhood1");
@@ -425,5 +442,43 @@ public class HistoryServiceTest extends AbstractTest {
 		final LinkRecord linkRecord = (LinkRecord) history.getLinkRecord().toArray()[0];
 		this.linkRecordService.delete(linkRecord);
 		super.unauthenticate();
+	}
+
+	// Este test testea el requisito 3.1
+	//Un actor autentificado como brotherhood puede crear una historia.
+
+	@Test
+	public void testCreateHistoryGood() {
+		super.authenticate("brotherhood1");
+		final HistoryCreateForm historyCreateForm = new HistoryCreateForm();
+		historyCreateForm.setInceptionRecordTitle("Prueba");
+		historyCreateForm.setInceptionRecordDescription("Prueba Test Accept");
+		final Collection<String> pictures = new ArrayList<>();
+		pictures.add("https://prueba.jpg");
+		historyCreateForm.setInceptionRecordPictures(pictures);
+
+		final History history = this.historyService.reconstruct(historyCreateForm);
+		this.historyService.save(history);
+	}
+
+	//	Para el caso negativo estamos intentando que un Miembro cree una 
+	// Historia de una Hermandad, esto debe provocar un fallo en el sistema porque el
+	// actor que debe estar logueado debe ser una Hermandad.
+	//Análisis del sentence coverage: el sistema crea un formulario con los datos del Registro inicial,
+	//en el metodo "reconstruct" se reconstruye la entidad Historia y donde se comprueba que el actor
+	// es una Hermandad por lo que da error.
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateHistoryError() {
+		super.authenticate("member1");
+		final HistoryCreateForm historyCreateForm = new HistoryCreateForm();
+		historyCreateForm.setInceptionRecordTitle("Prueba");
+		historyCreateForm.setInceptionRecordDescription("Prueba Test Error");
+		final Collection<String> pictures = new ArrayList<>();
+		pictures.add("https://prueba.jpg");
+		historyCreateForm.setInceptionRecordPictures(pictures);
+
+		final History history = this.historyService.reconstruct(historyCreateForm);
+		this.historyService.save(history);
 	}
 }
