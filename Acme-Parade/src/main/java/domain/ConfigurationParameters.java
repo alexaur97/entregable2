@@ -21,8 +21,8 @@ public class ConfigurationParameters extends DomainEntity {
 	private String	sysMessage;
 	private String	sysMessageEs;
 	private String	countryCode;
-	private int		finderCachedHours;
-	private int		finderMaxResults;
+	private Integer	finderCachedHours;
+	private Integer	finderMaxResults;
 
 
 	@NotBlank
@@ -77,20 +77,20 @@ public class ConfigurationParameters extends DomainEntity {
 	}
 
 	@NotNull
-	public int getFinderCachedHours() {
+	public Integer getFinderCachedHours() {
 		return this.finderCachedHours;
 	}
 
-	public void setFinderCachedHours(final int finderCachedHours) {
+	public void setFinderCachedHours(final Integer finderCachedHours) {
 		this.finderCachedHours = finderCachedHours;
 	}
 
 	@NotNull
-	public int getFinderMaxResults() {
+	public Integer getFinderMaxResults() {
 		return this.finderMaxResults;
 	}
 
-	public void setFinderMaxResults(final int finderMaxResults) {
+	public void setFinderMaxResults(final Integer finderMaxResults) {
 		this.finderMaxResults = finderMaxResults;
 	}
 }

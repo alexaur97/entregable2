@@ -28,11 +28,11 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="table-responsive">	
 
-<display:table pagesize="5" name="positions" id="row" class="table" requestURI="${resquestURI}" class="displaytag table">
+<display:table pagesize="5" name="positions" id="position"  requestURI="${resquestURI}" class="displaytag table">
 	<display:column titleKey="position.name" property="name"/>	
 	<display:column titleKey="position.nameEs" property="nameEs"/>	
 	<display:column titleKey="position.edit">
-		<a href="position/administrator/edit.do?positionId=${row.id}">
+		<a href="position/administrator/edit.do?positionId=${position.id}">
 		<spring:message code="position.edit" />
 		</a>
 	</display:column>
