@@ -134,5 +134,21 @@
 	
 	
 	</security:authorize>
+	
 </display:table>
+
+<br>
+<br>
+
+<security:authorize access="hasRole('BROTHERHOOD')">
+	<jstl:choose>
+	 <jstl:when test="${empty brotherhood.area}">
+		<spring:message code="parade.area" />
+		<acme:button url="/brotherhood/addArea.do" code="parade.addArea"/>
+		</jstl:when>
+	<jstl:otherwise>
+		<acme:button url="/brotherhood/parade/create.do" code="parade.create"/>
+	</jstl:otherwise>
+		</jstl:choose>
+	</security:authorize>
 
