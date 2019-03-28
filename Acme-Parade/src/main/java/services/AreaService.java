@@ -4,11 +4,14 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.Validator;
 
 import repositories.AreaRepository;
 import domain.Area;
@@ -37,6 +40,9 @@ public class AreaService {
 
 	@Autowired
 	private ParadeService			paradeService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	//Metodos CRUD
@@ -191,5 +197,21 @@ public class AreaService {
 		final Collection<Area> b = this.areaRepository.findAreasAsignadas();
 		a.removeAll(b);
 		return a;
+	}
+
+	public Boolean validatePictures(final Collection<String> pictures) {
+		final String regex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=_|!:,.;]*[-a-zA-Z0-9+&@#/%=_|]";
+		final Pattern patt = Pattern.compile(regex);
+		Boolean b = true;
+
+		if (!pictures.isEmpty())
+			for (final String s : pictures) {
+				final Matcher matcher = patt.matcher(s);
+				if (!matcher.matches()) {
+					b = false;
+					break;
+				}
+			}
+		return b;
 	}
 }
