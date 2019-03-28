@@ -77,13 +77,13 @@ public class RequestMemberController extends AbstractController {
 	public ModelAndView save(Request request, final BindingResult binding) {
 		ModelAndView res = new ModelAndView("request/create");
 		final Collection<Parade> parades = this.paradeService.findParadesAvailableForMember();
+		request = this.requestService.reconstruct(request, binding);
 
 		if (binding.hasErrors()) {
 			res.addObject("request", request);
 			res.addObject("parades", parades);
 		} else
 			try {
-				request = this.requestService.reconstruct(request, binding);
 				this.requestService.save(request);
 				res = new ModelAndView("redirect:/request/member/list.do");
 			} catch (final Throwable oops) {

@@ -79,6 +79,8 @@ public class RequestService {
 		Request result;
 		result = new Request();
 		result.setStatus("PENDING");
+		result.setRow(0);
+		result.setColumn(0);
 		return result;
 	}
 	public Request save(final Request r) {
@@ -92,11 +94,9 @@ public class RequestService {
 			Assert.isTrue(this.memberService.findByPrincipal().getId() == m.getId());
 			Assert.isTrue(r.getStatus() == "PENDING");
 		}
-		if (this.actorService.authEdit(a, "BROTHERHOOD")) {
+		if (this.actorService.authEdit(a, "BROTHERHOOD"))
 			Assert.isTrue(this.brotherhoodService.findByPrincipal().getId() == b.getId());
 		//	final Collection<Request> rs = this.requestRepository.findRequestApprovedByParade(r.getParade().getId(), "APPROVED");
-
-		}
 		final Brotherhood brotherhood = r.parade.brotherhood;
 		Assert.isTrue(brotherhood.getMembers().contains(m));
 		final Request res = r;
@@ -122,20 +122,20 @@ public class RequestService {
 
 	//---Ale---
 
-	public Request reconstruct(final Request request) {
-		final Request res = request;
-
-		if (request.getId() != 0) {
-			final Request r = this.findOne(request.getId());
-			res.setColumn(r.getColumn());
-			res.setExplanation(r.getExplanation());
-			res.setMember(r.getMember());
-			res.setParade(r.getParade());
-			res.setRow(r.getRow());
-			res.setStatus(r.getStatus());
-		}
-		return res;
-	}
+	//	public Request reconstruct(final Request request) {
+	//		final Request res = request;
+	//
+	//		if (request.getId() != 0) {
+	//			final Request r = this.findOne(request.getId());
+	//			res.setColumn(r.getColumn());
+	//			res.setExplanation(r.getExplanation());
+	//			res.setMember(r.getMember());
+	//			res.setParade(r.getParade());
+	//			res.setRow(r.getRow());
+	//			res.setStatus(r.getStatus());
+	//		}
+	//		return res;
+	//	}
 
 	public Request reconstruct(final Request request, final BindingResult binding) {
 		final Request res = request;
@@ -146,22 +146,21 @@ public class RequestService {
 
 		if (request.getId() != 0) {
 			final Request r = this.findOne(request.getId());
-			res.setColumn(r.getColumn());
 			res.setExplanation(r.getExplanation());
-			res.setMember(r.getMember());
-			res.setRow(r.getRow());
-
 		}
+
 		this.validator.validate(res, binding);
+
 		return res;
 	}
-
 	public Request rejectRecostruction(final Request request, final BindingResult binding) {
 		final Request res = request;
 		final Request a = this.requestRepository.findOne(request.getId());
 		res.setStatus("REJECTED");
 		res.setMember(a.getMember());
 		res.setParade(a.getParade());
+		res.setColumn(a.getColumn());
+		res.setRow(a.getRow());
 		return res;
 	}
 	public Request acceptRecostruction(final Request request, final BindingResult binding) {

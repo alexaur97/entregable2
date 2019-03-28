@@ -37,6 +37,7 @@ public class Request extends DomainEntity {
 
 	// Getters y Setters
 
+	@NotNull
 	@ManyToOne(optional = false)
 	public Parade getParade() {
 		return this.parade;
