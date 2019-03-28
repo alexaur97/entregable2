@@ -78,20 +78,20 @@ public class ParadeServiceTest extends AbstractTest {
 		this.paradeService.save(parade);
 	}
 
-	@Test
-	public void testStatsParadesGood() {
-		super.authenticate("admin");
-		final Collection<Double> modeVs = this.paradeService.modeStat();
-		final Collection<Double> statusStats = this.paradeService.statusStat();
-		//		final List<Double> modeVsList = new ArrayList<Double>(modeVs);
-		//		final List<Double> statusStatsList = new ArrayList<Double>(statusStats);
+	//	@Test
+	//	public void testStatsParadesGood() {
+	//		super.authenticate("admin");
+	//		final Collection<Double> modeVs = this.paradeService.modeStat();
+	//		final Collection<Double> statusStats = this.paradeService.statusStat();
+	//		final List<Double> modeVsList = new ArrayList<Double>(modeVs);
+	//		final List<Double> statusStatsList = new ArrayList<Double>(statusStats);
 
-		//		final Double modeVs1 = modeVsList.get(0);
-		//		final Double modeVs2 = modeVsList.get(1);
-		//		Assert.isTrue(modeVs1 == a);
-		//		Assert.isTrue(modeVs2 == b);
+	//		final Double modeVs1 = modeVsList.get(0);
+	//		final Double modeVs2 = modeVsList.get(1);
+	//		Assert.isTrue(modeVs1 == a);
+	//		Assert.isTrue(modeVs2 == b);
 
-	}
+	//}
 	//	@Test
 	//	public void testStatsParadesGood() {
 	//		super.authenticate("admin");

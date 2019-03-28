@@ -12,12 +12,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import services.BrotherhoodService;
 import services.HistoryService;
+import services.LegalRecordService;
+import services.LinkRecordService;
 import services.MiscellaneousRecordService;
 import services.PeriodRecordService;
 import utilities.AbstractTest;
 import domain.Brotherhood;
 import domain.History;
+import domain.LegalRecord;
+import domain.LinkRecord;
 import domain.MiscellaneousRecord;
 import domain.PeriodRecord;
 
@@ -36,6 +41,15 @@ public class HistoryServiceTest extends AbstractTest {
 
 	@Autowired
 	private PeriodRecordService			periodRecordService;
+
+	@Autowired
+	private LegalRecordService			legalRecordService;
+
+	@Autowired
+	private BrotherhoodService			brotherhoodService;
+
+	@Autowired
+	private LinkRecordService			linkRecordService;
 
 
 	// FR 4.1.1 ACME PARADE
@@ -234,4 +248,182 @@ public class HistoryServiceTest extends AbstractTest {
 		this.periodRecordService.delete(PeriodRecordId);
 	}
 
+	// Este test testea el requisito 3.1
+	@Test
+	public void testEditLegalRecord() {
+		super.authenticate("brotherhood1");
+		final Integer historyId = super.getEntityId("history1");
+		final History history = this.historyService.findOne(historyId);
+		final LegalRecord legalRecord = (LegalRecord) history.getLegalRecord().toArray()[0];
+		legalRecord.setTitle("title");
+		legalRecord.setDescription("description");
+		legalRecord.setLegalName("ln");
+		legalRecord.setVatNumber(21.0);
+		final Collection<String> laws = new ArrayList<>();
+		laws.add("law");
+		legalRecord.setLaws(laws);
+		this.legalRecordService.save(legalRecord);
+		super.unauthenticate();
+	}
+
+	//	Para el caso negativo 1 estamos intentando que una Hermandad edite un registro legal
+	//  que no es perteneciente a ella, esto debe provocar un fallo en el sistema porque solo
+	// puede editar sus regitros.
+
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "save" comprueba
+	// que el actor actual del sistema contiene entre sus registros legales el registro que le hemos pasado.
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testEditLegalRecordOtherBrotherhood() {
+		super.authenticate("brotherhood2");
+		final Integer historyId = super.getEntityId("history1");
+		final History history = this.historyService.findOne(historyId);
+		final LegalRecord legalRecord = (LegalRecord) history.getLegalRecord().toArray()[0];
+		legalRecord.setTitle("title");
+		legalRecord.setDescription("description");
+		legalRecord.setLegalName("ln");
+		legalRecord.setVatNumber(21.0);
+		final Collection<String> laws = new ArrayList<>();
+		laws.add("law");
+		legalRecord.setLaws(laws);
+		this.legalRecordService.save(legalRecord);
+		super.unauthenticate();
+	}
+
+	//Para el caso negativo 2 estamos intentando que un actor que no sea tipo BROTHERHOOD,
+	//en este caso MEMBER, edite un registro legal.
+	// Esto debe provocar un fallo en el sistema porque solo
+	// pueden editar sus regitros las hermandades.
+
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "save" comprueba
+	// que el actor actual del sistema tiene la autoridad BROTHERHOOD.
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testEditLegalRecordNonBrotherhood() {
+		super.authenticate("member1");
+		final Integer historyId = super.getEntityId("history1");
+		final History history = this.historyService.findOne(historyId);
+		final LegalRecord legalRecord = (LegalRecord) history.getLegalRecord().toArray()[0];
+		legalRecord.setTitle("title");
+		legalRecord.setDescription("description");
+		legalRecord.setLegalName("ln");
+		legalRecord.setVatNumber(21.0);
+		final Collection<String> laws = new ArrayList<>();
+		laws.add("law");
+		legalRecord.setLaws(laws);
+		this.legalRecordService.save(legalRecord);
+		super.unauthenticate();
+	}
+
+	// Este test testea el requisito 3.1
+	@Test
+	public void testDeleteLegalRecord() {
+		super.authenticate("brotherhood1");
+		final Integer historyId = super.getEntityId("history1");
+		final History history = this.historyService.findOne(historyId);
+		final LegalRecord legalRecord = (LegalRecord) history.getLegalRecord().toArray()[0];
+		this.legalRecordService.delete(legalRecord.getId());
+		super.unauthenticate();
+	}
+
+	//	Para el caso negativo 1 estamos intentando que una Hermandad elimine un registro legal
+	//  que no es perteneciente a ella, esto debe provocar un fallo en el sistema porque solo
+	// puede borrar sus regitros.
+
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "delete" comprueba
+	// que el actor actual del sistema contiene entre sus registros legales el registro que le hemos pasado.
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteLegalRecordOtherBrotherhood() {
+		super.authenticate("brotherhood2");
+		final Integer historyId = super.getEntityId("history1");
+		final History history = this.historyService.findOne(historyId);
+		final LegalRecord legalRecord = (LegalRecord) history.getLegalRecord().toArray()[0];
+		this.legalRecordService.delete(legalRecord.getId());
+		super.unauthenticate();
+	}
+
+	//	Para el caso negativo 2 estamos intentando que un actor distinto de BROTHERHOOD, en este caso MEMBER,
+	//elimine un registro legal.
+	// Esto debe provocar un fallo en el sistema porque solo
+	// pueden borrar sus regitros las hermandades.
+
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "delete" comprueba
+	// que el actor actual del sistema tiene la autoridad BROTHERHOOD.
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteLegalRecordNonBrotherhood() {
+		super.authenticate("member1");
+		final Integer historyId = super.getEntityId("history1");
+		final History history = this.historyService.findOne(historyId);
+		final LegalRecord legalRecord = (LegalRecord) history.getLegalRecord().toArray()[0];
+		this.legalRecordService.delete(legalRecord.getId());
+		super.unauthenticate();
+	}
+
+	// Este test testea el requisito 3.1
+	//Un actor autentificado como BROTHERHOOD crea un link record correctamente
+	@Test
+	public void testCreateLinkRecord() {
+		super.authenticate("brotherhood1");
+		final LinkRecord linkRecord = this.linkRecordService.create();
+		linkRecord.setTitle("title");
+		linkRecord.setDescription("description");
+		final Integer brotherhoodId = super.getEntityId("brotherhood2");
+		final Brotherhood brotherhood = this.brotherhoodService.findOne(brotherhoodId);
+		linkRecord.setBrotherhood(brotherhood);
+		this.linkRecordService.save(linkRecord);
+		super.unauthenticate();
+	}
+
+	//Para el caso negativo estamos intentando que una hermandad 
+	//cree un registro de enlace en la que la hermandad sea ella misma, es decir, intenta aliarse con 
+	//ella misma
+	//Esto debe provocar un fallo en el sistema porque una hermandad solo puede enlazarse con otras
+	//hermandades
+
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "save" comprueba
+	// que el actor actual del sistema no sea la misma hermandad que la del registro a crear.
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateLinkRecordWithSameBrotherhood() {
+		super.authenticate("brotherhood1");
+		final LinkRecord linkRecord = this.linkRecordService.create();
+		linkRecord.setTitle("title");
+		linkRecord.setDescription("description");
+		final Integer brotherhoodId = super.getEntityId("brotherhood1");
+		final Brotherhood brotherhood = this.brotherhoodService.findOne(brotherhoodId);
+		linkRecord.setBrotherhood(brotherhood);
+		this.linkRecordService.save(linkRecord);
+		super.unauthenticate();
+	}
+
+	// Este test testea el requisito 3.1
+	//Un actor autentificado como brotherhood elimina un link record correctamente
+	@Test
+	public void testDeleteLinkRecord() {
+		super.authenticate("brotherhood1");
+		final Integer historyId = super.getEntityId("history1");
+		final History history = this.historyService.findOne(historyId);
+		final LinkRecord linkRecord = (LinkRecord) history.getLinkRecord().toArray()[0];
+		this.linkRecordService.delete(linkRecord);
+		super.unauthenticate();
+	}
+
+	//	Para el caso negativo estamos intentando que una Hermandad elimine un registro de enlace
+	//  que no es perteneciente a ella, esto debe provocar un fallo en el sistema porque solo
+	// puede borrar sus regitros.
+
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "delete" comprueba
+	// que el actor actual del sistema contiene entre sus registros de enlace el registro que le hemos pasado.
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteLinkRecordOtherBrotherhood() {
+		super.authenticate("brotherhood2");
+		final Integer historyId = super.getEntityId("history1");
+		final History history = this.historyService.findOne(historyId);
+		final LinkRecord linkRecord = (LinkRecord) history.getLinkRecord().toArray()[0];
+		this.linkRecordService.delete(linkRecord);
+		super.unauthenticate();
+	}
 }
