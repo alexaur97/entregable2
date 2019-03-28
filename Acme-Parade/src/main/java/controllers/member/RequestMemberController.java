@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BrotherhoodService;
 import services.MemberService;
 import services.ParadeService;
 import services.RequestService;
 import controllers.AbstractController;
+import domain.Brotherhood;
 import domain.Parade;
 import domain.Request;
 
@@ -25,13 +27,16 @@ import domain.Request;
 public class RequestMemberController extends AbstractController {
 
 	@Autowired
-	MemberService	memberService;
+	MemberService		memberService;
 
 	@Autowired
-	RequestService	requestService;
+	RequestService		requestService;
 
 	@Autowired
-	ParadeService	paradeService;
+	ParadeService		paradeService;
+
+	@Autowired
+	BrotherhoodService	brotherhoodService;
 
 
 	// List -----------------------------------------------------------	
@@ -53,6 +58,10 @@ public class RequestMemberController extends AbstractController {
 			result.addObject("acceptedRequests", acceptedRequests);
 			result.addObject("rejectedRequests", rejectedRequests);
 			result.addObject("resquestURI", "/request/member/list.do");
+
+			final int MemberId = this.memberService.findByPrincipal().getId();
+			final Collection<Brotherhood> brotherhoods = this.brotherhoodService.findBrotherhoodByMemberBelong(MemberId);
+			result.addObject("brotherhoods", brotherhoods);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
