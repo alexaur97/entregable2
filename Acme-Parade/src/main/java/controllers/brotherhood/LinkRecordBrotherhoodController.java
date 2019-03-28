@@ -58,9 +58,12 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		LinkRecord linkRecord;
 		try {
 			linkRecord = this.linkRecordService.findOne(linkRecordId);
+			final Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+
 			result = new ModelAndView("linkRecord/edit");
 			result.addObject("linkRecord", linkRecord);
 			result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
+			result.addObject("brotherhoods", brotherhoods);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
