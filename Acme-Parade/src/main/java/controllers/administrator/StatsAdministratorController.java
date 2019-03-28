@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.AreaService;
 import services.BrotherhoodService;
-import services.EnrolmentService;
 import services.FinderService;
 import services.HistoryService;
 import services.MemberService;
@@ -49,9 +48,6 @@ public class StatsAdministratorController extends AbstractController {
 
 	@Autowired
 	private PositionService		positionService;
-
-	@Autowired
-	private EnrolmentService	enrolmentService;
 
 	@Autowired
 	private HistoryService		historyService;
@@ -118,14 +114,18 @@ public class StatsAdministratorController extends AbstractController {
 
 			// FR 4.1 ACME PARADE
 			final Collection<Double> recordsPerHistory = this.historyService.statsRecordsPerHistory();
-			final Brotherhood largestHistoryBrotherhood = this.brotherhoodService.findBrotherhoodWithLargestHistory();
+			Brotherhood largestHistoryBrotherhood = null;
+			if (this.historyService.findAll().size() > 0)
+				largestHistoryBrotherhood = this.brotherhoodService.findBrotherhoodWithLargestHistory();
 			final Collection<Brotherhood> largerHistoryBrotherhoods = this.brotherhoodService.findBrotherhoodsWithLargerHistoryThanAverage();
 
 			final Collection<Double> statsFinder = this.finderService.findStatsResultsFinders();
 			final Collection<Double> emptyVsNonEmpty = this.finderService.findStatsResultsFinders();
 
 			//FR JAVI
-			final Double ratioAreasWithoutChapter = this.areaService.ratioAreaWithoutChapter();
+			Double ratioAreasWithoutChapter = 0.0;
+			if (this.areaService.findAll().size() > 0)
+				ratioAreasWithoutChapter = this.areaService.ratioAreaWithoutChapter();
 			final List<Double> d = this.areaService.statsParadesChapters();
 			final Double media = d.get(0);
 			final Double min = d.get(1);
