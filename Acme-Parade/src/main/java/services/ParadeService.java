@@ -87,17 +87,17 @@ public class ParadeService {
 			chaptersByKeyWord = this.paradeRepository.findAll();
 		else
 			chaptersByKeyWord = this.paradeRepository.searchParadesKeyWord(keyword);
-		if (dateFrom == null)
+		if (dateFrom.equals(null))
 			chaptersByDateFrom = this.paradeRepository.findAll();
 		else
 			chaptersByDateFrom = this.paradeRepository.searchParadesDateFrom(dateFrom);
 
-		if (dateTo == null)
+		if (dateTo.equals(null))
 			chaptersByDateTo = this.paradeRepository.findAll();
 		else
 			chaptersByDateTo = this.paradeRepository.searchParadesDateTo(dateTo);
 
-		if (area == null)
+		if (area.equals(null))
 			chaptersByArea = this.paradeRepository.findAll();
 		else
 			chaptersByArea = this.paradeRepository.searchParadesArea(area.getId());

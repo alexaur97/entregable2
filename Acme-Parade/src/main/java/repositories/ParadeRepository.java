@@ -52,7 +52,7 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select p from Parade p where p.moment <= ?1 ")
 	Collection<Parade> searchParadesDateTo(Date dateTo);
 
-	@Query("select p from Parade p where p.brotherhood.area.id")
+	@Query("select p from Parade p where p.brotherhood.area.id=?1")
 	Collection<Parade> searchParadesArea(int areaId);
 
 }
