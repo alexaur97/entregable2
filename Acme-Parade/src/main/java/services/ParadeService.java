@@ -95,17 +95,17 @@ public class ParadeService {
 			chaptersByKeyWord = this.paradeRepository.findAll();
 		else
 			chaptersByKeyWord = this.paradeRepository.searchParadesKeyWord(keyword);
-		if (Objects.equals(null,dateFrom))
+		if (Objects.equals(null, dateFrom))
 			chaptersByDateFrom = this.paradeRepository.findAll();
 		else
 			chaptersByDateFrom = this.paradeRepository.searchParadesDateFrom(dateFrom);
 
-		if (Objects.equals(null,dateTo))
+		if (Objects.equals(null, dateTo))
 			chaptersByDateTo = this.paradeRepository.findAll();
 		else
 			chaptersByDateTo = this.paradeRepository.searchParadesDateTo(dateTo);
 
-		if (Objects.equals(null,area))
+		if (Objects.equals(null, area))
 			chaptersByArea = this.paradeRepository.findAll();
 		else
 			chaptersByArea = this.paradeRepository.searchParadesArea(area.getId());
@@ -247,7 +247,7 @@ public class ParadeService {
 
 		for (int i = 0; i < 5; i++) {
 
-			final int el = (int) (Math.random() * 27);
+			final int el = (int) (Math.random() * 25);
 
 			conjunto[i] = elementos[el];
 		}
