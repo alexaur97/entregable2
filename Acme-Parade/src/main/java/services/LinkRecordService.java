@@ -96,10 +96,9 @@ public class LinkRecordService {
 
 	public LinkRecord reconstruct(final LinkRecord linkRecord, final BindingResult binding) {
 		final LinkRecord result = linkRecord;
-		if (linkRecord.getId() != 0) {
-			final LinkRecord lr = this.findOne(linkRecord.getId());
-			result.setBrotherhood(lr.getBrotherhood());
-		}
+		//		if (linkRecord.getId() != 0) {
+		//			final LinkRecord lr = this.findOne(linkRecord.getId());
+		//		}
 		this.validator.validate(result, binding);
 		return result;
 	}
