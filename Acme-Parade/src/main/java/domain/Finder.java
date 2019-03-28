@@ -97,7 +97,6 @@ public class Finder extends DomainEntity {
 		this.parades = parades;
 	}
 
-	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getLastSearch() {
